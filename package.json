@@ -22,7 +22,21 @@
     "type": "git",
     "url": "git+https://github.com/cyluxx/chrec-core.git"
   },
-  "keywords": ["ChRec", "Selenium", "CSS", "selector", "XPath", "locator", "replay", "test", "testing", "WebDriver", "robustness", "fragility", "web"],
+  "keywords": [
+    "ChRec",
+    "Selenium",
+    "CSS",
+    "selector",
+    "XPath",
+    "locator",
+    "replay",
+    "test",
+    "testing",
+    "WebDriver",
+    "robustness",
+    "fragility",
+    "web"
+  ],
   "author": "Andreas Plewnia",
   "license": "ISC",
   "bugs": {
@@ -31,6 +45,7 @@
   "homepage": "https://github.com/cyluxx/chrec-core#readme",
   "devDependencies": {
     "@types/jest": "^24.0.0",
+    "codecov": "^3.1.0",
     "jest": "^24.1.0",
     "prettier": "^1.16.4",
     "ts-jest": "^23.10.5",
