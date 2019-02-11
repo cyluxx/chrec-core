@@ -1,3 +1,3 @@
-import { ITestResult } from "./test-result";
+import { ITestResult } from './test-result';
 
-export class ActionTestResult implements ITestResult { }
+export class ActionTestResult implements ITestResult {}

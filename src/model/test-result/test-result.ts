@@ -1,1 +1,1 @@
-export interface ITestResult { }
+export interface ITestResult {}
