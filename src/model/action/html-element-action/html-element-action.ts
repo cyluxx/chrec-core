@@ -1,7 +1,6 @@
 import { Locator } from '../../locator/locator';
 import { Action } from '../action';
 import { HtmlElementActionTestResult } from '../../test-result/html-element-action-test-result';
-import { ActionTestResult } from '../../test-result/action-test-result';
 
 export abstract class HtmlElementAction extends Action {
   constructor(

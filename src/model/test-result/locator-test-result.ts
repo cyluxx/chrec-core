@@ -8,4 +8,11 @@ export class LocatorTestResult extends TestResult {
   isReplayable(): boolean{
     return this.valid;
   }
+
+  getSuccessfulReplayCount(): number {
+    if(this.valid){
+      return 1;
+    }
+    return 0;
+  }
 }

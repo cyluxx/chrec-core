@@ -14,4 +14,14 @@ export class ProjectTestResult extends TestResult {
     }
     return true;
   }
+
+  getSuccessfulReplayCount(): number {
+    let count: number = 0;
+    for (let testResult of this.sequenceTestResults) {
+      if(testResult.isReplayable()){
+        count++;
+      }
+    }
+    return count;
+  }
 }
