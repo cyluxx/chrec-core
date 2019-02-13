@@ -1,8 +1,9 @@
+import { Sequence } from '../sequence';
 import { BrowserTestResult } from './browser-test-result';
 import { TestResult } from './test-result';
 
 export class SequenceTestResult extends TestResult {
-  constructor(date: Date, private browserTestResults: BrowserTestResult[]) {
+  constructor(date: Date, private sequence: Sequence, private browserTestResults: BrowserTestResult[]) {
     super(date);
   }
 

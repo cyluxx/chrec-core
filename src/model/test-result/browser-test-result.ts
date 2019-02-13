@@ -1,8 +1,9 @@
+import { Browser } from '../browser/browser';
 import { ActionTestResult } from './action-test-result';
 import { TestResult } from './test-result';
 
 export class BrowserTestResult extends TestResult {
-  constructor(date: Date, private actionTestResults: ActionTestResult[]) {
+  constructor(date: Date, private browser: Browser, private actionTestResults: ActionTestResult[]) {
     super(date);
   }
 

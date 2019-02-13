@@ -1,7 +1,8 @@
+import { Locator } from '../locator/locator';
 import { TestResult } from './test-result';
 
 export class LocatorTestResult extends TestResult {
-  constructor(date: Date, private valid: boolean) {
+  constructor(date: Date, private locator: Locator, private valid: boolean) {
     super(date);
   }
 

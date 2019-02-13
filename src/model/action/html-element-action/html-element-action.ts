@@ -3,12 +3,7 @@ import { HtmlElementActionTestResult } from '../../test-result/html-element-acti
 import { Action } from '../action';
 
 export abstract class HtmlElementAction extends Action {
-  constructor(
-    image: string,
-    private locators: Locator[],
-    private boundingBox: DOMRect,
-    testResults: HtmlElementActionTestResult[],
-  ) {
-    super(image, testResults);
+  constructor(image: string, private locators: Locator[], private boundingBox: DOMRect) {
+    super(image);
   }
 }
