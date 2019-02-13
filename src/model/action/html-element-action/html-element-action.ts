@@ -1,9 +1,26 @@
+import { WebDriver, WebElement } from 'selenium-webdriver';
 import { Locator } from '../../locator/locator';
-import { HtmlElementActionTestResult } from '../../test-result/html-element-action-test-result';
+import { Status } from '../../status';
 import { Action } from '../action';
 
 export abstract class HtmlElementAction extends Action {
-  constructor(image: string, private locators: Locator[], private boundingBox: DOMRect) {
+  private validLocator!: Locator;
+
+  constructor(image: string, protected locators: Locator[], protected boundingBox: DOMRect) {
     super(image);
   }
+
+  public setValidLocator(locator: Locator) {
+    this.validLocator = locator;
+  }
+
+  public getLocators(): Locator[] {
+    return this.locators;
+  }
+
+  public async findElement(driver: WebDriver): Promise<WebElement> {
+    return this.validLocator.findElement(driver);
+  }
+
+  public abstract async run(driver: WebDriver): Promise<Status>;
 }

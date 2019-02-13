@@ -1,3 +1,6 @@
+import { WebDriver, WebElement } from 'selenium-webdriver';
+import { Status } from '../status';
+
 export abstract class Action {
   constructor(private image: string) {}
 
@@ -8,4 +11,6 @@ export abstract class Action {
   public setImage(image: string) {
     this.image = image;
   }
+
+  public abstract async run(driver: WebDriver): Promise<Status>;
 }

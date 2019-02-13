@@ -16,4 +16,8 @@ export class LocatorTestResult extends TestResult {
     }
     return 0;
   }
+
+  public getLocator(): Locator {
+    return this.locator;
+  }
 }
