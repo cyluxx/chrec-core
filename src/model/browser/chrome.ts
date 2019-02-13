@@ -1,5 +1,5 @@
-import { Browser } from './browser';
 import { BrowserTestResult } from '../test-result/browser-test-result';
+import { Browser } from './browser';
 
 export class Chrome extends Browser {
   constructor(

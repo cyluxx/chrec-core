@@ -1,13 +1,13 @@
-import { TestResult } from './test-result';
 import { BrowserTestResult } from './browser-test-result';
+import { TestResult } from './test-result';
 
 export class SequenceTestResult extends TestResult {
   constructor(date: Date, private browserTestResults: BrowserTestResult[]) {
     super(date);
   }
 
-  isReplayable(): boolean {
-    for (let testResult of this.browserTestResults) {
+  public isReplayable(): boolean {
+    for (const testResult of this.browserTestResults) {
       if (!testResult.isReplayable()) {
         return false;
       }
@@ -15,10 +15,10 @@ export class SequenceTestResult extends TestResult {
     return true;
   }
 
-  getSuccessfulReplayCount(): number {
+  public getSuccessfulReplayCount(): number {
     let count: number = 0;
-    for (let testResult of this.browserTestResults) {
-      if(testResult.isReplayable()){
+    for (const testResult of this.browserTestResults) {
+      if (testResult.isReplayable()) {
         count++;
       }
     }

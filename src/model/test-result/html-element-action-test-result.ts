@@ -1,13 +1,13 @@
-import { LocatorTestResult } from './locator-test-result';
 import { ActionTestResult } from './action-test-result';
+import { LocatorTestResult } from './locator-test-result';
 
 export class HtmlElementActionTestResult extends ActionTestResult {
   constructor(date: Date, private locatorTestResults: LocatorTestResult[]) {
     super(date);
   }
 
-  isReplayable(): boolean {
-    for (let testResult of this.locatorTestResults) {
+  public isReplayable(): boolean {
+    for (const testResult of this.locatorTestResults) {
       if (testResult.isReplayable()) {
         return true;
       }
@@ -15,10 +15,10 @@ export class HtmlElementActionTestResult extends ActionTestResult {
     return false;
   }
 
-  getSuccessfulReplayCount(): number {
+  public getSuccessfulReplayCount(): number {
     let count: number = 0;
-    for (let testResult of this.locatorTestResults) {
-      if(testResult.isReplayable()){
+    for (const testResult of this.locatorTestResults) {
+      if (testResult.isReplayable()) {
         count++;
       }
     }

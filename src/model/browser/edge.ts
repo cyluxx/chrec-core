@@ -1,5 +1,5 @@
-import { Browser } from './browser';
 import { BrowserTestResult } from '../test-result/browser-test-result';
+import { Browser } from './browser';
 
 export class Edge extends Browser {
   constructor(name: string, width: number, height: number, testResults: BrowserTestResult[]) {

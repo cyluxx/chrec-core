@@ -1,6 +1,6 @@
 import { Locator } from '../../locator/locator';
-import { Action } from '../action';
 import { HtmlElementActionTestResult } from '../../test-result/html-element-action-test-result';
+import { Action } from '../action';
 
 export abstract class HtmlElementAction extends Action {
   constructor(

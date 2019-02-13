@@ -5,12 +5,12 @@ export class LocatorTestResult extends TestResult {
     super(date);
   }
 
-  isReplayable(): boolean{
+  public isReplayable(): boolean {
     return this.valid;
   }
 
-  getSuccessfulReplayCount(): number {
-    if(this.valid){
+  public getSuccessfulReplayCount(): number {
+    if (this.valid) {
       return 1;
     }
     return 0;

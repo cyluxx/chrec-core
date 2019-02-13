@@ -5,19 +5,19 @@ export class ActionTestResult extends TestResult {
 
   constructor(date: Date, valid?: boolean) {
     super(date);
-    
+
     this.valid = false;
-    if(valid){
+    if (valid) {
       this.valid = valid;
     }
   }
 
-  isReplayable(): boolean {
+  public isReplayable(): boolean {
     return this.valid;
   }
 
-  getSuccessfulReplayCount(): number {
-    if(this.valid){
+  public getSuccessfulReplayCount(): number {
+    if (this.valid) {
       return 1;
     }
     return 0;

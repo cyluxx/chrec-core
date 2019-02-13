@@ -1,6 +1,6 @@
-import { TestResult } from "./test-result/test-result";
+import { TestResult } from './test-result/test-result';
 
-export class Testable {
+export abstract class Testable {
   constructor(private testResults: TestResult[]) {}
 
   protected isTested(): boolean {

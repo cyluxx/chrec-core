@@ -1,11 +1,11 @@
 export abstract class TestResult {
   constructor(private date: Date) {}
 
-  abstract isReplayable(): boolean;
-
-  abstract getSuccessfulReplayCount(): number;
-
-  getDate(): Date {
+  public getDate(): Date {
     return this.date;
   }
+
+  public abstract isReplayable(): boolean;
+
+  public abstract getSuccessfulReplayCount(): number;
 }
