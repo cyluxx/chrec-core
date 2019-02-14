@@ -1,3 +1,7 @@
+import { WebDriver } from "selenium-webdriver";
+
 export abstract class Browser {
-  constructor(private name: string, private width: number, private height: number) {}
+  constructor(private name: string, protected width: number, protected height: number) {}
+
+  public abstract buildWebDriver(seleniumGridUrl: string): WebDriver;
 }

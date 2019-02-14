@@ -33,9 +33,11 @@ export class ReplayService {
 
   public async testBrowser(browser: Browser, actions: Action[], settings: Settings): Promise<BrowserTestResult> {
     const actionTestResults: ActionTestResult[] = [];
+    const driver: WebDriver = browser.buildWebDriver(settings.getSeleniumGridUrl());
     for (const action of actions) {
-      actionTestResults.push(await this.testAction(action));
+      actionTestResults.push(await this.testAction(action, driver));
     }
+    driver.quit();
     return new BrowserTestResult(new Date(), browser, actionTestResults);
   }
 
