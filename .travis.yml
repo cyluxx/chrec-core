@@ -1,10 +1,25 @@
 language: node_js
+
 node_js:
   - "node"
+
+services:
+  - docker
+
+before_install:
+  - docker pull selenium/hub
+  - docker pull selenium/chrome
+  - docker pull selenium/firefox
+  - docker network create grid
+  - docker run -d -p 4444:4444 --net grid --name selenium-hub selenium/hub
+  - docker run -d --net grid -e HUB_HOST=selenium-hub -v /dev/shm:/dev/shm selenium/node-chrome
+  - docker run -d --net grid -e HUB_HOST=selenium-hub -v /dev/shm:/dev/shm selenium/node-firefox
+
 install:
   - npm install -g codecov
-script:
   - npm install
+
+script:
   - npm run lint
-  - npm run test
+  - npm run test-ci
   - codecov

@@ -7,8 +7,8 @@ export class Chrome extends Browser {
     super(name, width, height);
   }
 
-  public buildWebDriver(seleniumGridUrl: string): WebDriver {
-    const builder: Builder = new Builder().forBrowser(BrowserName.CHROME).usingServer(`http://${seleniumGridUrl}/wd/hub`);
+  public buildWebDriver(seleniumServerUrl: string): WebDriver {
+    const builder: Builder = new Builder().forBrowser(BrowserName.CHROME).usingServer(seleniumServerUrl);
     if (this.headless){
       builder.setChromeOptions(new Options().addArguments('--headless'));
     }

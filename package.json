@@ -5,7 +5,9 @@
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
   "scripts": {
-    "test": "jest --config jestconfig.json",
+    "test": "npm run test-dev",
+    "test-dev": "cross-env SELENIUM_SERVER_URL=http://localhost:4444/wd/hub jest --config jestconfig.json",
+    "test-ci": "cross-env SELENIUM_SERVER_URL=http://localhost:4444/wd/hub jest --config jestconfig.json",
     "build": "tsc",
     "format": "prettier --write \"src/**/*.ts\" \"src/**/*.js\"",
     "lint": "tslint -p tsconfig.json",
@@ -45,7 +47,9 @@
   "homepage": "https://github.com/cyluxx/chrec-core#readme",
   "devDependencies": {
     "@types/jest": "^24.0.0",
+    "@types/node": "^11.9.4",
     "codecov": "^3.1.0",
+    "cross-env": "^5.2.0",
     "jest": "^24.1.0",
     "prettier": "^1.16.4",
     "ts-jest": "^23.10.5",

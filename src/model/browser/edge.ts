@@ -6,8 +6,8 @@ export class Edge extends Browser {
     super(name, width, height);
   }
 
-  public buildWebDriver(seleniumGridUrl: string): WebDriver {
-    const builder: Builder = new Builder().forBrowser(BrowserName.EDGE).usingServer(`http://${seleniumGridUrl}/wd/hub`);
+  public buildWebDriver(seleniumServerUrl: string): WebDriver {
+    const builder: Builder = new Builder().forBrowser(BrowserName.EDGE).usingServer(seleniumServerUrl);
     const driver: WebDriver = builder.build();
     driver.manage().deleteAllCookies();
     driver.manage().window().setSize(this.width, this.height);
