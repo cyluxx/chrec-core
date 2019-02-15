@@ -9,7 +9,7 @@ const NODE_ENV: string = process.env.NODE_ENV as string;
 test('BuildWebDriver builds proper edge', async () => {
     // Runs only locally. Unfortunately there does not exist a docker image for edge yet.
     if (NODE_ENV === 'dev') {
-        jest.setTimeout(10000);
+        jest.setTimeout(15000);
 
         const browser: Edge = new Edge('foo', 800, 600);
         const driver: WebDriver = browser.buildWebDriver(SELENIUM_SERVER_URL);
@@ -25,7 +25,7 @@ test('BuildWebDriver builds proper edge', async () => {
 });
 
 test('BuildWebDriver builds proper firefox', async () => {
-    jest.setTimeout(10000);
+    jest.setTimeout(15000);
 
     const browser: Firefox = new Firefox('foo', 800, 600);
     const driver: WebDriver = browser.buildWebDriver(SELENIUM_SERVER_URL);
@@ -40,7 +40,7 @@ test('BuildWebDriver builds proper firefox', async () => {
 });
 
 test('BuildWebDriver builds proper chrome', async () => {
-    jest.setTimeout(10000);
+    jest.setTimeout(15000);
 
     const browser: Chrome = new Chrome('foo', 800, 600, false);
     const driver: WebDriver = browser.buildWebDriver(SELENIUM_SERVER_URL);
