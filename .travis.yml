@@ -8,8 +8,8 @@ services:
 
 before_install:
   - docker pull selenium/hub
-  - docker pull selenium/chrome
-  - docker pull selenium/firefox
+  - docker pull selenium/node-chrome
+  - docker pull selenium/node-firefox
   - docker network create grid
   - docker run -d -p 4444:4444 --net grid --name selenium-hub selenium/hub
   - docker run -d --net grid -e HUB_HOST=selenium-hub -v /dev/shm:/dev/shm selenium/node-chrome
