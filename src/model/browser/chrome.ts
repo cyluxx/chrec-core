@@ -10,7 +10,7 @@ export class Chrome extends Browser {
   public buildWebDriver(seleniumGridUrl: string): WebDriver {
     const builder: Builder = new Builder().forBrowser(BrowserName.CHROME).usingServer(`http://${seleniumGridUrl}/wd/hub`);
     if (this.headless){
-      builder.setChromeOptions(new Options().addArguments('--headless')).build();
+      builder.setChromeOptions(new Options().addArguments('--headless'));
     }
     const driver: WebDriver = builder.build();
     driver.manage().deleteAllCookies();

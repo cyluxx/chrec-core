@@ -50,15 +50,7 @@ export class ReplayService {
     }
   }
 
-  public async testLocator(locator: Locator, driver: WebDriver): Promise<LocatorTestResult> {
-    let valid: boolean = false;
-    if ((await locator.test(driver)).getCode() === Code.OK) {
-      valid = true;
-    }
-    return new LocatorTestResult(new Date(), locator, valid);
-  }
-
-  private async testHtmlElementAction(action: HtmlElementAction, driver: WebDriver) {
+  public async testHtmlElementAction(action: HtmlElementAction, driver: WebDriver) {
     const locatorTestResults: LocatorTestResult[] = [];
     for (const locator of action.getLocators()) {
       const testResult = await this.testLocator(locator, driver);
@@ -69,5 +61,13 @@ export class ReplayService {
     }
     await action.run(driver);
     return new HtmlElementActionTestResult(new Date(), action, locatorTestResults);
+  }
+
+  public async testLocator(locator: Locator, driver: WebDriver): Promise<LocatorTestResult> {
+    let valid: boolean = false;
+    if ((await locator.test(driver)).getCode() === Code.OK) {
+      valid = true;
+    }
+    return new LocatorTestResult(new Date(), locator, valid);
   }
 }
