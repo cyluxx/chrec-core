@@ -6,8 +6,8 @@
   "types": "lib/index.d.ts",
   "scripts": {
     "test": "npm run test-dev",
-    "test-dev": "cross-env SELENIUM_SERVER_URL=http://localhost:4444/wd/hub jest --config jestconfig.json",
-    "test-ci": "cross-env SELENIUM_SERVER_URL=http://localhost:4444/wd/hub jest --config jestconfig.json",
+    "test-dev": "cross-env SELENIUM_SERVER_URL=http://localhost:4444/wd/hub NODE_ENV=dev jest --config jestconfig.json",
+    "test-ci": "cross-env SELENIUM_SERVER_URL=http://localhost:4444/wd/hub NODE_ENV=test jest --config jestconfig.json",
     "build": "tsc",
     "format": "prettier --write \"src/**/*.ts\" \"src/**/*.js\"",
     "lint": "tslint -p tsconfig.json",
