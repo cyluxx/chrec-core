@@ -13,6 +13,10 @@ export class ActionTestResult extends TestResult {
     }
   }
 
+  public getAction(): Action {
+    return this.action;
+  }
+
   public isReplayable(): boolean {
     return this.valid;
   }

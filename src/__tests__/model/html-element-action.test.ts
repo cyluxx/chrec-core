@@ -3,7 +3,6 @@ import { Click } from '../../model/action/html-element-action/click';
 import { BoundingBox } from '../../model/bounding-box';
 import { Chrome } from '../../model/browser/chrome';
 import { CssLocator } from '../../model/locator/css-locator';
-import { Code } from '../../model/status';
 
 const SELENIUM_SERVER_URL: string = process.env.SELENIUM_SERVER_URL as string;
 const CHROME: Chrome = new Chrome('foo', 800, 600, false);
