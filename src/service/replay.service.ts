@@ -1,4 +1,4 @@
-import { WebDriver, WebElement } from 'selenium-webdriver';
+import { WebDriver } from 'selenium-webdriver';
 import { Action } from '../model/action/action';
 import { HtmlElementAction } from '../model/action/html-element-action/html-element-action';
 import { Browser } from '../model/browser/browser';
@@ -46,7 +46,7 @@ export class ReplayService {
       return this.testHtmlElementAction(action, driver);
     } else {
       const status: Status = await action.run(driver);
-      return new ActionTestResult(new Date(), action, status.toBoolean());
+      return new ActionTestResult(new Date(), action, status.isOk());
     }
   }
 
@@ -64,10 +64,7 @@ export class ReplayService {
   }
 
   public async testLocator(locator: Locator, driver: WebDriver): Promise<LocatorTestResult> {
-    let valid: boolean = false;
-    if ((await locator.test(driver)).getCode() === Code.OK) {
-      valid = true;
-    }
+    const valid: boolean = (await locator.test(driver)).isOk();
     return new LocatorTestResult(new Date(), locator, valid);
   }
 }

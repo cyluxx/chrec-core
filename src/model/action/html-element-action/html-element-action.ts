@@ -1,4 +1,5 @@
 import { WebDriver, WebElement } from 'selenium-webdriver';
+import { BoundingBox } from '../../bounding-box';
 import { Locator } from '../../locator/locator';
 import { Status } from '../../status';
 import { Action } from '../action';
@@ -6,7 +7,7 @@ import { Action } from '../action';
 export abstract class HtmlElementAction extends Action {
   private validLocator!: Locator;
 
-  constructor(image: string, protected locators: Locator[], protected boundingBox: DOMRect) {
+  constructor(image: string, protected locators: Locator[], protected boundingBox: BoundingBox) {
     super(image);
   }
 

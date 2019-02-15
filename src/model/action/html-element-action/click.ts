@@ -1,10 +1,11 @@
 import { WebDriver, WebElement } from 'selenium-webdriver';
+import { BoundingBox } from '../../bounding-box';
 import { Locator } from '../../locator/locator';
 import { Code, Status } from '../../status';
 import { HtmlElementAction } from './html-element-action';
 
 export class Click extends HtmlElementAction {
-  constructor(image: string, locators: Locator[], boundingBox: DOMRect) {
+  constructor(image: string, locators: Locator[], boundingBox: BoundingBox) {
     super(image, locators, boundingBox);
   }
 

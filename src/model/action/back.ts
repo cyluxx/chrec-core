@@ -8,7 +8,12 @@ export class Back extends Action {
   }
 
   public async run(driver: WebDriver): Promise<Status> {
-    driver.navigate().back();
-    return new Status(Code.OK, 'Back Action Successful!');
+    try {
+      await driver.navigate().back();
+      return new Status(Code.OK, 'Back Action Successful!');
+    }
+    catch (error) {
+      return Promise.reject(new Status(Code.ACTION_FAILED, 'Back Action Failed!'));
+    }
   }
 }
