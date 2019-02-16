@@ -6,7 +6,7 @@ import { Locator } from '../model/locator/locator';
 import { Project } from '../model/project';
 import { Sequence } from '../model/sequence';
 import { Settings } from '../model/settings';
-import { Code, Status } from '../model/status';
+import { Status } from '../model/status';
 import { ActionTestResult } from '../model/test-result/action-test-result';
 import { BrowserTestResult } from '../model/test-result/browser-test-result';
 import { HtmlElementActionTestResult } from '../model/test-result/html-element-action-test-result';
@@ -33,7 +33,7 @@ export class ReplayService {
 
   public async testBrowser(browser: Browser, actions: Action[], settings: Settings): Promise<BrowserTestResult> {
     const actionTestResults: ActionTestResult[] = [];
-    const driver: WebDriver = browser.buildWebDriver(settings.getSeleniumGridUrl());
+    const driver: WebDriver = browser.buildWebDriver(settings.getSeleniumServerUrl());
     for (const action of actions) {
       actionTestResults.push(await this.testAction(action, driver));
     }

@@ -10,12 +10,12 @@ const SELENIUM_SERVER_URL: string = process.env.SELENIUM_SERVER_URL as string;
 const FIREFOX: Firefox = new Firefox('foo', 800, 600);
 let driver: WebDriver;
 
-beforeAll(() => {
+beforeEach(() => {
   jest.setTimeout(10000);
   driver = FIREFOX.buildWebDriver(SELENIUM_SERVER_URL);
 });
 
-afterAll(() => {
+afterEach(() => {
   driver.quit();
 });
 

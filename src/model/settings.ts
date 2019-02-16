@@ -1,10 +1,10 @@
 import { Browser } from './browser/browser';
 
 export class Settings {
-  constructor(private seleniumGridUrl: string, private browsers: Browser[]) {}
+  constructor(private seleniumServerUrl: string, private browsers: Browser[]) {}
 
-  public getSeleniumGridUrl(): string {
-    return this.seleniumGridUrl;
+  public getSeleniumServerUrl(): string {
+    return this.seleniumServerUrl;
   }
 
   public getBrowsers(): Browser[] {

@@ -8,12 +8,12 @@ const SELENIUM_SERVER_URL: string = process.env.SELENIUM_SERVER_URL as string;
 const CHROME: Chrome = new Chrome('foo', 800, 600, false);
 let driver: WebDriver;
 
-beforeAll(() => {
+beforeEach(() => {
   jest.setTimeout(10000);
   driver = CHROME.buildWebDriver(SELENIUM_SERVER_URL);
 });
 
-afterAll(() => {
+afterEach(() => {
   driver.quit();
 });
 

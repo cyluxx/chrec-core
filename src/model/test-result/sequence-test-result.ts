@@ -7,6 +7,10 @@ export class SequenceTestResult extends TestResult {
     super(date);
   }
 
+  public getSequence(): Sequence {
+    return this.sequence;
+  }
+
   public isReplayable(): boolean {
     for (const testResult of this.browserTestResults) {
       if (!testResult.isReplayable()) {

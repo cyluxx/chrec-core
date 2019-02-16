@@ -7,6 +7,10 @@ export class ProjectTestResult extends TestResult {
     super(date);
   }
 
+  public getProject(): Project {
+    return this.project;
+  }
+
   public isReplayable(): boolean {
     for (const testResult of this.sequenceTestResults) {
       if (!testResult.isReplayable()) {

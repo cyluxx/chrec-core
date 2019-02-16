@@ -7,6 +7,10 @@ export class BrowserTestResult extends TestResult {
     super(date);
   }
 
+  public getBrowser(): Browser {
+    return this.browser;
+  }
+
   public isReplayable(): boolean {
     for (const testResult of this.actionTestResults) {
       if (!testResult.isReplayable()) {
