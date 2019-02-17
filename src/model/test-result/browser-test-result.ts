@@ -20,12 +20,18 @@ export class BrowserTestResult extends TestResult {
     return true;
   }
 
-  public getSuccessfulReplayCount(): number {
+  public getSuccessfulLocatorCount(): number {
+    let count: number = 0;
+    for(const testResult of this.actionTestResults){
+      count += testResult.getSuccessfulLocatorCount();
+    }
+    return count;
+  }
+  
+  public getTotalLocatorCount(): number {
     let count: number = 0;
     for (const testResult of this.actionTestResults) {
-      if (testResult.isReplayable()) {
-        count++;
-      }
+      count += testResult.getTotalLocatorCount();
     }
     return count;
   }

@@ -6,18 +6,19 @@ export class LocatorTestResult extends TestResult {
     super(date);
   }
 
+  public getLocator(): Locator {
+    return this.locator;
+  }
+
   public isReplayable(): boolean {
     return this.valid;
   }
 
-  public getSuccessfulReplayCount(): number {
-    if (this.valid) {
-      return 1;
-    }
-    return 0;
+  public getSuccessfulLocatorCount(): number {
+    return this.valid ? 1 : 0;
   }
 
-  public getLocator(): Locator {
-    return this.locator;
+  public getTotalLocatorCount(): number {
+    return 1;
   }
 }

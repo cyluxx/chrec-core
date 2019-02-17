@@ -21,10 +21,11 @@ export class ActionTestResult extends TestResult {
     return this.valid;
   }
 
-  public getSuccessfulReplayCount(): number {
-    if (this.valid) {
-      return 1;
-    }
+  public getSuccessfulLocatorCount(): number {
+    return 0;
+  }
+  
+  public getTotalLocatorCount(): number {
     return 0;
   }
 }

@@ -7,5 +7,7 @@ export abstract class TestResult {
 
   public abstract isReplayable(): boolean;
 
-  public abstract getSuccessfulReplayCount(): number;
+  public abstract getSuccessfulLocatorCount(): number;
+
+  public abstract getTotalLocatorCount(): number;
 }

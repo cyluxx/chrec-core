@@ -16,12 +16,18 @@ export class HtmlElementActionTestResult extends ActionTestResult {
     return false;
   }
 
-  public getSuccessfulReplayCount(): number {
+  public getSuccessfulLocatorCount(): number {
+    let count: number = 0;
+    for(const testResult of this.locatorTestResults){
+      count += testResult.getSuccessfulLocatorCount();
+    }
+    return count;
+  }
+  
+  public getTotalLocatorCount(): number {
     let count: number = 0;
     for (const testResult of this.locatorTestResults) {
-      if (testResult.isReplayable()) {
-        count++;
-      }
+      count += testResult.getTotalLocatorCount();
     }
     return count;
   }
