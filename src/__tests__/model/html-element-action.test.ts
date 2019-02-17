@@ -6,29 +6,29 @@ import { CssLocator } from '../../model/locator/css-locator';
 
 const SELENIUM_SERVER_URL: string = process.env.SELENIUM_SERVER_URL as string;
 const CHROME: Chrome = new Chrome('foo', 800, 600, false);
-let driver: WebDriver;
-
-beforeEach(() => {
-  jest.setTimeout(10000);
-  driver = CHROME.buildWebDriver(SELENIUM_SERVER_URL);
-});
-
-afterEach(() => {
-  driver.quit();
-});
 
 test('HtmlElementAction findElement has valid locator', async () => {
+  jest.setTimeout(10000);
+  const driver: WebDriver = CHROME.buildWebDriver(SELENIUM_SERVER_URL);
+
   const action: Click = new Click('foo', [], new BoundingBox(42, 42, 42, 42));
   action.setValidLocator(new CssLocator('foo', '#not-a-valid-locator-value'));
 
   expect.assertions(1);
   await expect(action.findElement(driver)).rejects.toThrow();
+
+  await driver.quit();
 });
 
 test('HtmlElementAction findElement has invalid locator', async () => {
+  jest.setTimeout(10000);
+  const driver: WebDriver = CHROME.buildWebDriver(SELENIUM_SERVER_URL);
+
   const action: Click = new Click('foo', [], new BoundingBox(42, 42, 42, 42));
   action.setValidLocator(new CssLocator('foo', 'body'));
 
   expect.assertions(1);
   await expect(action.findElement(driver)).resolves.toBeDefined();
+
+  await driver.quit();
 });
