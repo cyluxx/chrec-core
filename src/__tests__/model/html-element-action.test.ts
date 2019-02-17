@@ -10,6 +10,7 @@ const CHROME: Chrome = new Chrome('foo', 800, 600, false);
 test('HtmlElementAction findElement has valid locator', async () => {
   jest.setTimeout(10000);
   const driver: WebDriver = CHROME.buildWebDriver(SELENIUM_SERVER_URL);
+  driver.navigate().to('https://github.com/cyluxx/chrec-core');
 
   const action: Click = new Click('foo', [], new BoundingBox(42, 42, 42, 42));
   action.setValidLocator(new CssLocator('foo', '#not-a-valid-locator-value'));
@@ -23,6 +24,7 @@ test('HtmlElementAction findElement has valid locator', async () => {
 test('HtmlElementAction findElement has invalid locator', async () => {
   jest.setTimeout(10000);
   const driver: WebDriver = CHROME.buildWebDriver(SELENIUM_SERVER_URL);
+  driver.navigate().to('https://github.com/cyluxx/chrec-core');
 
   const action: Click = new Click('foo', [], new BoundingBox(42, 42, 42, 42));
   action.setValidLocator(new CssLocator('foo', 'body'));

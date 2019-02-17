@@ -31,13 +31,14 @@ test('testLocator', async () => {
   expect.assertions(2);
   expect(testResult.getLocator()).toEqual(locator);
   expect(testResult.isReplayable()).toBe(true);
-  
+
   await driver.quit();
 });
 
 test('testHtmlElementAction', async () => {
   jest.setTimeout(10000);
   const driver: WebDriver = FIREFOX.buildWebDriver(SELENIUM_SERVER_URL);
+  driver.navigate().to('https://github.com/cyluxx/chrec-core');
 
   const locators: Locator[] = [new CssLocator('foo', 'body')];
   const action: Click = new Click('foo', locators, new BoundingBox(42, 42, 42, 42));
@@ -67,6 +68,7 @@ test('testAction', async () => {
 test('testAction with HtmlElementAction', async () => {
   jest.setTimeout(10000);
   const driver: WebDriver = FIREFOX.buildWebDriver(SELENIUM_SERVER_URL);
+  driver.navigate().to('https://github.com/cyluxx/chrec-core');
 
   const locators: Locator[] = [new CssLocator('foo', 'body')];
   const action: Click = new Click('foo', locators, new BoundingBox(42, 42, 42, 42));
