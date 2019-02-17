@@ -24,6 +24,7 @@ const FIREFOX = new Firefox('foo', 800, 600);
 test('testLocator', async () => {
   jest.setTimeout(10000);
   const driver: WebDriver = FIREFOX.buildWebDriver(SELENIUM_SERVER_URL);
+  driver.navigate().to('https://github.com/cyluxx/chrec-core');
 
   const locator: CssLocator = new CssLocator('foo', 'body');
   const testResult: LocatorTestResult = await REPLAY_SERVICE.testLocator(locator, driver);
