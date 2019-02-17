@@ -15,7 +15,7 @@ export class Click extends HtmlElementAction {
       element.click();
       return new Status(Code.OK, 'Click Action successful!');
     } catch (error) {
-      return new Status(Code.NO_SUCH_ELEMENT, 'Click Action not successful!');
+      return new Status(Code.HTML_ELEMENT_ACTION_FAILED, 'Click Action failed!');
     }
   }
 }

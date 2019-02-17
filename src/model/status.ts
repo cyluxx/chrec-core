@@ -18,4 +18,5 @@ export enum Code {
   OK = 0,
   NO_SUCH_ELEMENT = 1,
   ACTION_FAILED = 2,
+  HTML_ELEMENT_ACTION_FAILED = 3,
 }
