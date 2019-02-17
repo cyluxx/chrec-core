@@ -24,7 +24,7 @@ export class ActionTestResult extends TestResult {
   public getSuccessfulLocatorCount(): number {
     return 0;
   }
-  
+
   public getTotalLocatorCount(): number {
     return 0;
   }

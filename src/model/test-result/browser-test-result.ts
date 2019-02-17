@@ -26,12 +26,12 @@ export class BrowserTestResult extends TestResult {
 
   public getSuccessfulLocatorCount(): number {
     let count: number = 0;
-    for(const testResult of this.actionTestResults){
+    for (const testResult of this.actionTestResults) {
       count += testResult.getSuccessfulLocatorCount();
     }
     return count;
   }
-  
+
   public getTotalLocatorCount(): number {
     let count: number = 0;
     for (const testResult of this.actionTestResults) {

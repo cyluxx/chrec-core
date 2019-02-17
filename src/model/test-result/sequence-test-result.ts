@@ -21,12 +21,12 @@ export class SequenceTestResult extends TestResult {
 
   public getSuccessfulLocatorCount(): number {
     let count: number = 0;
-    for(const testResult of this.browserTestResults){
+    for (const testResult of this.browserTestResults) {
       count += testResult.getSuccessfulLocatorCount();
     }
     return count;
   }
-  
+
   public getTotalLocatorCount(): number {
     let count: number = 0;
     for (const testResult of this.browserTestResults) {

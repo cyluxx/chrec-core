@@ -8,7 +8,7 @@ export class Project {
     return this.sequences;
   }
 
-  public addTestResult(testResult: ProjectTestResult){
+  public addTestResult(testResult: ProjectTestResult) {
     this.projectTestResults.push(testResult);
   }
 

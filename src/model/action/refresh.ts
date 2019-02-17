@@ -11,8 +11,7 @@ export class Refresh extends Action {
     try {
       await driver.navigate().refresh();
       return new Status(Code.OK, 'Refresh Action Successful!');
-    }
-    catch(error) {
+    } catch (error) {
       return Promise.reject(new Status(Code.ACTION_FAILED, 'Refresh Action Failed!'));
     }
   }

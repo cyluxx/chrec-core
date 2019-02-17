@@ -22,12 +22,12 @@ export class HtmlElementActionTestResult extends ActionTestResult {
 
   public getSuccessfulLocatorCount(): number {
     let count: number = 0;
-    for(const testResult of this.locatorTestResults){
+    for (const testResult of this.locatorTestResults) {
       count += testResult.getSuccessfulLocatorCount();
     }
     return count;
   }
-  
+
   public getTotalLocatorCount(): number {
     let count: number = 0;
     for (const testResult of this.locatorTestResults) {

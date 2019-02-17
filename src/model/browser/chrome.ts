@@ -9,12 +9,15 @@ export class Chrome extends Browser {
 
   public buildWebDriver(seleniumServerUrl: string): WebDriver {
     const builder: Builder = new Builder().forBrowser(BrowserName.CHROME).usingServer(seleniumServerUrl);
-    if (this.headless){
+    if (this.headless) {
       builder.setChromeOptions(new Options().addArguments('--headless'));
     }
     const driver: WebDriver = builder.build();
     driver.manage().deleteAllCookies();
-    driver.manage().window().setSize(this.width, this.height);
+    driver
+      .manage()
+      .window()
+      .setSize(this.width, this.height);
     return driver;
   }
 }

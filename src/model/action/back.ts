@@ -11,8 +11,7 @@ export class Back extends Action {
     try {
       await driver.navigate().back();
       return new Status(Code.OK, 'Back Action Successful!');
-    }
-    catch (error) {
+    } catch (error) {
       return Promise.reject(new Status(Code.ACTION_FAILED, 'Back Action Failed!'));
     }
   }

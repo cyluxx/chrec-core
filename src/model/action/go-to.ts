@@ -11,8 +11,7 @@ export class GoTo extends Action {
     try {
       await driver.navigate().to(this.url);
       return new Status(Code.OK, 'GoTo Action Successful!');
-    }
-    catch (error) {
+    } catch (error) {
       return Promise.reject(new Status(Code.ACTION_FAILED, 'GoTo Action Failed!'));
     }
   }

@@ -11,8 +11,7 @@ export class Forward extends Action {
     try {
       await driver.navigate().forward();
       return new Status(Code.OK, 'Forward Action Successful!');
-    }
-    catch (error) {
+    } catch (error) {
       return Promise.reject(new Status(Code.ACTION_FAILED, 'Forward Action Failed!'));
     }
   }

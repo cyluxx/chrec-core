@@ -10,7 +10,10 @@ export class Firefox extends Browser {
     const builder: Builder = new Builder().forBrowser(BrowserName.FIREFOX).usingServer(seleniumServerUrl);
     const driver: WebDriver = builder.build();
     driver.manage().deleteAllCookies();
-    driver.manage().window().setSize(this.width, this.height);
+    driver
+      .manage()
+      .window()
+      .setSize(this.width, this.height);
     return driver;
   }
 }

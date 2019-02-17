@@ -10,7 +10,10 @@ export class Edge extends Browser {
     const builder: Builder = new Builder().forBrowser(BrowserName.EDGE).usingServer(seleniumServerUrl);
     const driver: WebDriver = builder.build();
     driver.manage().deleteAllCookies();
-    driver.manage().window().setSize(this.width, this.height);
+    driver
+      .manage()
+      .window()
+      .setSize(this.width, this.height);
     return driver;
   }
 }
