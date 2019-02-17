@@ -7,4 +7,12 @@ export class Project {
   public getSequences(): Sequence[] {
     return this.sequences;
   }
+
+  public addTestResult(testResult: ProjectTestResult){
+    this.projectTestResults.push(testResult);
+  }
+
+  public getTestResults(): ProjectTestResult[] {
+    return this.projectTestResults;
+  }
 }

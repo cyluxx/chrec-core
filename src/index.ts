@@ -8,42 +8,27 @@ import { HtmlElementActionTestResult } from './model/test-result/html-element-ac
 import { LocatorTestResult } from './model/test-result/locator-test-result';
 import { SequenceTestResult } from './model/test-result/sequence-test-result';
 import { ReplayService } from './service/replay.service';
-
-export const Greeter = (name: string) => `Hello ${name}`;
+import { ProjectTestResult } from './model/test-result/project-test-result';
 
 export class Core {
   private replayService: ReplayService;
 
-  constructor(private settings: Settings) {
+  constructor() {
     this.replayService = new ReplayService();
   }
 
-  public addProjectTest(project: Project): Project {
+  public async addProjectTest(project: Project, settings: Settings): Promise<Project> {
+    const testResult: ProjectTestResult = await this.replayService.testProject(project, settings);
+    for(const sequence of project.getSequences()){
+      this.addSequenceTest(sequence, settings);
+    }
+    project.addTestResult(testResult);
     return project;
   }
 
-  public addSequenceTest(sequence: Sequence): SequenceTestResult {
-    const currentDate: Date = new Date();
-    const browserTestResults: BrowserTestResult[] = [];
-    for (const browser of this.settings.getBrowsers()) {
-      const actionTestResults: ActionTestResult[] = [];
-      for (const action of sequence.getActions()) {
-        if (action instanceof HtmlElementAction) {
-          const locatorTestResults: LocatorTestResult[] = [];
-          for (const locator of action.getLocators()) {
-            locatorTestResults.push(new LocatorTestResult(currentDate, locator, false));
-          }
-          actionTestResults.push(new HtmlElementActionTestResult(currentDate, action, locatorTestResults));
-        } else {
-          actionTestResults.push(new ActionTestResult(currentDate, action, false));
-        }
-      }
-      browserTestResults.push(new BrowserTestResult(currentDate, browser, actionTestResults));
-    }
-    return new SequenceTestResult(currentDate, sequence, browserTestResults);
-  }
-
-  public setSettings(settings: Settings) {
-    this.settings = settings;
+  public async addSequenceTest(sequence: Sequence, settings: Settings): Promise<Sequence> {
+    const testResult: SequenceTestResult = await this.replayService.testSequence(sequence, settings);
+    sequence.addTestResult(testResult);
+    return sequence;
   }
 }

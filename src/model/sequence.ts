@@ -7,4 +7,12 @@ export class Sequence {
   public getActions(): Action[] {
     return this.actions;
   }
+
+  public addTestResult(testResult: SequenceTestResult){
+    this.sequenceTestResults.push(testResult);
+  }
+
+  public getTestResults(): SequenceTestResult[] {
+    return this.sequenceTestResults;
+  }
 }

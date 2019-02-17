@@ -7,6 +7,10 @@ export class HtmlElementActionTestResult extends ActionTestResult {
     super(date, action);
   }
 
+  public getLocatorTestResults(): LocatorTestResult[] {
+    return this.locatorTestResults;
+  }
+
   public isReplayable(): boolean {
     for (const testResult of this.locatorTestResults) {
       if (testResult.isReplayable()) {

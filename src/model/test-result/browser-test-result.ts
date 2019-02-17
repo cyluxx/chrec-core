@@ -11,6 +11,10 @@ export class BrowserTestResult extends TestResult {
     return this.browser;
   }
 
+  public getActionTestResults(): ActionTestResult[] {
+    return this.actionTestResults;
+  }
+
   public isReplayable(): boolean {
     for (const testResult of this.actionTestResults) {
       if (!testResult.isReplayable()) {
