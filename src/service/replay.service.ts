@@ -20,7 +20,7 @@ export class ReplayService {
     for (const sequence of project.getSequences()) {
       sequenceTestResults.push(await this.testSequence(sequence, settings));
     }
-    return new ProjectTestResult(new Date(), project, sequenceTestResults);
+    return new ProjectTestResult(new Date(), sequenceTestResults);
   }
 
   public async testSequence(sequence: Sequence, settings: Settings): Promise<SequenceTestResult> {
@@ -28,7 +28,7 @@ export class ReplayService {
     for (const browser of settings.getBrowsers()) {
       browserTestResults.push(await this.testBrowser(browser, sequence.getActions(), settings));
     }
-    return new SequenceTestResult(new Date(), sequence, browserTestResults);
+    return new SequenceTestResult(new Date(), browserTestResults);
   }
 
   public async testBrowser(browser: Browser, actions: Action[], settings: Settings): Promise<BrowserTestResult> {

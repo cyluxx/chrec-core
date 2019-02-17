@@ -84,21 +84,19 @@ test('testBrowser', async () => {
 });
 
 test('testSequence', async () => {
-  const sequence: Sequence = new Sequence('foo', [new Refresh('foo')]);
+  const sequence: Sequence = new Sequence('foo', [new Refresh('foo')], []);
   const settings: Settings = new Settings(SELENIUM_SERVER_URL, [new Firefox('foo', 800, 600)]);
   const testResult: SequenceTestResult = await REPLAY_SERVICE.testSequence(sequence, settings);
 
-  expect.assertions(2);
-  expect(testResult.getSequence()).toEqual(sequence);
+  expect.assertions(1);
   expect(testResult.isReplayable()).toBe(true);
 });
 
 test('testProejct', async () => {
-  const project: Project = new Project('foo', [new Sequence('foo', [new Refresh('foo')])]);
+  const project: Project = new Project('foo', [new Sequence('foo', [new Refresh('foo')], [])], []);
   const settings: Settings = new Settings(SELENIUM_SERVER_URL, [new Firefox('foo', 800, 600)]);
   const testResult: ProjectTestResult = await REPLAY_SERVICE.testProject(project, settings);
 
-  expect.assertions(2);
-  expect(testResult.getProject()).toEqual(project);
+  expect.assertions(1);
   expect(testResult.isReplayable()).toBe(true);
 });
