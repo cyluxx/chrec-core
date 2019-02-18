@@ -18,7 +18,8 @@ test('BuildWebDriver builds proper edge', async () => {
       .manage()
       .window()
       .getSize();
-    driver.quit();
+      
+    await driver.quit();
 
     expect.assertions(3);
     expect(capabilities.get(Capability.BROWSER_NAME)).toEqual('MicrosoftEdge');
@@ -37,7 +38,8 @@ test('BuildWebDriver builds proper firefox', async () => {
     .manage()
     .window()
     .getSize();
-  driver.quit();
+
+  await driver.quit();
 
   expect.assertions(3);
   expect(capabilities.get(Capability.BROWSER_NAME)).toEqual('firefox');
@@ -55,7 +57,8 @@ test('BuildWebDriver builds proper chrome', async () => {
     .manage()
     .window()
     .getSize();
-  driver.quit();
+
+  await driver.quit();
 
   expect.assertions(3);
   expect(capabilities.get(Capability.BROWSER_NAME)).toEqual('chrome');
@@ -71,7 +74,8 @@ test('BuildWebDriver builds proper headless chrome', async () => {
     .manage()
     .window()
     .getSize();
-  driver.quit();
+
+  await driver.quit();
 
   expect.assertions(3);
   expect(capabilities.get(Capability.BROWSER_NAME)).toEqual('chrome');

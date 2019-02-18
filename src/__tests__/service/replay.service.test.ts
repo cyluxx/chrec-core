@@ -3,7 +3,7 @@ import { Action } from '../../model/action/action';
 import { Click } from '../../model/action/html-element-action/click';
 import { Refresh } from '../../model/action/refresh';
 import { BoundingBox } from '../../model/bounding-box';
-import { Firefox } from '../../model/browser/firefox';
+import { Chrome } from '../../model/browser/chrome';
 import { CssLocator } from '../../model/locator/css-locator';
 import { Locator } from '../../model/locator/locator';
 import { Project } from '../../model/project';
@@ -19,71 +19,71 @@ import { ReplayService } from '../../service/replay.service';
 
 const SELENIUM_SERVER_URL: string = process.env.SELENIUM_SERVER_URL as string;
 const REPLAY_SERVICE: ReplayService = new ReplayService();
-const FIREFOX = new Firefox('foo', 800, 600);
+const CHROME = new Chrome('foo', 800, 600, true);
 
 test('testLocator', async () => {
   jest.setTimeout(10000);
-  const driver: WebDriver = FIREFOX.buildWebDriver(SELENIUM_SERVER_URL);
+  const driver: WebDriver = CHROME.buildWebDriver(SELENIUM_SERVER_URL);
   driver.navigate().to('https://github.com/cyluxx/chrec-core');
 
   const locator: CssLocator = new CssLocator('foo', 'body');
   const testResult: LocatorTestResult = await REPLAY_SERVICE.testLocator(locator, driver);
 
+  await driver.quit();
+
   expect.assertions(2);
   expect(testResult.getLocator()).toEqual(locator);
   expect(testResult.isReplayable()).toBe(true);
-
-  await driver.quit();
 });
 
 test('testHtmlElementAction', async () => {
   jest.setTimeout(10000);
-  const driver: WebDriver = FIREFOX.buildWebDriver(SELENIUM_SERVER_URL);
+  const driver: WebDriver = CHROME.buildWebDriver(SELENIUM_SERVER_URL);
   driver.navigate().to('https://github.com/cyluxx/chrec-core');
 
   const locators: Locator[] = [new CssLocator('foo', 'body')];
   const action: Click = new Click('foo', locators, new BoundingBox(42, 42, 42, 42));
   const testResult: HtmlElementActionTestResult = await REPLAY_SERVICE.testHtmlElementAction(action, driver);
 
+  await driver.quit();
+
   expect.assertions(2);
   expect(testResult.getAction()).toEqual(action);
   expect(testResult.isReplayable()).toBe(true);
-
-  await driver.quit();
 });
 
 test('testAction', async () => {
   jest.setTimeout(10000);
-  const driver: WebDriver = FIREFOX.buildWebDriver(SELENIUM_SERVER_URL);
+  const driver: WebDriver = CHROME.buildWebDriver(SELENIUM_SERVER_URL);
 
   const action: Refresh = new Refresh('foo');
   const testResult: ActionTestResult = await REPLAY_SERVICE.testAction(action, driver);
 
+  await driver.quit();
+
   expect.assertions(2);
   expect(testResult.getAction()).toEqual(action);
   expect(testResult.isReplayable()).toBe(true);
-
-  await driver.quit();
 });
 
 test('testAction with HtmlElementAction', async () => {
   jest.setTimeout(10000);
-  const driver: WebDriver = FIREFOX.buildWebDriver(SELENIUM_SERVER_URL);
+  const driver: WebDriver = CHROME.buildWebDriver(SELENIUM_SERVER_URL);
   driver.navigate().to('https://github.com/cyluxx/chrec-core');
 
   const locators: Locator[] = [new CssLocator('foo', 'body')];
   const action: Click = new Click('foo', locators, new BoundingBox(42, 42, 42, 42));
   const testResult: ActionTestResult = await REPLAY_SERVICE.testAction(action, driver);
+  
+  await driver.quit();
 
   expect.assertions(2);
   expect(testResult.getAction()).toEqual(action);
   expect(testResult.isReplayable()).toBe(true);
-
-  await driver.quit();
 });
 
 test('testBrowser', async () => {
-  const browser: Firefox = new Firefox('foo', 800, 600);
+  const browser: Chrome = CHROME;
   const actions: Action[] = [new Refresh('foo')];
   const settings: Settings = new Settings(SELENIUM_SERVER_URL, []);
   const testResult: BrowserTestResult = await REPLAY_SERVICE.testBrowser(browser, actions, settings);
@@ -95,7 +95,7 @@ test('testBrowser', async () => {
 
 test('testSequence', async () => {
   const sequence: Sequence = new Sequence('foo', [new Refresh('foo')], []);
-  const settings: Settings = new Settings(SELENIUM_SERVER_URL, [new Firefox('foo', 800, 600)]);
+  const settings: Settings = new Settings(SELENIUM_SERVER_URL, [CHROME]);
   const testResult: SequenceTestResult = await REPLAY_SERVICE.testSequence(sequence, settings);
 
   expect.assertions(1);
@@ -104,7 +104,7 @@ test('testSequence', async () => {
 
 test('testProject', async () => {
   const project: Project = new Project('foo', [new Sequence('foo', [new Refresh('foo')], [])], []);
-  const settings: Settings = new Settings(SELENIUM_SERVER_URL, [new Firefox('foo', 800, 600)]);
+  const settings: Settings = new Settings(SELENIUM_SERVER_URL, [CHROME]);
   const testResult: ProjectTestResult = await REPLAY_SERVICE.testProject(project, settings);
 
   expect.assertions(1);

@@ -3,56 +3,60 @@ import { Back } from '../../model/action/back';
 import { Forward } from '../../model/action/forward';
 import { GoTo } from '../../model/action/go-to';
 import { Refresh } from '../../model/action/refresh';
-import { Firefox } from '../../model/browser/firefox';
-import { Code } from '../../model/status';
+import { Chrome } from '../../model/browser/chrome';
+import { Code, Status } from '../../model/status';
 
 const SELENIUM_SERVER_URL: string = process.env.SELENIUM_SERVER_URL as string;
-const FIREFOX: Firefox = new Firefox('foo', 800, 600);
+const CHROME: Chrome = new Chrome('foo', 800, 600, true);
 
 test('Back run returns OK status', async () => {
   jest.setTimeout(10000);
-  const driver: WebDriver = FIREFOX.buildWebDriver(SELENIUM_SERVER_URL);
+  const driver: WebDriver = CHROME.buildWebDriver(SELENIUM_SERVER_URL);
 
   const action: Back = new Back('foo');
-
-  expect.assertions(1);
-  expect((await action.run(driver)).getCode()).toBe(Code.OK);
+  const status: Status = await action.run(driver);
 
   await driver.quit();
+
+  expect.assertions(1);
+  expect(status.getCode()).toBe(Code.OK);
 });
 
 test('Forward run returns OK status', async () => {
   jest.setTimeout(10000);
-  const driver: WebDriver = FIREFOX.buildWebDriver(SELENIUM_SERVER_URL);
+  const driver: WebDriver = CHROME.buildWebDriver(SELENIUM_SERVER_URL);
 
   const action: Forward = new Forward('foo');
-
-  expect.assertions(1);
-  expect((await action.run(driver)).getCode()).toBe(Code.OK);
+  const status: Status = await action.run(driver);
 
   await driver.quit();
+
+  expect.assertions(1);
+  expect(status.getCode()).toBe(Code.OK);
 });
 
 test('GoTo run returns OK status', async () => {
   jest.setTimeout(10000);
-  const driver: WebDriver = FIREFOX.buildWebDriver(SELENIUM_SERVER_URL);
+  const driver: WebDriver = CHROME.buildWebDriver(SELENIUM_SERVER_URL);
 
   const action: GoTo = new GoTo('foo', 'https://github.com/cyluxx/chrec-core');
-
-  expect.assertions(1);
-  expect((await action.run(driver)).getCode()).toBe(Code.OK);
+  const status: Status = await action.run(driver);
 
   await driver.quit();
+
+  expect.assertions(1);
+  expect(status.getCode()).toBe(Code.OK);
 });
 
 test('Refresh run returns OK status', async () => {
   jest.setTimeout(10000);
-  const driver: WebDriver = FIREFOX.buildWebDriver(SELENIUM_SERVER_URL);
+  const driver: WebDriver = CHROME.buildWebDriver(SELENIUM_SERVER_URL);
 
   const action: Refresh = new Refresh('foo');
-
-  expect.assertions(1);
-  expect((await action.run(driver)).getCode()).toBe(Code.OK);
+  const status: Status = await action.run(driver);
 
   await driver.quit();
+
+  expect.assertions(1);
+  expect(status.getCode()).toBe(Code.OK);
 });
