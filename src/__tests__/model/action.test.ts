@@ -7,7 +7,7 @@ import { Chrome } from '../../model/browser/chrome';
 import { Code, Status } from '../../model/status';
 
 const SELENIUM_SERVER_URL: string = process.env.SELENIUM_SERVER_URL as string;
-const CHROME: Chrome = new Chrome('foo', 800, 600, true);
+const CHROME: Chrome = new Chrome('foo', 800, 600, false);
 
 test('Back run returns OK status', async () => {
   jest.setTimeout(10000);

@@ -1,4 +1,4 @@
-import { WebDriver, WebElement } from 'selenium-webdriver';
+import { WebDriver } from 'selenium-webdriver';
 import { Click } from '../../model/action/html-element-action/click';
 import { BoundingBox } from '../../model/bounding-box';
 import { Chrome } from '../../model/browser/chrome';
@@ -14,12 +14,11 @@ test('HtmlElementAction findElement has valid locator', async () => {
 
   const action: Click = new Click('foo', [], new BoundingBox(42, 42, 42, 42));
   action.setValidLocator(new CssLocator('foo', '#not-a-valid-locator-value'));
-  const element: WebElement = await action.findElement(driver);
-
-  await driver.quit();
 
   expect.assertions(1);
-  expect(element).toThrow();
+  await expect(action.findElement(driver)).rejects.toThrow();
+
+  await driver.quit();
 });
 
 test('HtmlElementAction findElement has invalid locator', async () => {
@@ -29,10 +28,9 @@ test('HtmlElementAction findElement has invalid locator', async () => {
 
   const action: Click = new Click('foo', [], new BoundingBox(42, 42, 42, 42));
   action.setValidLocator(new CssLocator('foo', 'body'));
-  const element: WebElement = await action.findElement(driver);
-
-  await driver.quit();
 
   expect.assertions(1);
-  expect(element).toBeDefined();
+  await expect(action.findElement(driver)).resolves.toBeDefined();
+
+  await driver.quit();
 });

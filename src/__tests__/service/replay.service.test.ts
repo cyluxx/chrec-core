@@ -1,5 +1,6 @@
 import { WebDriver } from 'selenium-webdriver';
 import { Action } from '../../model/action/action';
+import { GoTo } from '../../model/action/go-to';
 import { Click } from '../../model/action/html-element-action/click';
 import { Refresh } from '../../model/action/refresh';
 import { BoundingBox } from '../../model/bounding-box';
@@ -19,7 +20,7 @@ import { ReplayService } from '../../service/replay.service';
 
 const SELENIUM_SERVER_URL: string = process.env.SELENIUM_SERVER_URL as string;
 const REPLAY_SERVICE: ReplayService = new ReplayService();
-const CHROME = new Chrome('foo', 800, 600, true);
+const CHROME = new Chrome('foo', 800, 600, false);
 
 test('testLocator', async () => {
   jest.setTimeout(10000);
