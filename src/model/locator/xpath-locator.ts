@@ -1,7 +1,7 @@
 import { By, WebDriver, WebElement } from 'selenium-webdriver';
+import { Node, NodeType } from '../../export/alex/node';
 import { Code, Status } from '../status';
 import { Locator } from './locator';
-import { Node, NodeType } from '../../export/alex-export';
 
 export class XpathLocator extends Locator {
   constructor(methodName: string, value: string) {

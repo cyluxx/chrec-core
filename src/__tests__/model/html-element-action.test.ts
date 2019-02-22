@@ -13,7 +13,7 @@ test('HtmlElementAction findElement has valid locator', async () => {
   driver.navigate().to('https://github.com/cyluxx/chrec-core');
 
   const action: Click = new Click('foo', [], new BoundingBox(42, 42, 42, 42));
-  action.setValidLocator(new CssLocator('foo', '#not-a-valid-locator-value'));
+  action.setRecommendedLocator(new CssLocator('foo', '#not-a-valid-locator-value'));
 
   expect.assertions(1);
   await expect(action.findElement(driver)).rejects.toThrow();
@@ -27,7 +27,7 @@ test('HtmlElementAction findElement has invalid locator', async () => {
   driver.navigate().to('https://github.com/cyluxx/chrec-core');
 
   const action: Click = new Click('foo', [], new BoundingBox(42, 42, 42, 42));
-  action.setValidLocator(new CssLocator('foo', 'body'));
+  action.setRecommendedLocator(new CssLocator('foo', 'body'));
 
   expect.assertions(1);
   await expect(action.findElement(driver)).resolves.toBeDefined();

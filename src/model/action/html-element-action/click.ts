@@ -1,9 +1,9 @@
 import { WebDriver, WebElement } from 'selenium-webdriver';
+import { WebClick } from '../../../export/alex/action';
 import { BoundingBox } from '../../bounding-box';
 import { Locator } from '../../locator/locator';
 import { Code, Status } from '../../status';
 import { HtmlElementAction } from './html-element-action';
-import { WebClick } from '../../../export/alex-export';
 
 export class Click extends HtmlElementAction {
   constructor(image: string, locators: Locator[], boundingBox: BoundingBox) {

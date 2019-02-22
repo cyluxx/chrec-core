@@ -1,6 +1,6 @@
 import { WebDriver, WebElement } from 'selenium-webdriver';
+import { Node } from '../../export/alex/node';
 import { Status } from '../status';
-import { Node } from '../../export/alex-export';
 
 export abstract class Locator {
   constructor(protected methodName: string, protected value: string) {}

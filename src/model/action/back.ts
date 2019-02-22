@@ -1,7 +1,7 @@
 import { WebDriver } from 'selenium-webdriver';
+import { WebBrowser } from '../../export/alex/action';
 import { Code, Status } from '../status';
 import { Action } from './action';
-import { WebBrowser } from '../../export/alex-export';
 
 export class Back extends Action {
   constructor(image: string) {

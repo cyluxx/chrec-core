@@ -1,6 +1,6 @@
 import { WebDriver } from 'selenium-webdriver';
+import { Action as AlexAction } from '../../export/alex/action';
 import { Status } from '../status';
-import { Action as AlexAction } from '../../export/alex-export';
 
 export abstract class Action {
   constructor(private image: string) {}

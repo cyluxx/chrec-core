@@ -1,9 +1,9 @@
 import { WebDriver, WebElement } from 'selenium-webdriver';
+import { Action as AlexAction } from '../../../export/alex/action';
 import { BoundingBox } from '../../bounding-box';
 import { Locator } from '../../locator/locator';
 import { Status } from '../../status';
 import { Action } from '../action';
-import { Action as AlexAction } from '../../../export/alex-export';
 
 export abstract class HtmlElementAction extends Action {
   private recommendedLocator!: Locator;

@@ -1,8 +1,11 @@
+import { DataOptions, set } from 'electron-json-storage';
 import * as util from 'util';
-import { set, DataOptions } from 'electron-json-storage';
-import { AlexExport, SymbolGroup, Symbol, Step, Action as AlexAction, Node, NodeType } from '../export/alex-export';
+import { AlexExport } from '../export/alex/alex-export';
+import { Step } from '../export/alex/step';
+import { Symbol as AlexSymbol } from '../export/alex/symbol';
+import { SymbolGroup } from '../export/alex/symbol-group';
 import { Project } from '../model/project';
-import { Status, Code } from '../model/status';
+import { Code, Status } from '../model/status';
 
 export class AlexExportService {
   private set: (fileName: string, object: object, options: DataOptions, error: any) => Promise<void>;
@@ -12,15 +15,15 @@ export class AlexExportService {
   }
 
   public convert(project: Project): AlexExport {
-    let symbols: Symbol[] = [];
-    for (let sequence of project.getSequences()) {
-      let steps: Step[] = [];
+    const symbols: AlexSymbol[] = [];
+    for (const sequence of project.getSequences()) {
+      const steps: Step[] = [];
       for (let i: number = 0; i < sequence.getActions().length; i++) {
         steps.push(new Step(sequence.getActions()[i].toAlexAction(), i));
       }
-      symbols.push(new Symbol(sequence.name, steps));
+      symbols.push(new AlexSymbol(sequence.name, steps));
     }
-    let symbolGroup = new SymbolGroup(symbols);
+    const symbolGroup = new SymbolGroup(symbols);
     return new AlexExport(symbolGroup);
   }
 
