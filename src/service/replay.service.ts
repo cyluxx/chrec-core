@@ -26,14 +26,14 @@ export class ReplayService {
   public async testSequence(sequence: Sequence, settings: Settings): Promise<SequenceTestResult> {
     const browserTestResults: BrowserTestResult[] = [];
     for (const browser of settings.getBrowsers()) {
-      browserTestResults.push(await this.testBrowser(browser, sequence.getActions(), settings));
+      browserTestResults.push(await this.testBrowser(browser, sequence.getActions(), settings.getSeleniumServerUrl()));
     }
     return new SequenceTestResult(new Date(), browserTestResults);
   }
 
-  public async testBrowser(browser: Browser, actions: Action[], settings: Settings): Promise<BrowserTestResult> {
+  public async testBrowser(browser: Browser, actions: Action[], seleniumServerUrl: string): Promise<BrowserTestResult> {
     const actionTestResults: ActionTestResult[] = [];
-    const driver: WebDriver = browser.buildWebDriver(settings.getSeleniumServerUrl());
+    const driver: WebDriver = browser.buildWebDriver(seleniumServerUrl);
     for (const action of actions) {
       actionTestResults.push(await this.testAction(action, driver));
     }

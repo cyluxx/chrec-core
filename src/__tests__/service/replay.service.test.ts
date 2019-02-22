@@ -56,6 +56,7 @@ test('testHtmlElementAction', async () => {
 test('testAction', async () => {
   jest.setTimeout(10000);
   const driver: WebDriver = CHROME.buildWebDriver(SELENIUM_SERVER_URL);
+  driver.navigate().to('https://github.com/cyluxx/chrec-core');
 
   const action: Refresh = new Refresh('foo');
   const testResult: ActionTestResult = await REPLAY_SERVICE.testAction(action, driver);
@@ -84,10 +85,10 @@ test('testAction with HtmlElementAction', async () => {
 });
 
 test('testBrowser', async () => {
+  jest.setTimeout(10000);
   const browser: Chrome = CHROME;
-  const actions: Action[] = [new Refresh('foo')];
-  const settings: Settings = new Settings(SELENIUM_SERVER_URL, []);
-  const testResult: BrowserTestResult = await REPLAY_SERVICE.testBrowser(browser, actions, settings);
+  const actions: Action[] = [new GoTo('foo', 'https://github.com/cyluxx/chrec-core')];
+  const testResult: BrowserTestResult = await REPLAY_SERVICE.testBrowser(browser, actions, SELENIUM_SERVER_URL);
 
   expect.assertions(2);
   expect(testResult.getBrowser()).toEqual(browser);
@@ -95,6 +96,7 @@ test('testBrowser', async () => {
 });
 
 test('testSequence', async () => {
+  jest.setTimeout(10000);
   const sequence: Sequence = new Sequence('foo', [new Refresh('foo')], []);
   const settings: Settings = new Settings(SELENIUM_SERVER_URL, [CHROME]);
   const testResult: SequenceTestResult = await REPLAY_SERVICE.testSequence(sequence, settings);
@@ -104,6 +106,7 @@ test('testSequence', async () => {
 });
 
 test('testProject', async () => {
+  jest.setTimeout(10000);
   const project: Project = new Project('foo', [new Sequence('foo', [new Refresh('foo')], [])], []);
   const settings: Settings = new Settings(SELENIUM_SERVER_URL, [CHROME]);
   const testResult: ProjectTestResult = await REPLAY_SERVICE.testProject(project, settings);
