@@ -31,8 +31,8 @@ export class Core {
     return sequence;
   }
 
-  public exportToAlexJson(project: Project, path: string): void {
+  public exportToAlexJson(project: Project, dirName: string): void {
     const alexExport: AlexExport = this.alexExportService.convert(project);
-    this.alexExportService.save(project.getName(), alexExport, path);
+    this.alexExportService.save(dirName + project.getName(), alexExport);
   }
 }

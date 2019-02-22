@@ -1,3 +1,4 @@
+import writeJsonFile from 'write-json-file';
 import { AlexExport } from '../export/alex/alex-export';
 import { Step } from '../export/alex/step';
 import { Symbol as AlexSymbol } from '../export/alex/symbol';
@@ -19,13 +20,12 @@ export class AlexExportService {
     return new AlexExport(symbolGroup);
   }
 
-  public save(fileName: string, alexExport: AlexExport, path: string): Status {
+  public async save(absolutePath: string, alexExport: AlexExport): Promise<Status> {
     try {
-      // TODO: Export function
-      return new Status(Code.ALEX_EXPORT_FAILED, `Saved ALEX export ${fileName} successfully at ${path}!`);
+      await writeJsonFile(absolutePath, alexExport);
+      return new Status(Code.OK, `Saved ALEX export successfully at ${absolutePath}!`);
     } catch (error) {
       throw new Error(error.message);
-      // return new Status(Code.ALEX_EXPORT_FAILED, 'Failed to save ALEX export to file system!');
     }
   }
 }

@@ -1,3 +1,4 @@
+import path from 'path';
 import { WebClick, WebGoTo } from '../../export/alex/action';
 import { AlexExport } from '../../export/alex/alex-export';
 import { Node, NodeType } from '../../export/alex/node';
@@ -19,6 +20,7 @@ test('Project converts to proper AlexExport', () => {
   const locator: XpathLocator = new XpathLocator('foo', 'body');
   const htmlElementAction: Click = new Click('foo', [locator], new BoundingBox(42, 42, 42, 42));
   const action: GoTo = new GoTo('foo', 'https://github.com/cyluxx/chrec-core');
+  htmlElementAction.setRecommendedLocator(locator);
   const sequence: Sequence = new Sequence('Sequence Name', [action, htmlElementAction], []);
   const project: Project = new Project('Project Name', [sequence], []);
 
@@ -45,8 +47,8 @@ test('AlexExport is properly written to file', async () => {
   const symbolGroup: SymbolGroup = new SymbolGroup('SymbolGroup Name', [alexSymbol]);
   const alexExport: AlexExport = new AlexExport(symbolGroup);
 
-  const status: Status = await ALEX_EXPORT_SERVICE.save('File Name', alexExport, '/');
+  const status: Status = await ALEX_EXPORT_SERVICE.save(path.resolve(__dirname, 'fileName.json'), alexExport);
 
   expect.assertions(1);
-  expect(status.getCode).toBe(Code.OK);
+  expect(status.getCode()).toBe(Code.OK);
 });
