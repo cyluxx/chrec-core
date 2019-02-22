@@ -18,7 +18,7 @@ test('BuildWebDriver builds proper edge', async () => {
       .manage()
       .window()
       .getSize();
-      
+
     await driver.quit();
 
     expect.assertions(3);

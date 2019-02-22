@@ -59,7 +59,7 @@ export class ReplayService {
       const testResult = await this.testLocator(locator, driver);
       locatorTestResults.push(testResult);
       if (testResult.isReplayable()) {
-        action.setValidLocator(testResult.getLocator());
+        action.setRecommendedLocator(testResult.getLocator());
       }
     }
     await action.run(driver);

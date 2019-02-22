@@ -1,6 +1,7 @@
 import { By, WebDriver, WebElement } from 'selenium-webdriver';
 import { Code, Status } from '../status';
 import { Locator } from './locator';
+import { NodeType, Node } from '../../export/alex-export';
 
 export class CssLocator extends Locator {
   constructor(methodName: string, value: string) {
@@ -22,6 +23,10 @@ export class CssLocator extends Locator {
 
   public async findElement(driver: WebDriver): Promise<WebElement> {
     return await driver.findElement(By.css(this.value));
+  }
+
+  public toAlexNode(): Node {
+    return new Node(this.value, NodeType.CSS);
   }
 
   private ok(): Status {

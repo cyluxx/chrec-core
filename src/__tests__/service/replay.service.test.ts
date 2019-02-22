@@ -75,7 +75,7 @@ test('testAction with HtmlElementAction', async () => {
   const locators: Locator[] = [new CssLocator('foo', 'body')];
   const action: Click = new Click('foo', locators, new BoundingBox(42, 42, 42, 42));
   const testResult: ActionTestResult = await REPLAY_SERVICE.testAction(action, driver);
-  
+
   await driver.quit();
 
   expect.assertions(2);

@@ -3,6 +3,7 @@ import { BoundingBox } from '../../bounding-box';
 import { Locator } from '../../locator/locator';
 import { Code, Status } from '../../status';
 import { HtmlElementAction } from './html-element-action';
+import { WebClick } from '../../../export/alex-export';
 
 export class Click extends HtmlElementAction {
   constructor(image: string, locators: Locator[], boundingBox: BoundingBox) {
@@ -17,5 +18,9 @@ export class Click extends HtmlElementAction {
     } catch (error) {
       return new Status(Code.HTML_ELEMENT_ACTION_FAILED, 'Click Action failed!');
     }
+  }
+
+  public toAlexAction(): WebClick {
+    return new WebClick(this.getRecommendedLocator().toAlexNode());
   }
 }

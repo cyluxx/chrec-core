@@ -1,5 +1,6 @@
 import { WebDriver } from 'selenium-webdriver';
 import { Status } from '../status';
+import { Action as AlexAction } from '../../export/alex-export';
 
 export abstract class Action {
   constructor(private image: string) {}
@@ -13,4 +14,6 @@ export abstract class Action {
   }
 
   public abstract async run(driver: WebDriver): Promise<Status>;
+
+  public abstract toAlexAction(): AlexAction;
 }
