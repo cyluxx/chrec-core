@@ -45,7 +45,7 @@ test('AlexExport is properly written to file', async () => {
   const symbolGroup: SymbolGroup = new SymbolGroup('SymbolGroup Name', [alexSymbol]);
   const alexExport: AlexExport = new AlexExport(symbolGroup);
 
-  const status: Status = await ALEX_EXPORT_SERVICE.save('File Name', alexExport, './');
+  const status: Status = await ALEX_EXPORT_SERVICE.save('File Name', alexExport, '/');
 
   expect.assertions(1);
   expect(status.getCode).toBe(Code.OK);

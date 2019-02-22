@@ -58,9 +58,7 @@
     "typescript": "^3.3.3"
   },
   "dependencies": {
-    "@types/electron-json-storage": "^4.0.0",
     "@types/selenium-webdriver": "^3.0.14",
-    "electron-json-storage": "^4.1.6",
     "selenium-webdriver": "^3.6.0"
   }
 }

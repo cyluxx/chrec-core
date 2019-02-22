@@ -1,5 +1,3 @@
-import { DataOptions, set } from 'electron-json-storage';
-import * as util from 'util';
 import { AlexExport } from '../export/alex/alex-export';
 import { Step } from '../export/alex/step';
 import { Symbol as AlexSymbol } from '../export/alex/symbol';
@@ -8,12 +6,6 @@ import { Project } from '../model/project';
 import { Code, Status } from '../model/status';
 
 export class AlexExportService {
-  private set: (fileName: string, object: object, options: DataOptions, error: any) => Promise<void>;
-
-  constructor() {
-    this.set = util.promisify(set);
-  }
-
   public convert(project: Project): AlexExport {
     const symbols: AlexSymbol[] = [];
     for (const sequence of project.getSequences()) {
@@ -27,10 +19,10 @@ export class AlexExportService {
     return new AlexExport(symbolGroup);
   }
 
-  public async save(fileName: string, alexExport: AlexExport, path: string): Promise<Status> {
+  public save(fileName: string, alexExport: AlexExport, path: string): Status {
     try {
-      await this.set(fileName, alexExport, { dataPath: path }, 'Save Error');
-      return new Status(Code.OK, `Saved ALEX export ${fileName} successfully at ${path}!`);
+      // TODO: Export function
+      return new Status(Code.ALEX_EXPORT_FAILED, `Saved ALEX export ${fileName} successfully at ${path}!`);
     } catch (error) {
       throw new Error(error.message);
       // return new Status(Code.ALEX_EXPORT_FAILED, 'Failed to save ALEX export to file system!');
