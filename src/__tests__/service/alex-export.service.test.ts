@@ -1,4 +1,4 @@
-import path from 'path';
+import * as path from 'path';
 import { WebClick, WebGoTo } from '../../export/alex/action';
 import { AlexExport } from '../../export/alex/alex-export';
 import { Node, NodeType } from '../../export/alex/node';
@@ -47,7 +47,7 @@ test('AlexExport is properly written to file', async () => {
   const symbolGroup: SymbolGroup = new SymbolGroup('SymbolGroup Name', [alexSymbol]);
   const alexExport: AlexExport = new AlexExport(symbolGroup);
 
-  const status: Status = await ALEX_EXPORT_SERVICE.save(path.resolve(__dirname, 'fileName.json'), alexExport);
+  const status: Status = await ALEX_EXPORT_SERVICE.save(path.resolve(__dirname, '..', 'assets', 'alex-export.json'), alexExport);
 
   expect.assertions(1);
   expect(status.getCode()).toBe(Code.OK);

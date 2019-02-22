@@ -5,6 +5,7 @@ import { Click } from '../../model/action/html-element-action/click';
 import { Refresh } from '../../model/action/refresh';
 import { BoundingBox } from '../../model/bounding-box';
 import { Chrome } from '../../model/browser/chrome';
+import { Firefox } from '../../model/browser/firefox';
 import { CssLocator } from '../../model/locator/css-locator';
 import { Locator } from '../../model/locator/locator';
 import { Project } from '../../model/project';
@@ -86,7 +87,7 @@ test('testAction with HtmlElementAction', async () => {
 
 test('testBrowser', async () => {
   jest.setTimeout(10000);
-  const browser: Chrome = CHROME;
+  const browser: Firefox = new Firefox('foo', 800, 600);
   const actions: Action[] = [new GoTo('foo', 'https://github.com/cyluxx/chrec-core')];
   const testResult: BrowserTestResult = await REPLAY_SERVICE.testBrowser(browser, actions, SELENIUM_SERVER_URL);
 
@@ -98,7 +99,7 @@ test('testBrowser', async () => {
 test('testSequence', async () => {
   jest.setTimeout(10000);
   const sequence: Sequence = new Sequence('foo', [new Refresh('foo')], []);
-  const settings: Settings = new Settings(SELENIUM_SERVER_URL, [CHROME]);
+  const settings: Settings = new Settings(SELENIUM_SERVER_URL, [new Firefox('foo', 800, 600)]);
   const testResult: SequenceTestResult = await REPLAY_SERVICE.testSequence(sequence, settings);
 
   expect.assertions(1);
