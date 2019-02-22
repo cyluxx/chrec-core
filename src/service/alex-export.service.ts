@@ -21,9 +21,9 @@ export class AlexExportService {
       for (let i: number = 0; i < sequence.getActions().length; i++) {
         steps.push(new Step(sequence.getActions()[i].toAlexAction(), i));
       }
-      symbols.push(new AlexSymbol(sequence.name, steps));
+      symbols.push(new AlexSymbol(sequence.getName(), steps));
     }
-    const symbolGroup = new SymbolGroup(symbols);
+    const symbolGroup = new SymbolGroup(project.getName(), symbols);
     return new AlexExport(symbolGroup);
   }
 
@@ -32,7 +32,8 @@ export class AlexExportService {
       await this.set(fileName, alexExport, { dataPath: path }, 'Save Error');
       return new Status(Code.OK, `Saved ALEX export ${fileName} successfully at ${path}!`);
     } catch (error) {
-      return new Status(Code.ALEX_EXPORT_FAILED, 'Failed to save ALEX export to file system!');
+      throw new Error(error.message);
+      // return new Status(Code.ALEX_EXPORT_FAILED, 'Failed to save ALEX export to file system!');
     }
   }
 }

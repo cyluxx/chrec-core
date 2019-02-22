@@ -1,13 +1,13 @@
 import { Step } from './step';
 
 export class Symbol {
-  private description: string = '';
-  private expectedResult: string = '';
-  private successOutput = null;
-  private inputs = [];
-  private outputs = [];
+  public description: string = '';
+  public expectedResult: string = '';
+  public successOutput = null;
+  public inputs = [];
+  public outputs = [];
 
-  constructor(private name: string, private steps: Step[]) {
+  constructor(public name: string, public steps: Step[]) {
     this.name = name;
     this.steps = steps;
   }

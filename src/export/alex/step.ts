@@ -1,13 +1,13 @@
 import { Action as AlexAction } from './action';
 
 export class Step {
-  private type: string = 'action';
-  private disabled: boolean = false;
-  private ignoreFailure: boolean = false;
-  private negated: boolean = false;
-  private errorOutput = null;
+  public type: string = 'action';
+  public disabled: boolean = false;
+  public ignoreFailure: boolean = false;
+  public negated: boolean = false;
+  public errorOutput = null;
 
-  constructor(private action: AlexAction, private position: number) {
+  constructor(public action: AlexAction, public position: number) {
     this.action = action;
     this.position = position;
   }

@@ -1,5 +1,5 @@
 export class Node {
-  constructor(private selector: string, private type: NodeType) {
+  constructor(public selector: string, public type: NodeType) {
     this.selector = selector;
     this.type = type;
   }

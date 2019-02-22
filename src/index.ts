@@ -1,15 +1,19 @@
+import { AlexExport } from './export/alex/alex-export';
 import { Project } from './model/project';
 import { Sequence } from './model/sequence';
 import { Settings } from './model/settings';
 import { ProjectTestResult } from './model/test-result/project-test-result';
 import { SequenceTestResult } from './model/test-result/sequence-test-result';
+import { AlexExportService } from './service/alex-export.service';
 import { ReplayService } from './service/replay.service';
 
 export class Core {
+  private alexExportService: AlexExportService;
   private replayService: ReplayService;
 
   constructor() {
     this.replayService = new ReplayService();
+    this.alexExportService = new AlexExportService();
   }
 
   public async addProjectTest(project: Project, settings: Settings): Promise<Project> {
@@ -25,5 +29,10 @@ export class Core {
     const testResult: SequenceTestResult = await this.replayService.testSequence(sequence, settings);
     sequence.addTestResult(testResult);
     return sequence;
+  }
+
+  public exportToAlexJson(project: Project, path: string): void {
+    const alexExport: AlexExport = this.alexExportService.convert(project);
+    this.alexExportService.save(project.getName(), alexExport, path);
   }
 }

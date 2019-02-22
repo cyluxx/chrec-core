@@ -21,6 +21,9 @@ export class Click extends HtmlElementAction {
   }
 
   public toAlexAction(): WebClick {
-    return new WebClick(this.getRecommendedLocator().toAlexNode());
+    if (this.getRecommendedLocator()) {
+      return new WebClick(this.getRecommendedLocator().toAlexNode());
+    }
+    throw new Error('No recommended locator specified, yet! Please run at least one test for this sequence before exporting it.');
   }
 }

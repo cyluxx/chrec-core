@@ -1,12 +1,10 @@
 import { Symbol as AlexSymbol } from './symbol';
 
 export class SymbolGroup {
-  private name: string = 'ChRec Imports';
-  private parent = null;
-  private symbols: AlexSymbol[] = [];
-  private groups = [];
+  public parent = null;
+  public groups = [];
 
-  constructor(symbols: AlexSymbol[]) {
-    this.symbols = symbols;
+  constructor(public name: string, public symbols: AlexSymbol[]) { 
+    this.name = name + ' (ChRec import)';
   }
 }
