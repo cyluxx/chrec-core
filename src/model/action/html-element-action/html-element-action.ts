@@ -8,8 +8,8 @@ import { Action } from '../action';
 export abstract class HtmlElementAction extends Action {
   private recommendedLocator!: Locator;
 
-  constructor(image: string, protected locators: Locator[], protected boundingBox: BoundingBox) {
-    super(image);
+  constructor(className: string, image: string, protected locators: Locator[], protected boundingBox: BoundingBox) {
+    super(className, image);
   }
 
   public getRecommendedLocator(): Locator {

@@ -6,8 +6,26 @@ import { SymbolGroup } from '../export/alex/symbol-group';
 import { Project } from '../model/project';
 import { Code, Status } from '../model/status';
 
-export class AlexExportService {
-  public convert(project: Project): AlexExport {
+export class ExportService {
+  public async exportToAlexJson(absolutePath: string, project: Project): Promise<Status> {
+    try {
+      await writeJsonFile(absolutePath, this.convertToAlex(project));
+      return new Status(Code.OK, `Saved ALEX export successfully at ${absolutePath}!`);
+    } catch (error) {
+      throw new Error(error.message);
+    }
+  }
+
+  public async exportToChrecJson(absolutePath: string, project: Project): Promise<Status> {
+    try {
+      await writeJsonFile(absolutePath, project);
+      return new Status(Code.OK, `Saved ChRec export successfully at ${absolutePath}!`);
+    } catch (error) {
+      throw new Error(error.message);
+    }
+  }
+
+  public convertToAlex(project: Project): AlexExport {
     const symbols: AlexSymbol[] = [];
     for (const sequence of project.getSequences()) {
       const steps: Step[] = [];
@@ -18,14 +36,5 @@ export class AlexExportService {
     }
     const symbolGroup = new SymbolGroup(project.getName(), symbols);
     return new AlexExport(symbolGroup);
-  }
-
-  public async save(absolutePath: string, alexExport: AlexExport): Promise<Status> {
-    try {
-      await writeJsonFile(absolutePath, alexExport);
-      return new Status(Code.OK, `Saved ALEX export successfully at ${absolutePath}!`);
-    } catch (error) {
-      throw new Error(error.message);
-    }
   }
 }

@@ -5,7 +5,7 @@ import { Action } from './action';
 
 export class Refresh extends Action {
   constructor(image: string) {
-    super(image);
+    super('Refresh', image);
   }
 
   public async run(driver: WebDriver): Promise<Status> {

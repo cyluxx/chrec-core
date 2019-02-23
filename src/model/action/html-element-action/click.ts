@@ -7,7 +7,7 @@ import { HtmlElementAction } from './html-element-action';
 
 export class Click extends HtmlElementAction {
   constructor(image: string, locators: Locator[], boundingBox: BoundingBox) {
-    super(image, locators, boundingBox);
+    super('Click', image, locators, boundingBox);
   }
 
   public async run(driver: WebDriver): Promise<Status> {
@@ -24,6 +24,8 @@ export class Click extends HtmlElementAction {
     if (this.getRecommendedLocator()) {
       return new WebClick(this.getRecommendedLocator().toAlexNode());
     }
-    throw new Error('No recommended locator specified, yet! Please run at least one test for this sequence before exporting it.');
+    throw new Error(
+      'No recommended locator specified, yet! Please run at least one test for this sequence before exporting it.',
+    );
   }
 }

@@ -4,7 +4,7 @@ import { Browser } from './browser';
 
 export class Chrome extends Browser {
   constructor(name: string, width: number, height: number, private headless: boolean) {
-    super(name, width, height);
+    super('Chrome', name, width, height);
   }
 
   public buildWebDriver(seleniumServerUrl: string): WebDriver {

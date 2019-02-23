@@ -1,19 +1,21 @@
-import { AlexExport } from './export/alex/alex-export';
 import { Project } from './model/project';
 import { Sequence } from './model/sequence';
 import { Settings } from './model/settings';
 import { ProjectTestResult } from './model/test-result/project-test-result';
 import { SequenceTestResult } from './model/test-result/sequence-test-result';
-import { AlexExportService } from './service/alex-export.service';
+import { ExportService } from './service/export.service';
+import { ImportService } from './service/import.service';
 import { ReplayService } from './service/replay.service';
 
 export class Core {
-  private alexExportService: AlexExportService;
+  private exportService: ExportService;
+  private importService: ImportService;
   private replayService: ReplayService;
 
   constructor() {
+    this.exportService = new ExportService();
+    this.importService = new ImportService();
     this.replayService = new ReplayService();
-    this.alexExportService = new AlexExportService();
   }
 
   public async addProjectTest(project: Project, settings: Settings): Promise<Project> {
@@ -32,7 +34,14 @@ export class Core {
   }
 
   public exportToAlexJson(project: Project, dirName: string): void {
-    const alexExport: AlexExport = this.alexExportService.convert(project);
-    this.alexExportService.save(dirName + project.getName(), alexExport);
+    this.exportService.exportToAlexJson(dirName + project.getName(), project);
+  }
+
+  public exportToChrecJson(project: Project, dirName: string): void {
+    this.exportService.exportToChrecJson(dirName + project.getName(), project);
+  }
+
+  public async importFromChrecJson(absolutePath: string): Promise<Project> {
+    return this.importService.importFromChrecJson(absolutePath);
   }
 }

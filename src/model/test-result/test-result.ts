@@ -1,13 +1,9 @@
-export abstract class TestResult {
-  constructor(private date: Date) {}
+export interface TestResult {
+  getDate(): Date;
 
-  public getDate(): Date {
-    return this.date;
-  }
+  isReplayable(): boolean;
 
-  public abstract isReplayable(): boolean;
+  getSuccessfulLocatorCount(): number;
 
-  public abstract getSuccessfulLocatorCount(): number;
-
-  public abstract getTotalLocatorCount(): number;
+  getTotalLocatorCount(): number;
 }

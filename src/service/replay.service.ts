@@ -50,10 +50,7 @@ export class ReplayService {
     }
   }
 
-  public async testHtmlElementAction(
-    action: HtmlElementAction,
-    driver: WebDriver,
-  ): Promise<HtmlElementActionTestResult> {
+  public async testHtmlElementAction(action: HtmlElementAction, driver: WebDriver): Promise<HtmlElementActionTestResult> {
     const locatorTestResults: LocatorTestResult[] = [];
     for (const locator of action.getLocators()) {
       const testResult = await this.testLocator(locator, driver);

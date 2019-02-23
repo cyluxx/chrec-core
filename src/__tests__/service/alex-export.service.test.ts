@@ -32,7 +32,9 @@ test('Project converts to proper AlexExport', () => {
   expect(alexExport.symbolGroups[0].symbols[0].name).toEqual('Sequence Name');
   expect(alexExport.symbolGroups[0].symbols[0].steps[0].position).toBe(0);
   expect(alexExport.symbolGroups[0].symbols[0].steps[0].action.type).toEqual('web_goto');
-  expect((alexExport.symbolGroups[0].symbols[0].steps[0].action as WebGoTo).url).toEqual('https://github.com/cyluxx/chrec-core');
+  expect((alexExport.symbolGroups[0].symbols[0].steps[0].action as WebGoTo).url).toEqual(
+    'https://github.com/cyluxx/chrec-core',
+  );
   expect(alexExport.symbolGroups[0].symbols[0].steps[1].position).toBe(1);
   expect(alexExport.symbolGroups[0].symbols[0].steps[1].action.type).toEqual('web_click');
   expect((alexExport.symbolGroups[0].symbols[0].steps[1].action as WebClick).node.selector).toEqual('body');
@@ -47,7 +49,10 @@ test('AlexExport is properly written to file', async () => {
   const symbolGroup: SymbolGroup = new SymbolGroup('SymbolGroup Name', [alexSymbol]);
   const alexExport: AlexExport = new AlexExport(symbolGroup);
 
-  const status: Status = await ALEX_EXPORT_SERVICE.save(path.resolve(__dirname, '..', 'assets', 'alex-export.json'), alexExport);
+  const status: Status = await ALEX_EXPORT_SERVICE.save(
+    path.resolve(__dirname, '..', 'assets', 'alex-export.json'),
+    alexExport,
+  );
 
   expect.assertions(1);
   expect(status.getCode()).toBe(Code.OK);

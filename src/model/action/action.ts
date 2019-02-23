@@ -3,7 +3,11 @@ import { Action as AlexAction } from '../../export/alex/action';
 import { Status } from '../status';
 
 export abstract class Action {
-  constructor(private image: string) {}
+  constructor(private className: string, private image: string) {}
+
+  public getClassName(): string {
+    return this.className;
+  }
 
   public getImage(): string {
     return this.image;

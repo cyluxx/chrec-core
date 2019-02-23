@@ -1,9 +1,10 @@
 import { Locator } from '../locator/locator';
 import { TestResult } from './test-result';
 
-export class LocatorTestResult extends TestResult {
-  constructor(date: Date, private locator: Locator, private valid: boolean) {
-    super(date);
+export class LocatorTestResult implements TestResult {
+  constructor(private date: Date, private locator: Locator, private valid: boolean) {}
+  public getDate(): Date {
+    return this.date;
   }
 
   public getLocator(): Locator {

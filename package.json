@@ -59,6 +59,7 @@
   },
   "dependencies": {
     "@types/selenium-webdriver": "^3.0.14",
+    "load-json-file": "^5.2.0",
     "selenium-webdriver": "^3.6.0",
     "write-json-file": "^3.1.0"
   }

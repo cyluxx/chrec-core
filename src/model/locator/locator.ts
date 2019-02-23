@@ -3,7 +3,11 @@ import { Node } from '../../export/alex/node';
 import { Status } from '../status';
 
 export abstract class Locator {
-  constructor(protected methodName: string, protected value: string) {}
+  constructor(private className: string, protected methodName: string, protected value: string) {}
+
+  public getClassName(): string {
+    return this.className;
+  }
 
   public getMethodName(): string {
     return this.methodName;

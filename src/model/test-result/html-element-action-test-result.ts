@@ -1,8 +1,9 @@
 import { HtmlElementAction } from '../action/html-element-action/html-element-action';
 import { ActionTestResult } from './action-test-result';
 import { LocatorTestResult } from './locator-test-result';
+import { TestResult } from './test-result';
 
-export class HtmlElementActionTestResult extends ActionTestResult {
+export class HtmlElementActionTestResult extends ActionTestResult implements TestResult {
   constructor(date: Date, action: HtmlElementAction, private locatorTestResults: LocatorTestResult[]) {
     super(date, action);
   }

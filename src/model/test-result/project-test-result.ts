@@ -1,9 +1,11 @@
 import { SequenceTestResult } from './sequence-test-result';
 import { TestResult } from './test-result';
 
-export class ProjectTestResult extends TestResult {
-  constructor(date: Date, private sequenceTestResults: SequenceTestResult[]) {
-    super(date);
+export class ProjectTestResult implements TestResult {
+  constructor(private date: Date, private sequenceTestResults: SequenceTestResult[]) {}
+
+  public getDate(): Date {
+    return this.date;
   }
 
   public getSequenceTestResults(): SequenceTestResult[] {

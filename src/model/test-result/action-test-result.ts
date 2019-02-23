@@ -1,16 +1,18 @@
 import { Action } from '../action/action';
 import { TestResult } from './test-result';
 
-export class ActionTestResult extends TestResult {
+export class ActionTestResult implements TestResult {
   private valid: boolean;
 
-  constructor(date: Date, private action: Action, valid?: boolean) {
-    super(date);
-
+  constructor(private date: Date, private action: Action, valid?: boolean) {
     this.valid = false;
     if (valid) {
       this.valid = valid;
     }
+  }
+
+  public getDate(): Date {
+    return this.date;
   }
 
   public getAction(): Action {
