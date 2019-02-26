@@ -1,10 +1,6 @@
 import * as path from 'path';
 import { WebClick, WebGoTo } from '../../export/alex/action';
 import { AlexExport } from '../../export/alex/alex-export';
-import { Node, NodeType } from '../../export/alex/node';
-import { Step } from '../../export/alex/step';
-import { Symbol as AlexSymbol } from '../../export/alex/symbol';
-import { SymbolGroup } from '../../export/alex/symbol-group';
 import { GoTo } from '../../model/action/go-to';
 import { Click } from '../../model/action/html-element-action/click';
 import { BoundingBox } from '../../model/bounding-box';
@@ -12,9 +8,9 @@ import { XpathLocator } from '../../model/locator/xpath-locator';
 import { Project } from '../../model/project';
 import { Sequence } from '../../model/sequence';
 import { Code, Status } from '../../model/status';
-import { AlexExportService } from '../../service/alex-export.service';
+import { ExportService } from '../../service/export.service';
 
-const ALEX_EXPORT_SERVICE: AlexExportService = new AlexExportService();
+const EXPORT_SERVICE: ExportService = new ExportService();
 
 test('Project converts to proper AlexExport', () => {
   const locator: XpathLocator = new XpathLocator('foo', 'body');
@@ -24,7 +20,7 @@ test('Project converts to proper AlexExport', () => {
   const sequence: Sequence = new Sequence('Sequence Name', [action, htmlElementAction], []);
   const project: Project = new Project('Project Name', [sequence], []);
 
-  const alexExport: AlexExport = ALEX_EXPORT_SERVICE.convert(project);
+  const alexExport: AlexExport = EXPORT_SERVICE.convertToAlex(project);
 
   expect(alexExport.version).toEqual('1.6.1');
   expect(alexExport.type).toEqual('symbolGroups');
@@ -42,16 +38,16 @@ test('Project converts to proper AlexExport', () => {
 });
 
 test('AlexExport is properly written to file', async () => {
-  const node: Node = new Node('#selector', NodeType.CSS);
-  const alexAction: WebClick = new WebClick(node);
-  const step: Step = new Step(alexAction, 0);
-  const alexSymbol: AlexSymbol = new AlexSymbol('Symbol Name', [step]);
-  const symbolGroup: SymbolGroup = new SymbolGroup('SymbolGroup Name', [alexSymbol]);
-  const alexExport: AlexExport = new AlexExport(symbolGroup);
+  const locator: XpathLocator = new XpathLocator('foo', 'body');
+  const htmlElementAction: Click = new Click('foo', [locator], new BoundingBox(42, 42, 42, 42));
+  const action: GoTo = new GoTo('foo', 'https://github.com/cyluxx/chrec-core');
+  htmlElementAction.setRecommendedLocator(locator);
+  const sequence: Sequence = new Sequence('Sequence Name', [action, htmlElementAction], []);
+  const project: Project = new Project('Project Name', [sequence], []);
 
-  const status: Status = await ALEX_EXPORT_SERVICE.save(
+  const status: Status = await EXPORT_SERVICE.exportToAlexJson(
     path.resolve(__dirname, '..', 'assets', 'alex-export.json'),
-    alexExport,
+    project
   );
 
   expect.assertions(1);
