@@ -20,6 +20,10 @@ export abstract class HtmlElementAction extends Action {
     this.recommendedLocator = locator;
   }
 
+  public addLocator(locator: Locator): void {
+    this.locators.push(locator);
+  }
+
   public getLocators(): Locator[] {
     return this.locators;
   }

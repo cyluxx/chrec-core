@@ -8,6 +8,10 @@ export class ProjectTestResult implements TestResult {
     return this.date;
   }
 
+  public addSequenceTestResult(sequenceTestResult: SequenceTestResult): void {
+    this.sequenceTestResults.push(sequenceTestResult);
+  }
+
   public getSequenceTestResults(): SequenceTestResult[] {
     return this.sequenceTestResults;
   }

@@ -3,13 +3,17 @@ import { ActionTestResult } from './action-test-result';
 import { TestResult } from './test-result';
 
 export class BrowserTestResult implements TestResult {
-  constructor(private date: Date, private browser: Browser, private actionTestResults: ActionTestResult[]) {}
+  constructor(private date: Date, private browser: Browser, private actionTestResults: ActionTestResult[]) { }
   public getDate(): Date {
     return this.date;
   }
 
   public getBrowser(): Browser {
     return this.browser;
+  }
+
+  public addActionTestResult(actionTestResult: ActionTestResult): void {
+    this.actionTestResults.push(actionTestResult);
   }
 
   public getActionTestResults(): ActionTestResult[] {

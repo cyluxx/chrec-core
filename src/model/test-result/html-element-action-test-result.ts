@@ -8,6 +8,10 @@ export class HtmlElementActionTestResult extends ActionTestResult implements Tes
     super(date, action);
   }
 
+  public addLocatorTestResult(locatorTestResult: LocatorTestResult): void {
+    this.locatorTestResults.push(locatorTestResult);
+  }
+
   public getLocatorTestResults(): LocatorTestResult[] {
     return this.locatorTestResults;
   }
