@@ -47,7 +47,7 @@ test('AlexExport is properly written to file', async () => {
 
   const status: Status = await EXPORT_SERVICE.exportToAlexJson(
     path.resolve(__dirname, '..', 'assets', 'alex-export.json'),
-    project
+    project,
   );
 
   expect.assertions(1);

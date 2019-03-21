@@ -3,7 +3,7 @@ import { ActionTestResult } from './action-test-result';
 import { TestResult } from './test-result';
 
 export class BrowserTestResult implements TestResult {
-  constructor(private date: Date, private browser: Browser, private actionTestResults: ActionTestResult[]) { }
+  constructor(private date: Date, private browser: Browser, private actionTestResults: ActionTestResult[]) {}
   public getDate(): Date {
     return this.date;
   }

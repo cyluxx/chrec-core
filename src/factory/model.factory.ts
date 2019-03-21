@@ -23,126 +23,125 @@ import { ProjectTestResult } from '../model/test-result/project-test-result';
 import { SequenceTestResult } from '../model/test-result/sequence-test-result';
 
 export class ModelFactory {
-
-    public projectFromChrecJson(parsedJson: any): Project {
-        const sequences: Sequence[] = [];
-        for (const sequence of parsedJson.sequences) {
-            sequences.push(this.sequenceFromChrecJson(sequence));
-        }
-        const projectTestResults: ProjectTestResult[] = [];
-        for (const projectTestResult of parsedJson.projectTestResults) {
-            projectTestResults.push(this.projectTestResultFromChrecJson(projectTestResult));
-        }
-        return new Project(parsedJson.name, sequences, projectTestResults);
+  public projectFromChrecJson(parsedJson: any): Project {
+    const sequences: Sequence[] = [];
+    for (const sequence of parsedJson.sequences) {
+      sequences.push(this.sequenceFromChrecJson(sequence));
     }
-
-    public sequenceFromChrecJson(parsedJson: any): Sequence {
-        const actions: Action[] = [];
-        for (const action of parsedJson.actions) {
-            actions.push(this.actionFromChrecJson(action));
-        }
-        const sequenceTestResults: SequenceTestResult[] = [];
-        for (const sequenceTestResult of parsedJson.sequenceTestResults) {
-            sequenceTestResults.push(this.sequenceTestResultFromChrecJson(sequenceTestResult));
-        }
-        return new Sequence(parsedJson.name, actions, sequenceTestResults);
+    const projectTestResults: ProjectTestResult[] = [];
+    for (const projectTestResult of parsedJson.projectTestResults) {
+      projectTestResults.push(this.projectTestResultFromChrecJson(projectTestResult));
     }
+    return new Project(parsedJson.name, sequences, projectTestResults);
+  }
 
-    public actionFromChrecJson(parsedJson: any): Action {
-        const locators: Locator[] = [];
-        for (const locator of parsedJson.locators) {
-            locators.push(this.locatorFromChrecJson(locator));
-        }
-        const boundingBox: BoundingBox = this.boundingBoxFromChrecJson(parsedJson.boundingBox);
-        switch (parsedJson.className) {
-            case 'Back':
-                return new Back(parsedJson.image);
-            case 'Forward':
-                return new Forward(parsedJson.image);
-            case 'GoTo':
-                return new GoTo(parsedJson.image, parsedJson.url);
-            case 'Refresh':
-                return new Refresh(parsedJson.image);
-            case 'Click':
-                return new Click(parsedJson.image, locators, boundingBox);
-            default:
-                throw new Error('Could not construct Action from ChRec JSON!');
-        }
+  public sequenceFromChrecJson(parsedJson: any): Sequence {
+    const actions: Action[] = [];
+    for (const action of parsedJson.actions) {
+      actions.push(this.actionFromChrecJson(action));
     }
+    const sequenceTestResults: SequenceTestResult[] = [];
+    for (const sequenceTestResult of parsedJson.sequenceTestResults) {
+      sequenceTestResults.push(this.sequenceTestResultFromChrecJson(sequenceTestResult));
+    }
+    return new Sequence(parsedJson.name, actions, sequenceTestResults);
+  }
 
-    public locatorFromChrecJson(parsedJson: any): Locator {
-        switch (parsedJson.className) {
-            case 'CssLocator':
-                return new CssLocator(parsedJson.methodName, parsedJson.value);
-            case 'XpathLocator':
-                return new XpathLocator(parsedJson.methodName, parsedJson.value);
-            default:
-                throw new Error('Could not construct Locator from ChRec JSON!');
-        }
+  public actionFromChrecJson(parsedJson: any): Action {
+    const locators: Locator[] = [];
+    for (const locator of parsedJson.locators) {
+      locators.push(this.locatorFromChrecJson(locator));
     }
+    const boundingBox: BoundingBox = this.boundingBoxFromChrecJson(parsedJson.boundingBox);
+    switch (parsedJson.className) {
+      case 'Back':
+        return new Back(parsedJson.image);
+      case 'Forward':
+        return new Forward(parsedJson.image);
+      case 'GoTo':
+        return new GoTo(parsedJson.image, parsedJson.url);
+      case 'Refresh':
+        return new Refresh(parsedJson.image);
+      case 'Click':
+        return new Click(parsedJson.image, locators, boundingBox);
+      default:
+        throw new Error('Could not construct Action from ChRec JSON!');
+    }
+  }
 
-    public boundingBoxFromChrecJson(parsedJson: any): BoundingBox {
-        return new BoundingBox(parsedJson.x, parsedJson.y, parsedJson.width, parsedJson.height);
+  public locatorFromChrecJson(parsedJson: any): Locator {
+    switch (parsedJson.className) {
+      case 'CssLocator':
+        return new CssLocator(parsedJson.methodName, parsedJson.value);
+      case 'XpathLocator':
+        return new XpathLocator(parsedJson.methodName, parsedJson.value);
+      default:
+        throw new Error('Could not construct Locator from ChRec JSON!');
     }
+  }
 
-    public browserFromChrecJson(parsedJson: any): Browser {
-        switch (parsedJson.className) {
-            case 'Chrome':
-                return new Chrome(parsedJson.name, parsedJson.width, parsedJson.height, parsedJson.headless);
-            case 'Edge':
-                return new Edge(parsedJson.name, parsedJson.width, parsedJson.height);
-            case 'Firefox':
-                return new Firefox(parsedJson.name, parsedJson.width, parsedJson.height);
-            default:
-                throw new Error('Could not construct Browser from ChRec JSON!');
-        }
-    }
+  public boundingBoxFromChrecJson(parsedJson: any): BoundingBox {
+    return new BoundingBox(parsedJson.x, parsedJson.y, parsedJson.width, parsedJson.height);
+  }
 
-    public projectTestResultFromChrecJson(parsedJson: any): ProjectTestResult {
-        const sequenceTestResults: SequenceTestResult[] = [];
-        for (const sequenceTestResult of parsedJson.sequenceTestResults) {
-            sequenceTestResults.push(this.sequenceTestResultFromChrecJson(sequenceTestResult));
-        }
-        return new ProjectTestResult(parsedJson.date, sequenceTestResults);
+  public browserFromChrecJson(parsedJson: any): Browser {
+    switch (parsedJson.className) {
+      case 'Chrome':
+        return new Chrome(parsedJson.name, parsedJson.width, parsedJson.height, parsedJson.headless);
+      case 'Edge':
+        return new Edge(parsedJson.name, parsedJson.width, parsedJson.height);
+      case 'Firefox':
+        return new Firefox(parsedJson.name, parsedJson.width, parsedJson.height);
+      default:
+        throw new Error('Could not construct Browser from ChRec JSON!');
     }
+  }
 
-    public sequenceTestResultFromChrecJson(parsedJson: any): SequenceTestResult {
-        const browserTestResults: BrowserTestResult[] = [];
-        for (const browserTestResult of parsedJson.browserTestResults) {
-            browserTestResults.push(this.browserTestResultFromChrecJson(browserTestResult));
-        }
-        return new SequenceTestResult(parsedJson.date, browserTestResults);
+  public projectTestResultFromChrecJson(parsedJson: any): ProjectTestResult {
+    const sequenceTestResults: SequenceTestResult[] = [];
+    for (const sequenceTestResult of parsedJson.sequenceTestResults) {
+      sequenceTestResults.push(this.sequenceTestResultFromChrecJson(sequenceTestResult));
     }
+    return new ProjectTestResult(parsedJson.date, sequenceTestResults);
+  }
 
-    public browserTestResultFromChrecJson(parsedJson: any): BrowserTestResult {
-        const browser: Browser = this.browserFromChrecJson(parsedJson.browser);
-        const actionTestResults: ActionTestResult[] = [];
-        for (const actionTestResult of parsedJson.actionTestResults) {
-            actionTestResults.push(this.actionTestResultFromChrecJson(actionTestResult));
-        }
-        return new BrowserTestResult(parsedJson.date, browser, actionTestResults);
+  public sequenceTestResultFromChrecJson(parsedJson: any): SequenceTestResult {
+    const browserTestResults: BrowserTestResult[] = [];
+    for (const browserTestResult of parsedJson.browserTestResults) {
+      browserTestResults.push(this.browserTestResultFromChrecJson(browserTestResult));
     }
+    return new SequenceTestResult(parsedJson.date, browserTestResults);
+  }
 
-    public actionTestResultFromChrecJson(parsedJson: any): ActionTestResult {
-        if (parsedJson.locators) {
-            return this.htmlElementActionTestResultFromChrecJson(parsedJson);
-        }
-        const action: Action = this.actionFromChrecJson(parsedJson.action);
-        const valid: boolean = parsedJson.valid ? true : false;
-        return new ActionTestResult(parsedJson.date, action, valid);
+  public browserTestResultFromChrecJson(parsedJson: any): BrowserTestResult {
+    const browser: Browser = this.browserFromChrecJson(parsedJson.browser);
+    const actionTestResults: ActionTestResult[] = [];
+    for (const actionTestResult of parsedJson.actionTestResults) {
+      actionTestResults.push(this.actionTestResultFromChrecJson(actionTestResult));
     }
+    return new BrowserTestResult(parsedJson.date, browser, actionTestResults);
+  }
 
-    public htmlElementActionTestResultFromChrecJson(parsedJson: any): HtmlElementActionTestResult {
-        const action: HtmlElementAction = this.actionFromChrecJson(parsedJson.action) as HtmlElementAction;
-        const locatorTestResults: LocatorTestResult[] = [];
-        for (const locatorTestResult of parsedJson.locatorTestResults) {
-            locatorTestResults.push(this.locatorTestResultFromChrecJson(locatorTestResult));
-        }
-        return new HtmlElementActionTestResult(parsedJson.date, action, locatorTestResults);
+  public actionTestResultFromChrecJson(parsedJson: any): ActionTestResult {
+    if (parsedJson.locators) {
+      return this.htmlElementActionTestResultFromChrecJson(parsedJson);
     }
+    const action: Action = this.actionFromChrecJson(parsedJson.action);
+    const valid: boolean = parsedJson.valid ? true : false;
+    return new ActionTestResult(parsedJson.date, action, valid);
+  }
 
-    public locatorTestResultFromChrecJson(parsedJson: any): LocatorTestResult {
-        const locator: Locator = this.locatorFromChrecJson(parsedJson.locator);
-        return new LocatorTestResult(parsedJson.date, locator, parsedJson.valid);
+  public htmlElementActionTestResultFromChrecJson(parsedJson: any): HtmlElementActionTestResult {
+    const action: HtmlElementAction = this.actionFromChrecJson(parsedJson.action) as HtmlElementAction;
+    const locatorTestResults: LocatorTestResult[] = [];
+    for (const locatorTestResult of parsedJson.locatorTestResults) {
+      locatorTestResults.push(this.locatorTestResultFromChrecJson(locatorTestResult));
     }
+    return new HtmlElementActionTestResult(parsedJson.date, action, locatorTestResults);
+  }
+
+  public locatorTestResultFromChrecJson(parsedJson: any): LocatorTestResult {
+    const locator: Locator = this.locatorFromChrecJson(parsedJson.locator);
+    return new LocatorTestResult(parsedJson.date, locator, parsedJson.valid);
+  }
 }
