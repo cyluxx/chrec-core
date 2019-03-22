@@ -49,8 +49,10 @@ export class ModelFactory {
 
   public actionFromChrecJson(parsedJson: any): Action {
     const locators: Locator[] = [];
-    for (const locator of parsedJson.locators) {
-      locators.push(this.locatorFromChrecJson(locator));
+    if (parsedJson.className === 'Click') {
+      for (const locator of parsedJson.locators) {
+        locators.push(this.locatorFromChrecJson(locator));
+      }
     }
     const boundingBox: BoundingBox = this.boundingBoxFromChrecJson(parsedJson.boundingBox);
     switch (parsedJson.className) {
