@@ -9,7 +9,8 @@ import { Sequence } from '../../model/sequence';
 
 test('Model is build properly from JSON', () => {
   const modelFactory = new ModelFactory();
-  const json = `{
+  const jsonString =
+    `{
       "name":"acp Project Name",
       "sequences":[
         {
@@ -43,7 +44,7 @@ test('Model is build properly from JSON', () => {
       ],
       "projectTestResults":[]
     }`;
-
+  const parsedJson = JSON.parse(jsonString);
   const actions: Action[] = [];
   actions.push(new GoTo('', 'https://www.example.com'));
   actions.push(new GoTo('', 'https://www.github.com'));
@@ -53,5 +54,5 @@ test('Model is build properly from JSON', () => {
   const sequence: Sequence = new Sequence('Test Sequence', actions, []);
   const project = new Project('acp Project Name', [sequence], []);
 
-  expect(modelFactory.projectFromChrecJson(json)).toEqual(project);
+  expect(modelFactory.projectFromChrecJson(parsedJson)).toEqual(project);
 });

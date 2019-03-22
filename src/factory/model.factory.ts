@@ -48,13 +48,6 @@ export class ModelFactory {
   }
 
   public actionFromChrecJson(parsedJson: any): Action {
-    const locators: Locator[] = [];
-    if (parsedJson.className === 'Click') {
-      for (const locator of parsedJson.locators) {
-        locators.push(this.locatorFromChrecJson(locator));
-      }
-    }
-    const boundingBox: BoundingBox = this.boundingBoxFromChrecJson(parsedJson.boundingBox);
     switch (parsedJson.className) {
       case 'Back':
         return new Back(parsedJson.image);
@@ -65,9 +58,23 @@ export class ModelFactory {
       case 'Refresh':
         return new Refresh(parsedJson.image);
       case 'Click':
-        return new Click(parsedJson.image, locators, boundingBox);
+        return this.htmlElementActionFromChrecJson(parsedJson);
       default:
         throw new Error('Could not construct Action from ChRec JSON!');
+    }
+  }
+
+  public htmlElementActionFromChrecJson(parsedJson: any): HtmlElementAction {
+    const locators: Locator[] = [];
+    for (const locator of parsedJson.locators) {
+      locators.push(this.locatorFromChrecJson(locator));
+    }
+    const boundingBox: BoundingBox = this.boundingBoxFromChrecJson(parsedJson.boundingBox);
+    switch (parsedJson.className) {
+      case 'Click':
+        return new Click(parsedJson.image, locators, boundingBox);
+      default:
+        throw new Error('Could not construct HtmlElementAction from ChRec JSON!');
     }
   }
 
