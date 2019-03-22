@@ -9,8 +9,7 @@ import { Sequence } from '../../model/sequence';
 
 test('Model is build properly from JSON', () => {
   const modelFactory = new ModelFactory();
-  const jsonString =
-    `{
+  const jsonString = `{
       "name":"acp Project Name",
       "sequences":[
         {
