@@ -28,6 +28,10 @@ export abstract class HtmlElementAction extends Action {
     return this.locators;
   }
 
+  public getBoundingBox(): BoundingBox{
+    return this.boundingBox;
+  }
+
   public async findElement(driver: WebDriver): Promise<WebElement> {
     return this.recommendedLocator.findElement(driver);
   }
