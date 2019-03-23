@@ -12,6 +12,10 @@ export class GoTo extends Action {
     return this.url;
   }
 
+  public setUrl(url: string) {
+    this.url = url;
+  }
+
   public async run(driver: WebDriver): Promise<Status> {
     try {
       await driver.navigate().to(this.url);
