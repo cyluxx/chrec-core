@@ -20,4 +20,8 @@ export class Chrome extends Browser {
       .setSize(this.width, this.height);
     return driver;
   }
+
+  public isHeadless(): boolean {
+    return this.headless;
+  }
 }
