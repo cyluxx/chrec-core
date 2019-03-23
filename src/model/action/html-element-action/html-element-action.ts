@@ -28,7 +28,7 @@ export abstract class HtmlElementAction extends Action {
     return this.locators;
   }
 
-  public getBoundingBox(): BoundingBox{
+  public getBoundingBox(): BoundingBox {
     return this.boundingBox;
   }
 
