@@ -3,7 +3,7 @@ import { Node } from './node';
 /* tslint:disable:max-classes-per-file */
 
 export abstract class Action {
-  constructor(public type: string) { }
+  constructor(public type: string) {}
 }
 
 export class WebFill extends Action {

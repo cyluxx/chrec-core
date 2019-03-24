@@ -44,10 +44,13 @@ export class Type extends HtmlElementAction {
 
   public toAlexActions(): Action[] {
     if (this.getRecommendedLocator()) {
-      return [new WebFill(this.value, this.getRecommendedLocator().toAlexNode()), new WebPressKey(this.key, this.getRecommendedLocator().toAlexNode())];
+      return [
+        new WebFill(this.value, this.getRecommendedLocator().toAlexNode()),
+        new WebPressKey(this.key, this.getRecommendedLocator().toAlexNode()),
+      ];
     }
     throw new Error(
-      'No recommended locator specified, yet! Please run at least one test for this sequence before exporting it.'
+      'No recommended locator specified, yet! Please run at least one test for this sequence before exporting it.',
     );
   }
 }
