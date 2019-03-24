@@ -3,7 +3,7 @@ import { ActionTestResult } from './action-test-result';
 import { TestResult } from './test-result';
 
 export class BrowserTestResult implements TestResult {
-  constructor(private date: Date, private browser: Browser, private actionTestResults: ActionTestResult[]) {}
+  constructor(private date: Date, private browser: Browser, private actionTestResults: ActionTestResult[]) { }
   public getDate(): Date {
     return this.date;
   }
@@ -27,6 +27,20 @@ export class BrowserTestResult implements TestResult {
       }
     }
     return true;
+  }
+
+  public getSuccessfulActionCount(): number {
+    let count: number = 0;
+    for(const actionTestResult of this.actionTestResults){
+      if(actionTestResult.isReplayable()){
+        count++;
+      }
+    }
+    return count;
+  }
+
+  public getTotalActionCount(): number {
+    return this.actionTestResults.length;
   }
 
   public getSuccessfulLocatorCount(): number {
