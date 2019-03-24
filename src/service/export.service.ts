@@ -29,8 +29,12 @@ export class ExportService {
     const symbols: AlexSymbol[] = [];
     for (const sequence of project.getSequences()) {
       const steps: Step[] = [];
-      for (let i: number = 0; i < sequence.getActions().length; i++) {
-        steps.push(new Step(sequence.getActions()[i].toAlexAction(), i));
+      let i: number = 0;
+      for (const action of sequence.getActions()) {
+        for (const alexAction of action.toAlexActions()) {
+          steps.push(new Step(alexAction, i));
+          i++;
+        }
       }
       symbols.push(new AlexSymbol(sequence.getName(), steps));
     }

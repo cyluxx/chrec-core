@@ -1,5 +1,5 @@
 import { WebDriver, WebElement } from 'selenium-webdriver';
-import { WebClick } from '../../../export/alex/action';
+import { Action, WebClick } from '../../../export/alex/action';
 import { BoundingBox } from '../../bounding-box';
 import { Locator } from '../../locator/locator';
 import { Code, Status } from '../../status';
@@ -20,9 +20,9 @@ export class Click extends HtmlElementAction {
     }
   }
 
-  public toAlexAction(): WebClick {
+  public toAlexActions(): Action[] {
     if (this.getRecommendedLocator()) {
-      return new WebClick(this.getRecommendedLocator().toAlexNode());
+      return [new WebClick(this.getRecommendedLocator().toAlexNode())];
     }
     throw new Error(
       'No recommended locator specified, yet! Please run at least one test for this sequence before exporting it.',

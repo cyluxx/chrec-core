@@ -38,5 +38,5 @@ export abstract class HtmlElementAction extends Action {
 
   public abstract async run(driver: WebDriver): Promise<Status>;
 
-  public abstract toAlexAction(): AlexAction;
+  public abstract toAlexActions(): AlexAction[];
 }

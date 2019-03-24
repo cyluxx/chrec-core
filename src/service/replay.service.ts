@@ -28,7 +28,7 @@ export class ReplayService {
     for (const browser of settings.getBrowsers()) {
       browserTestResults.push(await this.testBrowser(browser, sequence.getActions(), settings.getSeleniumServerUrl()));
     }
-    return new SequenceTestResult(new Date(), browserTestResults);
+    return new SequenceTestResult(new Date(), sequence, browserTestResults);
   }
 
   public async testBrowser(browser: Browser, actions: Action[], seleniumServerUrl: string): Promise<BrowserTestResult> {

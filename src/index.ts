@@ -20,17 +20,17 @@ export class Core {
 
   public async addProjectTest(project: Project, settings: Settings): Promise<Project> {
     const testResult: ProjectTestResult = await this.replayService.testProject(project, settings);
-    for (const sequence of project.getSequences()) {
-      this.addSequenceTest(sequence, settings);
-    }
     project.addTestResult(testResult);
     return project;
   }
 
-  public async addSequenceTest(sequence: Sequence, settings: Settings): Promise<Sequence> {
-    const testResult: SequenceTestResult = await this.replayService.testSequence(sequence, settings);
-    sequence.addTestResult(testResult);
-    return sequence;
+  public async addSequenceTest(project: Project, sequence: Sequence, settings: Settings): Promise<Project> {
+    const sequenceTestResult: SequenceTestResult = await this.replayService.testSequence(sequence, settings);
+    const projectTestResult: ProjectTestResult = new ProjectTestResult(sequenceTestResult.getDate(), [
+      sequenceTestResult,
+    ]);
+    project.addTestResult(projectTestResult);
+    return project;
   }
 
   public exportToAlexJson(project: Project, dirName: string): void {

@@ -3,6 +3,7 @@ import { Refresh } from '../../model/action/refresh';
 import { BoundingBox } from '../../model/bounding-box';
 import { Edge } from '../../model/browser/edge';
 import { CssLocator } from '../../model/locator/css-locator';
+import { Sequence } from '../../model/sequence';
 import { ActionTestResult } from '../../model/test-result/action-test-result';
 import { BrowserTestResult } from '../../model/test-result/browser-test-result';
 import { HtmlElementActionTestResult } from '../../model/test-result/html-element-action-test-result';
@@ -15,6 +16,7 @@ test('is replayable', () => {
   const action: Refresh = new Refresh('foo');
   const htmlElementAction: Click = new Click('foo', [locator], new BoundingBox(42, 42, 42, 42));
   const browser: Edge = new Edge('foo', 42, 42);
+  const sequence: Sequence = new Sequence('foo', [action]);
 
   const locatorTestResult: LocatorTestResult = new LocatorTestResult(new Date(), locator, false);
   const actionTestResult: ActionTestResult = new ActionTestResult(new Date(), action);
@@ -27,7 +29,7 @@ test('is replayable', () => {
     actionTestResult,
     htmlElementActionTestResult,
   ]);
-  const sequenceTestResult: SequenceTestResult = new SequenceTestResult(new Date(), [browserTestResult]);
+  const sequenceTestResult: SequenceTestResult = new SequenceTestResult(new Date(), sequence, [browserTestResult]);
   const projectTestResult: ProjectTestResult = new ProjectTestResult(new Date(), [sequenceTestResult]);
 
   expect(locatorTestResult.isReplayable()).toBe(false);
@@ -43,6 +45,7 @@ test('getSuccessfullLocatorCount', () => {
   const action: Refresh = new Refresh('foo');
   const htmlElementAction: Click = new Click('foo', [locator], new BoundingBox(42, 42, 42, 42));
   const browser: Edge = new Edge('foo', 42, 42);
+  const sequence: Sequence = new Sequence('foo', [action]);
 
   const locatorTestResult: LocatorTestResult = new LocatorTestResult(new Date(), locator, false);
   const actionTestResult: ActionTestResult = new ActionTestResult(new Date(), action);
@@ -55,7 +58,7 @@ test('getSuccessfullLocatorCount', () => {
     actionTestResult,
     htmlElementActionTestResult,
   ]);
-  const sequenceTestResult: SequenceTestResult = new SequenceTestResult(new Date(), [browserTestResult]);
+  const sequenceTestResult: SequenceTestResult = new SequenceTestResult(new Date(), sequence, [browserTestResult]);
   const projectTestResult: ProjectTestResult = new ProjectTestResult(new Date(), [sequenceTestResult]);
 
   expect(locatorTestResult.getSuccessfulLocatorCount()).toBe(0);
@@ -71,6 +74,7 @@ test('getTotalLocatorCount', () => {
   const action: Refresh = new Refresh('foo');
   const htmlElementAction: Click = new Click('foo', [locator], new BoundingBox(42, 42, 42, 42));
   const browser: Edge = new Edge('foo', 42, 42);
+  const sequence: Sequence = new Sequence('foo', [action]);
 
   const locatorTestResult: LocatorTestResult = new LocatorTestResult(new Date(), locator, false);
   const actionTestResult: ActionTestResult = new ActionTestResult(new Date(), action);
@@ -83,7 +87,7 @@ test('getTotalLocatorCount', () => {
     actionTestResult,
     htmlElementActionTestResult,
   ]);
-  const sequenceTestResult: SequenceTestResult = new SequenceTestResult(new Date(), [browserTestResult]);
+  const sequenceTestResult: SequenceTestResult = new SequenceTestResult(new Date(), sequence, [browserTestResult]);
   const projectTestResult: ProjectTestResult = new ProjectTestResult(new Date(), [sequenceTestResult]);
 
   expect(locatorTestResult.getTotalLocatorCount()).toBe(1);

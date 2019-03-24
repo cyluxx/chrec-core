@@ -3,12 +3,18 @@ import { Node } from './node';
 /* tslint:disable:max-classes-per-file */
 
 export abstract class Action {
-  constructor(public type: string) {}
+  constructor(public type: string) { }
 }
 
 export class WebFill extends Action {
   constructor(public value: string, public node: Node) {
     super('web_fill');
+  }
+}
+
+export class WebPressKey extends Action {
+  constructor(public key: string, public node: Node) {
+    super('web_pressKey');
   }
 }
 

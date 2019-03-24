@@ -19,5 +19,5 @@ export abstract class Action {
 
   public abstract async run(driver: WebDriver): Promise<Status>;
 
-  public abstract toAlexAction(): AlexAction;
+  public abstract toAlexActions(): AlexAction[];
 }

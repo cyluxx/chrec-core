@@ -18,7 +18,7 @@ test('addProjectTest', async () => {
   const locator: CssLocator = new CssLocator('foo', 'foo');
   const action: Refresh = new Refresh('foo');
   const htmlElementAction: Click = new Click('foo', [locator], new BoundingBox(42, 42, 42, 42));
-  const sequence: Sequence = new Sequence('foo', [action, htmlElementAction], []);
+  const sequence: Sequence = new Sequence('foo', [action, htmlElementAction]);
 
   let project: Project = new Project('foo', [sequence], []);
   project = await core.addProjectTest(project, SETTINGS);
@@ -35,10 +35,13 @@ test('addSequenceTest', async () => {
   const locator: CssLocator = new CssLocator('foo', 'foo');
   const action: Refresh = new Refresh('foo');
   const htmlElementAction: Click = new Click('foo', [locator], new BoundingBox(42, 42, 42, 42));
+  const sequence: Sequence = new Sequence('foo', [action, htmlElementAction]);
+  let project: Project = new Project('foo', [sequence, new Sequence('bar', [])], []);
 
-  let sequence: Sequence = new Sequence('foo', [action, htmlElementAction], []);
-  sequence = await core.addSequenceTest(sequence, SETTINGS);
+  project = await core.addSequenceTest(project, sequence, SETTINGS);
 
-  expect.assertions(1);
-  expect(sequence.getTestResults()[0]).toBeDefined();
+  expect.assertions(3);
+  expect(project.getTestResults()[0]).toBeDefined();
+  expect(project.getTestResults()[0].getSequenceTestResults()[0]).toBeDefined();
+  expect(project.getTestResults()[0].getSequenceTestResults().length).toBe(1);
 });
