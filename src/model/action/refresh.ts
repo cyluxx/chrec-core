@@ -17,7 +17,7 @@ export class Refresh extends Action {
     }
   }
 
-  public toAlexAction(): WebBrowser {
-    return new WebBrowser('REFRESH');
+  public toAlexActions(): WebBrowser[] {
+    return [new WebBrowser('REFRESH')];
   }
 }

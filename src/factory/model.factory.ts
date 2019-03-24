@@ -40,11 +40,7 @@ export class ModelFactory {
     for (const action of parsedJson.actions) {
       actions.push(this.actionFromChrecJson(action));
     }
-    const sequenceTestResults: SequenceTestResult[] = [];
-    for (const sequenceTestResult of parsedJson.sequenceTestResults) {
-      sequenceTestResults.push(this.sequenceTestResultFromChrecJson(sequenceTestResult));
-    }
-    return new Sequence(parsedJson.name, actions, sequenceTestResults);
+    return new Sequence(parsedJson.name, actions);
   }
 
   public actionFromChrecJson(parsedJson: any): Action {
@@ -115,11 +111,12 @@ export class ModelFactory {
   }
 
   public sequenceTestResultFromChrecJson(parsedJson: any): SequenceTestResult {
+    const sequence: Sequence = this.sequenceFromChrecJson(parsedJson.sequence);
     const browserTestResults: BrowserTestResult[] = [];
     for (const browserTestResult of parsedJson.browserTestResults) {
       browserTestResults.push(this.browserTestResultFromChrecJson(browserTestResult));
     }
-    return new SequenceTestResult(parsedJson.date, browserTestResults);
+    return new SequenceTestResult(parsedJson.date, sequence, browserTestResults);
   }
 
   public browserTestResultFromChrecJson(parsedJson: any): BrowserTestResult {

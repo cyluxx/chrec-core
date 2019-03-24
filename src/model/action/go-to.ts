@@ -25,7 +25,7 @@ export class GoTo extends Action {
     }
   }
 
-  public toAlexAction(): WebGoTo {
-    return new WebGoTo(this.url);
+  public toAlexActions(): WebGoTo[] {
+    return [new WebGoTo(this.url)];
   }
 }

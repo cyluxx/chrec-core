@@ -17,7 +17,7 @@ export class Forward extends Action {
     }
   }
 
-  public toAlexAction(): WebBrowser {
+  public toAlexActions(): WebBrowser[] {
     throw new Error('Export Error: Alex does not support Forward Action!');
   }
 }
