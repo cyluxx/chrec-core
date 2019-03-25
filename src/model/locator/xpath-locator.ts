@@ -5,7 +5,7 @@ import { Locator } from './locator';
 
 export class XpathLocator extends Locator {
   constructor(methodName: string, value: string) {
-    super('XPathLocator', methodName, value);
+    super('XpathLocator', methodName, value);
   }
 
   public async test(driver: WebDriver): Promise<Status> {
