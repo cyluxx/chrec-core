@@ -4,6 +4,8 @@ import { Forward } from '../model/action/forward';
 import { GoTo } from '../model/action/go-to';
 import { Click } from '../model/action/html-element-action/click';
 import { HtmlElementAction } from '../model/action/html-element-action/html-element-action';
+import { Read } from '../model/action/html-element-action/read';
+import { Type } from '../model/action/html-element-action/type';
 import { Refresh } from '../model/action/refresh';
 import { BoundingBox } from '../model/bounding-box';
 import { Browser } from '../model/browser/browser';
@@ -55,6 +57,10 @@ export class ModelFactory {
         return new Refresh(parsedJson.image);
       case 'Click':
         return this.htmlElementActionFromChrecJson(parsedJson);
+      case 'Read':
+        return this.htmlElementActionFromChrecJson(parsedJson);
+      case 'Type':
+        return this.htmlElementActionFromChrecJson(parsedJson);
       default:
         throw new Error('Could not construct Action from ChRec JSON!');
     }
@@ -69,6 +75,10 @@ export class ModelFactory {
     switch (parsedJson.className) {
       case 'Click':
         return new Click(parsedJson.image, locators, boundingBox);
+      case 'Read':
+        return new Read(parsedJson.image, locators, boundingBox, parsedJson.value);
+      case 'Type':
+        return new Type(parsedJson.image, locators, boundingBox, parsedJson.value, parsedJson.key);
       default:
         throw new Error('Could not construct HtmlElementAction from ChRec JSON!');
     }
