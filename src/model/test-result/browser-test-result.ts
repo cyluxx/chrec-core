@@ -3,7 +3,7 @@ import { ActionTestResult } from './action-test-result';
 import { TestResult } from './test-result';
 
 export class BrowserTestResult implements TestResult {
-  constructor(private date: Date, private browser: Browser, private actionTestResults: ActionTestResult[]) { }
+  constructor(private date: Date, private browser: Browser, private actionTestResults: ActionTestResult[]) {}
   public getDate(): Date {
     return this.date;
   }
@@ -31,8 +31,8 @@ export class BrowserTestResult implements TestResult {
 
   public getSuccessfulActionCount(): number {
     let count: number = 0;
-    for(const actionTestResult of this.actionTestResults){
-      if(actionTestResult.isReplayable()){
+    for (const actionTestResult of this.actionTestResults) {
+      if (actionTestResult.isReplayable()) {
         count++;
       }
     }

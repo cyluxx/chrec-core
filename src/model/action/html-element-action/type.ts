@@ -37,8 +37,7 @@ export class Type extends HtmlElementAction {
       const element: WebElement = await this.findElement(driver);
       if (this.key) {
         element.sendKeys(this.value, this.key);
-      }
-      else {
+      } else {
         element.sendKeys(this.value, Key.TAB);
       }
       return new Status(Code.OK, 'Type Action successful!');
