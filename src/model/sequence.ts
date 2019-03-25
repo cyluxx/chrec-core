@@ -1,7 +1,7 @@
 import { Action } from './action/action';
 
 export class Sequence {
-  constructor(private name: string, private actions: Action[]) {}
+  constructor(private name: string, private actions: Action[]) { }
 
   public getName(): string {
     return this.name;
@@ -17,5 +17,9 @@ export class Sequence {
 
   public getActions(): Action[] {
     return this.actions;
+  }
+
+  public setActions(actions: Action[]): void {
+    this.actions = actions;
   }
 }

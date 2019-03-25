@@ -28,6 +28,10 @@ export abstract class HtmlElementAction extends Action {
     return this.locators;
   }
 
+  public setLocators(locators: Locator[]): void {
+    this.locators = locators;
+  }
+
   public getBoundingBox(): BoundingBox {
     return this.boundingBox;
   }

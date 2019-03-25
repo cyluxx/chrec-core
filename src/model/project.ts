@@ -2,7 +2,7 @@ import { Sequence } from './sequence';
 import { ProjectTestResult } from './test-result/project-test-result';
 
 export class Project {
-  constructor(private name: string, private sequences: Sequence[], private projectTestResults: ProjectTestResult[]) {}
+  constructor(private name: string, private sequences: Sequence[], private projectTestResults: ProjectTestResult[]) { }
 
   public getName(): string {
     return this.name;
@@ -18,6 +18,10 @@ export class Project {
 
   public getSequences(): Sequence[] {
     return this.sequences;
+  }
+
+  public setSequences(sequences: Sequence[]): void {
+    this.sequences = sequences;
   }
 
   public addTestResult(testResult: ProjectTestResult) {
