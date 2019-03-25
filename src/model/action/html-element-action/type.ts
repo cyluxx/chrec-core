@@ -1,4 +1,4 @@
-import { WebDriver, WebElement } from 'selenium-webdriver';
+import { Key, WebDriver, WebElement } from 'selenium-webdriver';
 import { Action, WebFill, WebPressKey } from '../../../export/alex/action';
 import { BoundingBox } from '../../bounding-box';
 import { Locator } from '../../locator/locator';
@@ -13,7 +13,7 @@ export class Type extends HtmlElementAction {
     private value: string,
     private key: string,
   ) {
-    super('Read', image, locators, boundingBox);
+    super('Type', image, locators, boundingBox);
   }
 
   public getKey(): string {
@@ -35,7 +35,12 @@ export class Type extends HtmlElementAction {
   public async run(driver: WebDriver): Promise<Status> {
     try {
       const element: WebElement = await this.findElement(driver);
-      element.sendKeys(this.value, this.key);
+      if (this.key) {
+        element.sendKeys(this.value, this.key);
+      }
+      else {
+        element.sendKeys(this.value, Key.TAB);
+      }
       return new Status(Code.OK, 'Type Action successful!');
     } catch (error) {
       return new Status(Code.HTML_ELEMENT_ACTION_FAILED, 'Type Action failed!');
