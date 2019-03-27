@@ -6,8 +6,8 @@ export abstract class Browser {
     private name: string,
     protected width: number,
     protected height: number,
-    protected sleepMsBetweenActions: number
-  ) { }
+    protected sleepMsBetweenActions: number,
+  ) {}
 
   public getClassName(): string {
     return this.className;

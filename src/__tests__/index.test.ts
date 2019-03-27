@@ -63,7 +63,11 @@ test('setRecommendedLocators', () => {
   const robulaPlus = new XpathLocator('RobulaPlus', 'foo');
 
   const action = new Refresh('foo');
-  const htmlElementAction = new Click('foo', [cssSelectorGenerator, finder, getQuerySelector, optimalSelect, selectorQuery, robulaPlus], new BoundingBox(42, 42, 42, 42));
+  const htmlElementAction = new Click(
+    'foo',
+    [cssSelectorGenerator, finder, getQuerySelector, optimalSelect, selectorQuery, robulaPlus],
+    new BoundingBox(42, 42, 42, 42),
+  );
   const sequence = new Sequence('foo', [action, htmlElementAction]);
 
   const browser = new Firefox('foo', 42, 42, 42);
@@ -75,7 +79,14 @@ test('setRecommendedLocators', () => {
   const sqTestResult = new LocatorTestResult(new Date(), selectorQuery, false);
   const rpTestResult = new LocatorTestResult(new Date(), robulaPlus, true);
   const actionTestResult = new ActionTestResult(new Date(), action, true);
-  const htmlElementActionTestResult = new HtmlElementActionTestResult(new Date(), htmlElementAction, [csgTestResult, fTestResult, gqsTestResult, osTestResult, sqTestResult, rpTestResult]);
+  const htmlElementActionTestResult = new HtmlElementActionTestResult(new Date(), htmlElementAction, [
+    csgTestResult,
+    fTestResult,
+    gqsTestResult,
+    osTestResult,
+    sqTestResult,
+    rpTestResult,
+  ]);
   const browserTestResult = new BrowserTestResult(new Date(), browser, [actionTestResult, htmlElementActionTestResult]);
   const sequenceTestResult = new SequenceTestResult(new Date(), sequence, [browserTestResult]);
   const projectTestResult = new ProjectTestResult(new Date(), [sequenceTestResult]);
@@ -85,5 +96,7 @@ test('setRecommendedLocators', () => {
 
   core.setRecommendedLocators(project);
 
-  expect(htmlElementActionTestResult.getAction().getRecommendedLocator()).toEqual(new XpathLocator('RobulaPlus', 'foo'));
+  expect(htmlElementActionTestResult.getAction().getRecommendedLocator()).toEqual(
+    new XpathLocator('RobulaPlus', 'foo'),
+  );
 });

@@ -108,28 +108,18 @@ export class ModelFactory {
           parsedJson.width,
           parsedJson.height,
           parsedJson.headless,
-          parsedJson.sleepMsBetweenActions
+          parsedJson.sleepMsBetweenActions,
         );
       case 'Edge':
-        return new Edge(
-          parsedJson.name,
-          parsedJson.width,
-          parsedJson.height,
-          parsedJson.sleepMsBetweenActions
-        );
+        return new Edge(parsedJson.name, parsedJson.width, parsedJson.height, parsedJson.sleepMsBetweenActions);
       case 'Firefox':
-        return new Firefox(
-          parsedJson.name,
-          parsedJson.width,
-          parsedJson.height,
-          parsedJson.sleepMsBetweenActions
-        );
+        return new Firefox(parsedJson.name, parsedJson.width, parsedJson.height, parsedJson.sleepMsBetweenActions);
       case 'InternetExplorer':
         return new InternetExplorer(
           parsedJson.name,
           parsedJson.width,
           parsedJson.height,
-          parsedJson.sleepMsBetweenActions
+          parsedJson.sleepMsBetweenActions,
         );
       default:
         throw new Error('Could not construct Browser from ChRec JSON!');
