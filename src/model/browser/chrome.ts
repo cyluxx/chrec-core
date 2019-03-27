@@ -8,10 +8,9 @@ export class Chrome extends Browser {
     width: number,
     height: number,
     sleepMsBetweenActions: number,
-    iterationCount: number,
-    private headless: boolean,
+    private headless: boolean
   ) {
-    super('Chrome', name, width, height, sleepMsBetweenActions, iterationCount);
+    super('Chrome', name, width, height, sleepMsBetweenActions);
   }
 
   public buildWebDriver(seleniumServerUrl: string): WebDriver {

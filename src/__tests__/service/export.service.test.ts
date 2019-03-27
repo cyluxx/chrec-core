@@ -17,7 +17,7 @@ test('Project converts to proper AlexExport', () => {
   const htmlElementAction: Click = new Click('foo', [locator], new BoundingBox(42, 42, 42, 42));
   const action: GoTo = new GoTo('foo', 'https://github.com/cyluxx/chrec-core');
   htmlElementAction.setRecommendedLocator(locator);
-  const sequence: Sequence = new Sequence('Sequence Name', [action, htmlElementAction], []);
+  const sequence: Sequence = new Sequence('Sequence Name', [action, htmlElementAction]);
   const project: Project = new Project('Project Name', [sequence], []);
 
   const alexExport: AlexExport = EXPORT_SERVICE.convertToAlex(project);
@@ -42,7 +42,7 @@ test('AlexExport is properly written to file', async () => {
   const htmlElementAction: Click = new Click('foo', [locator], new BoundingBox(42, 42, 42, 42));
   const action: GoTo = new GoTo('foo', 'https://github.com/cyluxx/chrec-core');
   htmlElementAction.setRecommendedLocator(locator);
-  const sequence: Sequence = new Sequence('Sequence Name', [action, htmlElementAction], []);
+  const sequence: Sequence = new Sequence('Sequence Name', [action, htmlElementAction]);
   const project: Project = new Project('Project Name', [sequence], []);
 
   const status: Status = await EXPORT_SERVICE.exportToAlexJson(

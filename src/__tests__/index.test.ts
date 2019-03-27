@@ -17,7 +17,7 @@ import { ProjectTestResult } from '../model/test-result/project-test-result';
 import { SequenceTestResult } from '../model/test-result/sequence-test-result';
 
 const SELENIUM_SERVER_URL: string = process.env.SELENIUM_SERVER_URL as string;
-const SETTINGS: Settings = new Settings(SELENIUM_SERVER_URL, [new Chrome('foo', 800, 600, 0, 0, false)]);
+const SETTINGS: Settings = new Settings(SELENIUM_SERVER_URL, [new Chrome('foo', 800, 600, 0, false)]);
 
 test('addProjectTest', async () => {
   jest.setTimeout(10000);
@@ -66,7 +66,7 @@ test('setRecommendedLocators', () => {
   const htmlElementAction = new Click('foo', [cssSelectorGenerator, finder, getQuerySelector, optimalSelect, selectorQuery, robulaPlus], new BoundingBox(42, 42, 42, 42));
   const sequence = new Sequence('foo', [action, htmlElementAction]);
 
-  const browser = new Firefox('foo', 42, 42, 42, 42);
+  const browser = new Firefox('foo', 42, 42, 42);
 
   const csgTestResult = new LocatorTestResult(new Date(), cssSelectorGenerator, false);
   const fTestResult = new LocatorTestResult(new Date(), finder, false);

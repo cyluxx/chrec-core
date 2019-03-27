@@ -5,7 +5,7 @@ import { Chrome } from '../../model/browser/chrome';
 import { CssLocator } from '../../model/locator/css-locator';
 
 const SELENIUM_SERVER_URL: string = process.env.SELENIUM_SERVER_URL as string;
-const CHROME: Chrome = new Chrome('foo', 800, 600, false);
+const CHROME: Chrome = new Chrome('foo', 800, 600, 0, false);
 
 test('HtmlElementAction findElement has valid locator', async () => {
   jest.setTimeout(10000);

@@ -35,6 +35,9 @@ export class ReplayService {
     const actionTestResults: ActionTestResult[] = [];
     const driver: WebDriver = browser.buildWebDriver(seleniumServerUrl);
     for (const action of actions) {
+      if(browser.getSleepMsBetweenActions()){
+        await driver.sleep(browser.getSleepMsBetweenActions());
+      }
       actionTestResults.push(await this.testAction(action, driver));
     }
     driver.quit();

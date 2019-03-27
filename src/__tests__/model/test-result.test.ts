@@ -15,7 +15,7 @@ test('is replayable', () => {
   const locator: CssLocator = new CssLocator('foo', 'foo');
   const action: Refresh = new Refresh('foo');
   const htmlElementAction: Click = new Click('foo', [locator], new BoundingBox(42, 42, 42, 42));
-  const browser: Edge = new Edge('foo', 42, 42);
+  const browser: Edge = new Edge('foo', 42, 42, 0);
   const sequence: Sequence = new Sequence('foo', [action]);
 
   const locatorTestResult: LocatorTestResult = new LocatorTestResult(new Date(), locator, false);
@@ -44,7 +44,7 @@ test('getSuccessfullLocatorCount', () => {
   const locator: CssLocator = new CssLocator('foo', 'foo');
   const action: Refresh = new Refresh('foo');
   const htmlElementAction: Click = new Click('foo', [locator], new BoundingBox(42, 42, 42, 42));
-  const browser: Edge = new Edge('foo', 42, 42);
+  const browser: Edge = new Edge('foo', 42, 42, 0);
   const sequence: Sequence = new Sequence('foo', [action]);
 
   const locatorTestResult: LocatorTestResult = new LocatorTestResult(new Date(), locator, false);
@@ -73,7 +73,7 @@ test('getTotalLocatorCount', () => {
   const locator: CssLocator = new CssLocator('foo', 'foo');
   const action: Refresh = new Refresh('foo');
   const htmlElementAction: Click = new Click('foo', [locator], new BoundingBox(42, 42, 42, 42));
-  const browser: Edge = new Edge('foo', 42, 42);
+  const browser: Edge = new Edge('foo', 42, 42, 0);
   const sequence: Sequence = new Sequence('foo', [action]);
 
   const locatorTestResult: LocatorTestResult = new LocatorTestResult(new Date(), locator, false);
