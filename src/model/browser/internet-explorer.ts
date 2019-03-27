@@ -1,13 +1,13 @@
 import { Browser as BrowserName, Builder, WebDriver } from 'selenium-webdriver';
 import { Browser } from './browser';
 
-export class Firefox extends Browser {
+export class InternetExplorer extends Browser {
   constructor(name: string, width: number, height: number, sleepMsBetweenActions: number, iterationCount: number) {
-    super('Firefox', name, width, height, sleepMsBetweenActions, iterationCount);
+    super('InternetExplorer', name, width, height, sleepMsBetweenActions, iterationCount);
   }
 
   public buildWebDriver(seleniumServerUrl: string): WebDriver {
-    const builder: Builder = new Builder().forBrowser(BrowserName.FIREFOX).usingServer(seleniumServerUrl);
+    const builder: Builder = new Builder().forBrowser(BrowserName.INTERNET_EXPLORER).usingServer(seleniumServerUrl);
     const driver: WebDriver = builder.build();
     driver.manage().deleteAllCookies();
     driver

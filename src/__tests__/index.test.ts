@@ -7,6 +7,7 @@ import { CssLocator } from '../model/locator/css-locator';
 import { Project } from '../model/project';
 import { Sequence } from '../model/sequence';
 import { Settings } from '../model/settings';
+import { ProjectTestResult } from '../model/test-result/project-test-result';
 
 const SELENIUM_SERVER_URL: string = process.env.SELENIUM_SERVER_URL as string;
 const SETTINGS: Settings = new Settings(SELENIUM_SERVER_URL, [new Chrome('foo', 800, 600, false)]);
@@ -44,4 +45,12 @@ test('addSequenceTest', async () => {
   expect(project.getTestResults()[0]).toBeDefined();
   expect(project.getTestResults()[0].getSequenceTestResults()[0]).toBeDefined();
   expect(project.getTestResults()[0].getSequenceTestResults().length).toBe(1);
+});
+
+test('setRecommendedLocators', () => {
+  const sequence = new Sequence()
+
+  const sequenceTestResult = new SequenceTestResult()
+  const projectTestResult = new ProjectTestResult(new Date(), [sequenceTestResult]);
+  const project = new Project('foo', [sequence], [projectTestResult]);
 });

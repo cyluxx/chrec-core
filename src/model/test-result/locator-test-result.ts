@@ -22,4 +22,32 @@ export class LocatorTestResult implements TestResult {
   public getTotalLocatorCount(): number {
     return 1;
   }
+
+  public calculateBestLocatorMethods(): Locator[] {
+    return this.valid ? [this.locator] : [];
+  }
+
+  public getSuccessfulCssSelectorGeneratorCount(): number {
+    return this.valid && this.locator.getMethodName() === 'CssSelectorGenerator' ? 1 : 0;
+  }
+
+  public getSuccessfulFinderCount(): number {
+    return this.valid && this.locator.getMethodName() === 'Finder' ? 1 : 0;
+  }
+
+  public getSuccessfulGetQuerySelectorCount(): number {
+    return this.valid && this.locator.getMethodName() === 'GetQuerySelector' ? 1 : 0;
+  }
+
+  public getSuccessfulOptimalSelectCount(): number {
+    return this.valid && this.locator.getMethodName() === 'OptimalSelect' ? 1 : 0;
+  }
+
+  public getSuccessfulSelectorQueryCount(): number {
+    return this.valid && this.locator.getMethodName() === 'SelectorQuery' ? 1 : 0;
+  }
+
+  public getSuccessfulRobulaPlusCount(): number {
+    return this.valid && this.locator.getMethodName() === 'RobulaPlus' ? 1 : 0;
+  }
 }

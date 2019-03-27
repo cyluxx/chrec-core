@@ -3,8 +3,15 @@ import { Options } from 'selenium-webdriver/chrome';
 import { Browser } from './browser';
 
 export class Chrome extends Browser {
-  constructor(name: string, width: number, height: number, private headless: boolean) {
-    super('Chrome', name, width, height);
+  constructor(
+    name: string,
+    width: number,
+    height: number,
+    sleepMsBetweenActions: number,
+    iterationCount: number,
+    private headless: boolean,
+  ) {
+    super('Chrome', name, width, height, sleepMsBetweenActions, iterationCount);
   }
 
   public buildWebDriver(seleniumServerUrl: string): WebDriver {

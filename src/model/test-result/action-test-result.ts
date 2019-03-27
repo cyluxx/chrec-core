@@ -1,10 +1,11 @@
 import { Action } from '../action/action';
 import { TestResult } from './test-result';
+import { Locator } from '../locator/locator';
 
 export class ActionTestResult implements TestResult {
   private valid: boolean;
 
-  constructor(private date: Date, private action: Action, valid?: boolean) {
+  constructor(private date: Date, protected action: Action, valid?: boolean) {
     this.valid = false;
     if (valid) {
       this.valid = valid;
@@ -28,6 +29,34 @@ export class ActionTestResult implements TestResult {
   }
 
   public getTotalLocatorCount(): number {
+    return 0;
+  }
+
+  public calculateBestLocatorMethods(): Locator[] {
+    return [];
+  }
+
+  public getSuccessfulCssSelectorGeneratorCount(): number {
+    return 0;
+  }
+
+  public getSuccessfulFinderCount(): number {
+    return 0;
+  }
+
+  public getSuccessfulGetQuerySelectorCount(): number {
+    return 0;
+  }
+
+  public getSuccessfulOptimalSelectCount(): number {
+    return 0;
+  }
+
+  public getSuccessfulSelectorQueryCount(): number {
+    return 0;
+  }
+
+  public getSuccessfulRobulaPlusCount(): number {
     return 0;
   }
 }

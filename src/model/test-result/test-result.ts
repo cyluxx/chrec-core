@@ -1,3 +1,5 @@
+import { Locator } from '../locator/locator';
+
 export interface TestResult {
   getDate(): Date;
 
@@ -6,4 +8,18 @@ export interface TestResult {
   getSuccessfulLocatorCount(): number;
 
   getTotalLocatorCount(): number;
+
+  calculateBestLocatorMethods(): Locator[];
+
+  getSuccessfulCssSelectorGeneratorCount(): number;
+
+  getSuccessfulFinderCount(): number;
+
+  getSuccessfulGetQuerySelectorCount(): number;
+
+  getSuccessfulOptimalSelectCount(): number;
+
+  getSuccessfulSelectorQueryCount(): number;
+
+  getSuccessfulRobulaPlusCount(): number;
 }

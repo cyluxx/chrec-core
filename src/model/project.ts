@@ -1,5 +1,6 @@
 import { Sequence } from './sequence';
 import { ProjectTestResult } from './test-result/project-test-result';
+import { Locator } from './locator/locator';
 
 export class Project {
   constructor(private name: string, private sequences: Sequence[], private projectTestResults: ProjectTestResult[]) {}
@@ -30,5 +31,61 @@ export class Project {
 
   public getTestResults(): ProjectTestResult[] {
     return this.projectTestResults;
+  }
+
+  public calculateBestLocatorMethods(): Locator[] {
+    let locators: Locator[] = [];
+    for (const testResult of this.projectTestResults) {
+      locators = locators.concat(testResult.calculateBestLocatorMethods());
+    }
+    return locators;
+  }
+
+  public getSuccessfulCssSelectorGeneratorCount(): number {
+    let count: number = 0;
+    for (const testResult of this.projectTestResults) {
+      count += testResult.getSuccessfulCssSelectorGeneratorCount();
+    }
+    return count;
+  }
+
+  public getSuccessfulFinderCount(): number {
+    let count: number = 0;
+    for (const testResult of this.projectTestResults) {
+      count += testResult.getSuccessfulFinderCount();
+    }
+    return count;
+  }
+
+  public getSuccessfulGetQuerySelectorCount(): number {
+    let count: number = 0;
+    for (const testResult of this.projectTestResults) {
+      count += testResult.getSuccessfulGetQuerySelectorCount();
+    }
+    return count;
+  }
+
+  public getSuccessfulOptimalSelectCount(): number {
+    let count: number = 0;
+    for (const testResult of this.projectTestResults) {
+      count += testResult.getSuccessfulOptimalSelectCount();
+    }
+    return count;
+  }
+
+  public getSuccessfulSelectorQueryCount(): number {
+    let count: number = 0;
+    for (const testResult of this.projectTestResults) {
+      count += testResult.getSuccessfulSelectorQueryCount();
+    }
+    return count;
+  }
+
+  public getSuccessfulRobulaPlusCount(): number {
+    let count: number = 0;
+    for (const testResult of this.projectTestResults) {
+      count += testResult.getSuccessfulRobulaPlusCount();
+    }
+    return count;
   }
 }

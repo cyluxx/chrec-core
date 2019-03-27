@@ -23,6 +23,7 @@ import { HtmlElementActionTestResult } from '../model/test-result/html-element-a
 import { LocatorTestResult } from '../model/test-result/locator-test-result';
 import { ProjectTestResult } from '../model/test-result/project-test-result';
 import { SequenceTestResult } from '../model/test-result/sequence-test-result';
+import { InternetExplorer } from '../model/browser/internet-explorer';
 
 export class ModelFactory {
   public projectFromChrecJson(parsedJson: any): Project {
@@ -102,11 +103,38 @@ export class ModelFactory {
   public browserFromChrecJson(parsedJson: any): Browser {
     switch (parsedJson.className) {
       case 'Chrome':
-        return new Chrome(parsedJson.name, parsedJson.width, parsedJson.height, parsedJson.headless);
+        return new Chrome(
+          parsedJson.name,
+          parsedJson.width,
+          parsedJson.height,
+          parsedJson.headless,
+          parsedJson.sleepMsBetweenActions,
+          parsedJson.iterationCount,
+        );
       case 'Edge':
-        return new Edge(parsedJson.name, parsedJson.width, parsedJson.height);
+        return new Edge(
+          parsedJson.name,
+          parsedJson.width,
+          parsedJson.height,
+          parsedJson.sleepMsBetweenActions,
+          parsedJson.iterationCount,
+        );
       case 'Firefox':
-        return new Firefox(parsedJson.name, parsedJson.width, parsedJson.height);
+        return new Firefox(
+          parsedJson.name,
+          parsedJson.width,
+          parsedJson.height,
+          parsedJson.sleepMsBetweenActions,
+          parsedJson.iterationCount,
+        );
+      case 'InternetExplorer':
+        return new InternetExplorer(
+          parsedJson.name,
+          parsedJson.width,
+          parsedJson.height,
+          parsedJson.sleepMsBetweenActions,
+          parsedJson.iterationCount,
+        );
       default:
         throw new Error('Could not construct Browser from ChRec JSON!');
     }

@@ -58,9 +58,6 @@ export class ReplayService {
     for (const locator of action.getLocators()) {
       const testResult = await this.testLocator(locator, driver);
       locatorTestResults.push(testResult);
-      if (testResult.isReplayable()) {
-        action.setRecommendedLocator(testResult.getLocator());
-      }
     }
     await action.run(driver);
     return new HtmlElementActionTestResult(new Date(), action, locatorTestResults);

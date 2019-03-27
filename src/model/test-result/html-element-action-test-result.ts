@@ -2,10 +2,15 @@ import { HtmlElementAction } from '../action/html-element-action/html-element-ac
 import { ActionTestResult } from './action-test-result';
 import { LocatorTestResult } from './locator-test-result';
 import { TestResult } from './test-result';
+import { Locator } from '../locator/locator';
 
 export class HtmlElementActionTestResult extends ActionTestResult implements TestResult {
   constructor(date: Date, action: HtmlElementAction, private locatorTestResults: LocatorTestResult[]) {
     super(date, action);
+  }
+
+  public getAction(): HtmlElementAction {
+    return this.action as HtmlElementAction;
   }
 
   public addLocatorTestResult(locatorTestResult: LocatorTestResult): void {
@@ -37,6 +42,62 @@ export class HtmlElementActionTestResult extends ActionTestResult implements Tes
     let count: number = 0;
     for (const testResult of this.locatorTestResults) {
       count += testResult.getTotalLocatorCount();
+    }
+    return count;
+  }
+
+  public calculateBestLocatorMethods(): Locator[] {
+    let locators: Locator[] = [];
+    for (const testResult of this.locatorTestResults) {
+      locators = locators.concat(testResult.calculateBestLocatorMethods());
+    }
+    return locators;
+  }
+
+  public getSuccessfulCssSelectorGeneratorCount(): number {
+    let count: number = 0;
+    for (const testResult of this.locatorTestResults) {
+      count += testResult.getSuccessfulCssSelectorGeneratorCount();
+    }
+    return count;
+  }
+
+  public getSuccessfulFinderCount(): number {
+    let count: number = 0;
+    for (const testResult of this.locatorTestResults) {
+      count += testResult.getSuccessfulFinderCount();
+    }
+    return count;
+  }
+
+  public getSuccessfulGetQuerySelectorCount(): number {
+    let count: number = 0;
+    for (const testResult of this.locatorTestResults) {
+      count += testResult.getSuccessfulGetQuerySelectorCount();
+    }
+    return count;
+  }
+
+  public getSuccessfulOptimalSelectCount(): number {
+    let count: number = 0;
+    for (const testResult of this.locatorTestResults) {
+      count += testResult.getSuccessfulOptimalSelectCount();
+    }
+    return count;
+  }
+
+  public getSuccessfulSelectorQueryCount(): number {
+    let count: number = 0;
+    for (const testResult of this.locatorTestResults) {
+      count += testResult.getSuccessfulSelectorQueryCount();
+    }
+    return count;
+  }
+
+  public getSuccessfulRobulaPlusCount(): number {
+    let count: number = 0;
+    for (const testResult of this.locatorTestResults) {
+      count += testResult.getSuccessfulRobulaPlusCount();
     }
     return count;
   }
