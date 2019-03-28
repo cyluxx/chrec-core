@@ -153,7 +153,7 @@ export class ModelFactory {
   }
 
   public actionTestResultFromChrecJson(parsedJson: any): ActionTestResult {
-    if (parsedJson.locators) {
+    if (parsedJson.locatorTestResults) {
       return this.htmlElementActionTestResultFromChrecJson(parsedJson);
     }
     const action: Action = this.actionFromChrecJson(parsedJson.action);
