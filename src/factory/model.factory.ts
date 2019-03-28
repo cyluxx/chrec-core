@@ -108,7 +108,7 @@ export class ModelFactory {
           parsedJson.width,
           parsedJson.height,
           parsedJson.sleepMsBetweenActions,
-          parsedJson.headless
+          parsedJson.headless,
         );
       case 'Edge':
         return new Edge(parsedJson.name, parsedJson.width, parsedJson.height, parsedJson.sleepMsBetweenActions);
