@@ -7,7 +7,6 @@ export abstract class Browser {
     protected width: number,
     protected height: number,
     protected sleepMsBetweenActions: number,
-    protected iterationCount: number,
   ) {}
 
   public getClassName(): string {
@@ -28,10 +27,6 @@ export abstract class Browser {
 
   public getSleepMsBetweenActions(): number {
     return this.sleepMsBetweenActions;
-  }
-
-  public getIterationCount(): number {
-    return this.iterationCount;
   }
 
   public abstract buildWebDriver(seleniumServerUrl: string): WebDriver;

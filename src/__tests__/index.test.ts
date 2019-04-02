@@ -17,7 +17,7 @@ import { ProjectTestResult } from '../model/test-result/project-test-result';
 import { SequenceTestResult } from '../model/test-result/sequence-test-result';
 
 const SELENIUM_SERVER_URL: string = process.env.SELENIUM_SERVER_URL as string;
-const SETTINGS: Settings = new Settings(SELENIUM_SERVER_URL, [new Chrome('foo', 800, 600, 0, 0, false)]);
+const SETTINGS: Settings = new Settings(SELENIUM_SERVER_URL, [new Chrome('foo', 800, 600, 0, false)]);
 
 test('addProjectTest', async () => {
   jest.setTimeout(10000);
@@ -63,10 +63,14 @@ test('setRecommendedLocators', () => {
   const robulaPlus = new XpathLocator('RobulaPlus', 'foo');
 
   const action = new Refresh('foo');
-  const htmlElementAction = new Click('foo', [cssSelectorGenerator, finder, getQuerySelector, optimalSelect, selectorQuery, robulaPlus], new BoundingBox(42, 42, 42, 42));
+  const htmlElementAction = new Click(
+    'foo',
+    [cssSelectorGenerator, finder, getQuerySelector, optimalSelect, selectorQuery, robulaPlus],
+    new BoundingBox(42, 42, 42, 42),
+  );
   const sequence = new Sequence('foo', [action, htmlElementAction]);
 
-  const browser = new Firefox('foo', 42, 42, 42, 42);
+  const browser = new Firefox('foo', 42, 42, 42);
 
   const csgTestResult = new LocatorTestResult(new Date(), cssSelectorGenerator, false);
   const fTestResult = new LocatorTestResult(new Date(), finder, false);
@@ -75,7 +79,14 @@ test('setRecommendedLocators', () => {
   const sqTestResult = new LocatorTestResult(new Date(), selectorQuery, false);
   const rpTestResult = new LocatorTestResult(new Date(), robulaPlus, true);
   const actionTestResult = new ActionTestResult(new Date(), action, true);
-  const htmlElementActionTestResult = new HtmlElementActionTestResult(new Date(), htmlElementAction, [csgTestResult, fTestResult, gqsTestResult, osTestResult, sqTestResult, rpTestResult]);
+  const htmlElementActionTestResult = new HtmlElementActionTestResult(new Date(), htmlElementAction, [
+    csgTestResult,
+    fTestResult,
+    gqsTestResult,
+    osTestResult,
+    sqTestResult,
+    rpTestResult,
+  ]);
   const browserTestResult = new BrowserTestResult(new Date(), browser, [actionTestResult, htmlElementActionTestResult]);
   const sequenceTestResult = new SequenceTestResult(new Date(), sequence, [browserTestResult]);
   const projectTestResult = new ProjectTestResult(new Date(), [sequenceTestResult]);
@@ -85,5 +96,7 @@ test('setRecommendedLocators', () => {
 
   core.setRecommendedLocators(project);
 
-  expect(htmlElementActionTestResult.getAction().getRecommendedLocator()).toEqual(new XpathLocator('RobulaPlus', 'foo'));
+  expect(htmlElementActionTestResult.getAction().getRecommendedLocator()).toEqual(
+    new XpathLocator('RobulaPlus', 'foo'),
+  );
 });

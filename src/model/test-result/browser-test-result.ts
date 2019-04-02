@@ -1,7 +1,7 @@
 import { Browser } from '../browser/browser';
+import { Locator } from '../locator/locator';
 import { ActionTestResult } from './action-test-result';
 import { TestResult } from './test-result';
-import { Locator } from '../locator/locator';
 
 export class BrowserTestResult implements TestResult {
   constructor(private date: Date, private browser: Browser, private actionTestResults: ActionTestResult[]) {}

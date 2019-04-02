@@ -40,8 +40,8 @@ export class Core {
   public setRecommendedLocators(project: Project): void {
     if (project.getTestResults().length > 0) {
       for (const sequenceTestResult of project
-        .getTestResults()[project.getTestResults().length - 1]
-        .getSequenceTestResults()) {
+        .getTestResults()
+        [project.getTestResults().length - 1].getSequenceTestResults()) {
         for (const browserTestResult of sequenceTestResult.getBrowserTestResults()) {
           for (const actionTestResult of browserTestResult.getActionTestResults()) {
             if (actionTestResult instanceof HtmlElementActionTestResult) {
@@ -71,7 +71,7 @@ export class Core {
     for (const locatorCount of locatorCounts) {
       for (const locatorTestResult of htmlElementActionTestResult.getLocatorTestResults()) {
         const locator: Locator = locatorTestResult.getLocator();
-        if (locatorTestResult.isReplayable() && locator.getMethodName() === locatorCount.methodName as string) {
+        if (locatorTestResult.isReplayable() && locator.getMethodName() === (locatorCount.methodName as string)) {
           htmlElementActionTestResult.getAction().setRecommendedLocator(locator);
           return;
         }

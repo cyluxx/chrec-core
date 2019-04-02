@@ -11,7 +11,7 @@ test('BuildWebDriver builds proper edge', async () => {
   if (NODE_ENV === 'dev') {
     jest.setTimeout(15000);
 
-    const browser: Edge = new Edge('foo', 800, 600);
+    const browser: Edge = new Edge('foo', 800, 600, 0);
     const driver: WebDriver = browser.buildWebDriver(SELENIUM_SERVER_URL);
     const capabilities: Capabilities = await driver.getCapabilities();
     const size: ISize = await driver
@@ -31,7 +31,7 @@ test('BuildWebDriver builds proper edge', async () => {
 test('BuildWebDriver builds proper firefox', async () => {
   jest.setTimeout(15000);
 
-  const browser: Firefox = new Firefox('foo', 800, 600);
+  const browser: Firefox = new Firefox('foo', 800, 600, 0);
   const driver: WebDriver = browser.buildWebDriver(SELENIUM_SERVER_URL);
   const capabilities: Capabilities = await driver.getCapabilities();
   const size: ISize = await driver
@@ -50,7 +50,7 @@ test('BuildWebDriver builds proper firefox', async () => {
 test('BuildWebDriver builds proper chrome', async () => {
   jest.setTimeout(15000);
 
-  const browser: Chrome = new Chrome('foo', 800, 600, false);
+  const browser: Chrome = new Chrome('foo', 800, 600, 0, false);
   const driver: WebDriver = browser.buildWebDriver(SELENIUM_SERVER_URL);
   const capabilities: Capabilities = await driver.getCapabilities();
   const size: ISize = await driver
@@ -67,7 +67,7 @@ test('BuildWebDriver builds proper chrome', async () => {
 });
 
 test('BuildWebDriver builds proper headless chrome', async () => {
-  const browser: Chrome = new Chrome('foo', 800, 600, true);
+  const browser: Chrome = new Chrome('foo', 800, 600, 0, true);
   const driver: WebDriver = browser.buildWebDriver(SELENIUM_SERVER_URL);
   const capabilities: Capabilities = await driver.getCapabilities();
   const size: ISize = await driver
