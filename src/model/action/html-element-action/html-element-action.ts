@@ -6,7 +6,7 @@ import { Status } from '../../status';
 import { Action } from '../action';
 
 export abstract class HtmlElementAction extends Action {
-  private recommendedLocator!: Locator;
+  protected recommendedLocator!: Locator;
 
   constructor(className: string, image: string, protected locators: Locator[], protected boundingBox: BoundingBox) {
     super(className, image);
