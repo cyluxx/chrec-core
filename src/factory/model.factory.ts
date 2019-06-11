@@ -107,33 +107,19 @@ export class ModelFactory {
           parsedJson.name,
           parsedJson.width,
           parsedJson.height,
-          parsedJson.headless,
           parsedJson.sleepMsBetweenActions,
-          parsedJson.iterationCount,
+          parsedJson.headless,
         );
       case 'Edge':
-        return new Edge(
-          parsedJson.name,
-          parsedJson.width,
-          parsedJson.height,
-          parsedJson.sleepMsBetweenActions,
-          parsedJson.iterationCount,
-        );
+        return new Edge(parsedJson.name, parsedJson.width, parsedJson.height, parsedJson.sleepMsBetweenActions);
       case 'Firefox':
-        return new Firefox(
-          parsedJson.name,
-          parsedJson.width,
-          parsedJson.height,
-          parsedJson.sleepMsBetweenActions,
-          parsedJson.iterationCount,
-        );
+        return new Firefox(parsedJson.name, parsedJson.width, parsedJson.height, parsedJson.sleepMsBetweenActions);
       case 'InternetExplorer':
         return new InternetExplorer(
           parsedJson.name,
           parsedJson.width,
           parsedJson.height,
           parsedJson.sleepMsBetweenActions,
-          parsedJson.iterationCount,
         );
       default:
         throw new Error('Could not construct Browser from ChRec JSON!');
@@ -167,7 +153,7 @@ export class ModelFactory {
   }
 
   public actionTestResultFromChrecJson(parsedJson: any): ActionTestResult {
-    if (parsedJson.locators) {
+    if (parsedJson.locatorTestResults) {
       return this.htmlElementActionTestResultFromChrecJson(parsedJson);
     }
     const action: Action = this.actionFromChrecJson(parsedJson.action);

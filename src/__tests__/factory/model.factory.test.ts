@@ -50,7 +50,7 @@ test('Model is build properly from JSON', () => {
   actions.push(new Refresh(''));
   actions.push(new Back(''));
   actions.push(new Forward(''));
-  const sequence: Sequence = new Sequence('Test Sequence', actions, []);
+  const sequence: Sequence = new Sequence('Test Sequence', actions);
   const project = new Project('acp Project Name', [sequence], []);
 
   expect(modelFactory.projectFromChrecJson(parsedJson)).toEqual(project);

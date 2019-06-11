@@ -33,16 +33,24 @@ export class Type extends HtmlElementAction {
   }
 
   public async run(driver: WebDriver): Promise<Status> {
+    let element: WebElement;
+    if (!this.recommendedLocator) {
+      return new Status(Code.RECOMMENDED_LOCATOR_NOT_SPECIFIED, 'Click Action: Recommended Locator not Specified!');
+    }
     try {
-      const element: WebElement = await this.findElement(driver);
+      element = await this.findElement(driver);
       if (this.key) {
-        element.sendKeys(this.value, this.key);
+        await element.sendKeys(this.value, this.key);
       } else {
-        element.sendKeys(this.value, Key.TAB);
+        await element.sendKeys(this.value, Key.TAB);
       }
       return new Status(Code.OK, 'Type Action successful!');
     } catch (error) {
-      return new Status(Code.HTML_ELEMENT_ACTION_FAILED, 'Type Action failed!');
+      if (error.name === 'NoSuchElementError') {
+        return new Status(Code.NO_SUCH_ELEMENT, `CSS Locator ${this.recommendedLocator.getMethodName()}: ${this.recommendedLocator.getClassName()} not found!`);
+      } else {
+        return new Status(Code.HTML_ELEMENT_ACTION_FAILED, 'Type Action failed!');
+      }
     }
   }
 
@@ -54,7 +62,7 @@ export class Type extends HtmlElementAction {
       ];
     }
     throw new Error(
-      'No recommended locator specified, yet! Please run at least one test for this sequence before exporting it.',
+      'No recommended locator specified, yet! Please run at least one test for this sequence before exporting it.'
     );
   }
 }

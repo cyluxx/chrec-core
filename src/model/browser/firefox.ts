@@ -2,8 +2,8 @@ import { Browser as BrowserName, Builder, WebDriver } from 'selenium-webdriver';
 import { Browser } from './browser';
 
 export class Firefox extends Browser {
-  constructor(name: string, width: number, height: number, sleepMsBetweenActions: number, iterationCount: number) {
-    super('Firefox', name, width, height, sleepMsBetweenActions, iterationCount);
+  constructor(name: string, width: number, height: number, sleepMsBetweenActions: number) {
+    super('Firefox', name, width, height, sleepMsBetweenActions);
   }
 
   public buildWebDriver(seleniumServerUrl: string): WebDriver {

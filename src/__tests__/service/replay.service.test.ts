@@ -21,7 +21,7 @@ import { ReplayService } from '../../service/replay.service';
 
 const SELENIUM_SERVER_URL: string = process.env.SELENIUM_SERVER_URL as string;
 const REPLAY_SERVICE: ReplayService = new ReplayService();
-const CHROME = new Chrome('foo', 800, 600, false);
+const CHROME = new Chrome('foo', 800, 600, 0, false);
 
 test('testLocator', async () => {
   jest.setTimeout(10000);
@@ -87,7 +87,7 @@ test('testAction with HtmlElementAction', async () => {
 
 test('testBrowser', async () => {
   jest.setTimeout(10000);
-  const browser: Firefox = new Firefox('foo', 800, 600);
+  const browser: Firefox = new Firefox('foo', 800, 600, 100);
   const actions: Action[] = [new GoTo('foo', 'https://github.com/cyluxx/chrec-core')];
   const testResult: BrowserTestResult = await REPLAY_SERVICE.testBrowser(browser, actions, SELENIUM_SERVER_URL);
 
@@ -98,8 +98,8 @@ test('testBrowser', async () => {
 
 test('testSequence', async () => {
   jest.setTimeout(10000);
-  const sequence: Sequence = new Sequence('foo', [new Refresh('foo')], []);
-  const settings: Settings = new Settings(SELENIUM_SERVER_URL, [new Firefox('foo', 800, 600)]);
+  const sequence: Sequence = new Sequence('foo', [new Refresh('foo')]);
+  const settings: Settings = new Settings(SELENIUM_SERVER_URL, [new Firefox('foo', 800, 600, 0)]);
   const testResult: SequenceTestResult = await REPLAY_SERVICE.testSequence(sequence, settings);
 
   expect.assertions(1);
@@ -108,7 +108,7 @@ test('testSequence', async () => {
 
 test('testProject', async () => {
   jest.setTimeout(10000);
-  const project: Project = new Project('foo', [new Sequence('foo', [new Refresh('foo')], [])], []);
+  const project: Project = new Project('foo', [new Sequence('foo', [new Refresh('foo')])], []);
   const settings: Settings = new Settings(SELENIUM_SERVER_URL, [CHROME]);
   const testResult: ProjectTestResult = await REPLAY_SERVICE.testProject(project, settings);
 

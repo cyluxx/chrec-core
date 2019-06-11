@@ -35,7 +35,7 @@ export class Core {
     return project;
   }
 
-  public setRecommendedLocators(project: Project) {
+  public setRecommendedLocators(project: Project): void {
     if (project.getTestResults().length > 0) {
       for (const sequenceTestResult of project
         .getTestResults()
@@ -53,12 +53,12 @@ export class Core {
 
   public setRecommendedLocator(project: Project, htmlElementActionTestResult: HtmlElementActionTestResult): void {
     const locatorCounts: any[] = [];
-    locatorCounts.push({ className: 'CssSelectorGenerator', count: project.getSuccessfulCssSelectorGeneratorCount() });
-    locatorCounts.push({ className: 'Finder', count: project.getSuccessfulFinderCount() });
-    locatorCounts.push({ className: 'GetQuerySelector', count: project.getSuccessfulGetQuerySelectorCount() });
-    locatorCounts.push({ className: 'OptimalSelect', count: project.getSuccessfulOptimalSelectCount() });
-    locatorCounts.push({ className: 'SelectorQuery', count: project.getSuccessfulSelectorQueryCount() });
-    locatorCounts.push({ className: 'RobulaPlus', count: project.getSuccessfulRobulaPlusCount() });
+    locatorCounts.push({ methodName: 'CssSelectorGenerator', count: project.getSuccessfulCssSelectorGeneratorCount() });
+    locatorCounts.push({ methodName: 'Finder', count: project.getSuccessfulFinderCount() });
+    locatorCounts.push({ methodName: 'GetQuerySelector', count: project.getSuccessfulGetQuerySelectorCount() });
+    locatorCounts.push({ methodName: 'OptimalSelect', count: project.getSuccessfulOptimalSelectCount() });
+    locatorCounts.push({ methodName: 'SelectorQuery', count: project.getSuccessfulSelectorQueryCount() });
+    locatorCounts.push({ methodName: 'RobulaPlus', count: project.getSuccessfulRobulaPlusCount() });
 
     locatorCounts.sort(
       (a: any, b: any): number => {
@@ -69,7 +69,7 @@ export class Core {
     for (const locatorCount of locatorCounts) {
       for (const locatorTestResult of htmlElementActionTestResult.getLocatorTestResults()) {
         const locator: Locator = locatorTestResult.getLocator();
-        if (locatorTestResult.isReplayable() && locator.getClassName() === locatorCount.className) {
+        if (locatorTestResult.isReplayable() && locator.getMethodName() === (locatorCount.methodName as string)) {
           htmlElementActionTestResult.getAction().setRecommendedLocator(locator);
           return;
         }
