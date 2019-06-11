@@ -32,7 +32,10 @@ export class Read extends HtmlElementAction {
       return new Status(Code.READ_VALUE_NOT_IN_TEXT, 'Html Element does not contain desired value.');
     } catch (error) {
       if (error.name === 'NoSuchElementError') {
-        return new Status(Code.NO_SUCH_ELEMENT, `CSS Locator ${this.recommendedLocator.getMethodName()}: ${this.recommendedLocator.getClassName()} not found!`);
+        return new Status(
+          Code.NO_SUCH_ELEMENT,
+          `CSS Locator ${this.recommendedLocator.getMethodName()}: ${this.recommendedLocator.getClassName()} not found!`,
+        );
       } else {
         return new Status(Code.HTML_ELEMENT_ACTION_FAILED, 'Read Action failed!');
       }
@@ -44,7 +47,7 @@ export class Read extends HtmlElementAction {
       return [new WebCheckForText(this.value, this.getRecommendedLocator().toAlexNode())];
     }
     throw new Error(
-      'No recommended locator specified, yet! Please run at least one test for this sequence before exporting it.'
+      'No recommended locator specified, yet! Please run at least one test for this sequence before exporting it.',
     );
   }
 }
