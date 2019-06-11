@@ -48,9 +48,9 @@ test('addSequenceTest', async () => {
 });
 
 test('setRecommendedLocators', () => {
-  const sequence = new Sequence()
+  const sequence = new Sequence();
 
-  const sequenceTestResult = new SequenceTestResult()
+  const sequenceTestResult = new SequenceTestResult();
   const projectTestResult = new ProjectTestResult(new Date(), [sequenceTestResult]);
   const project = new Project('foo', [sequence], [projectTestResult]);
 });

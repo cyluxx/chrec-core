@@ -1,6 +1,6 @@
 import { Action } from '../action/action';
-import { TestResult } from './test-result';
 import { Locator } from '../locator/locator';
+import { TestResult } from './test-result';
 
 export class ActionTestResult implements TestResult {
   private valid: boolean;

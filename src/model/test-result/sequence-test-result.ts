@@ -1,7 +1,7 @@
+import { Locator } from '../locator/locator';
 import { Sequence } from '../sequence';
 import { BrowserTestResult } from './browser-test-result';
 import { TestResult } from './test-result';
-import { Locator } from '../locator/locator';
 
 export class SequenceTestResult implements TestResult {
   constructor(private date: Date, private sequence: Sequence, private browserTestResults: BrowserTestResult[]) {}

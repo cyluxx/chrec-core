@@ -1,6 +1,6 @@
+import { Locator } from '../locator/locator';
 import { SequenceTestResult } from './sequence-test-result';
 import { TestResult } from './test-result';
-import { Locator } from '../locator/locator';
 
 export class ProjectTestResult implements TestResult {
   constructor(private date: Date, private sequenceTestResults: SequenceTestResult[]) {}

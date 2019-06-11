@@ -12,6 +12,7 @@ import { Browser } from '../model/browser/browser';
 import { Chrome } from '../model/browser/chrome';
 import { Edge } from '../model/browser/edge';
 import { Firefox } from '../model/browser/firefox';
+import { InternetExplorer } from '../model/browser/internet-explorer';
 import { CssLocator } from '../model/locator/css-locator';
 import { Locator } from '../model/locator/locator';
 import { XpathLocator } from '../model/locator/xpath-locator';
@@ -23,7 +24,6 @@ import { HtmlElementActionTestResult } from '../model/test-result/html-element-a
 import { LocatorTestResult } from '../model/test-result/locator-test-result';
 import { ProjectTestResult } from '../model/test-result/project-test-result';
 import { SequenceTestResult } from '../model/test-result/sequence-test-result';
-import { InternetExplorer } from '../model/browser/internet-explorer';
 
 export class ModelFactory {
   public projectFromChrecJson(parsedJson: any): Project {

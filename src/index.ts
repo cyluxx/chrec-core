@@ -1,13 +1,13 @@
+import { Locator } from './model/locator/locator';
 import { Project } from './model/project';
 import { Sequence } from './model/sequence';
 import { Settings } from './model/settings';
+import { HtmlElementActionTestResult } from './model/test-result/html-element-action-test-result';
 import { ProjectTestResult } from './model/test-result/project-test-result';
 import { SequenceTestResult } from './model/test-result/sequence-test-result';
 import { ExportService } from './service/export.service';
 import { ImportService } from './service/import.service';
 import { ReplayService } from './service/replay.service';
-import { HtmlElementActionTestResult } from './model/test-result/html-element-action-test-result';
-import { Locator } from './model/locator/locator';
 
 export class Core {
   private exportService: ExportService;
@@ -34,8 +34,6 @@ export class Core {
     project.addTestResult(projectTestResult);
     return project;
   }
-
-  //todo iframe kram, (boundingboxmethod), rerecord modal, more stats
 
   public setRecommendedLocators(project: Project) {
     if (project.getTestResults().length > 0) {
