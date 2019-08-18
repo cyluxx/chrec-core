@@ -31,14 +31,7 @@ export class Read extends HtmlElementAction {
       }
       return new Status(Code.READ_VALUE_NOT_IN_TEXT, 'Html Element does not contain desired value.');
     } catch (error) {
-      if (error.name === 'NoSuchElementError') {
-        return new Status(
-          Code.NO_SUCH_ELEMENT,
-          `CSS Locator ${this.recommendedLocator.getMethodName()}: ${this.recommendedLocator.getClassName()} not found!`,
-        );
-      } else {
-        return new Status(Code.HTML_ELEMENT_ACTION_FAILED, 'Read Action failed!');
-      }
+      return this.getErrorStatus(error);
     }
   }
 

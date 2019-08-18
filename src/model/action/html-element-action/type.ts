@@ -46,14 +46,7 @@ export class Type extends HtmlElementAction {
       }
       return new Status(Code.OK, 'Type Action successful!');
     } catch (error) {
-      if (error.name === 'NoSuchElementError') {
-        return new Status(
-          Code.NO_SUCH_ELEMENT,
-          `CSS Locator ${this.recommendedLocator.getMethodName()}: ${this.recommendedLocator.getClassName()} not found!`,
-        );
-      } else {
-        return new Status(Code.HTML_ELEMENT_ACTION_FAILED, 'Type Action failed!');
-      }
+      return this.getErrorStatus(error);
     }
   }
 

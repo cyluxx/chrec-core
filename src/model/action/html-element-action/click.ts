@@ -19,14 +19,7 @@ export class Click extends HtmlElementAction {
       element = await this.findElement(driver);
       await element.click();
     } catch (error) {
-      if (error.name === 'NoSuchElementError') {
-        return new Status(
-          Code.NO_SUCH_ELEMENT,
-          `CSS Locator ${this.recommendedLocator.getMethodName()}: ${this.recommendedLocator.getClassName()} not found!`,
-        );
-      } else {
-        return new Status(Code.HTML_ELEMENT_ACTION_FAILED, 'Click Action failed!');
-      }
+      return this.getErrorStatus(error);
     }
     return new Status(Code.OK, 'Click Action successful!');
   }
