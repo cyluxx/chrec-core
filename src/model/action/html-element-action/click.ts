@@ -13,7 +13,7 @@ export class Click extends HtmlElementAction {
   public async run(driver: WebDriver): Promise<Status> {
     let element: WebElement;
     if (!this.recommendedLocator) {
-      return new Status(Code.RECOMMENDED_LOCATOR_NOT_SPECIFIED, 'Click Action: Recommended Locator not Specified!');
+      return new Status(Code.RECOMMENDED_LOCATOR_NOT_SPECIFIED, `${this.getClassName()} Action: Recommended Locator not Specified!`);
     }
     try {
       element = await this.findElement(driver);
@@ -21,7 +21,7 @@ export class Click extends HtmlElementAction {
     } catch (error) {
       return this.getErrorStatus(error);
     }
-    return new Status(Code.OK, 'Click Action successful!');
+    return new Status(Code.OK, `${this.getClassName()} Action successful!`);
   }
 
   public toAlexActions(): Action[] {

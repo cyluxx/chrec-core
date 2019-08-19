@@ -21,13 +21,13 @@ export class Read extends HtmlElementAction {
   public async run(driver: WebDriver): Promise<Status> {
     let element: WebElement;
     if (!this.recommendedLocator) {
-      return new Status(Code.RECOMMENDED_LOCATOR_NOT_SPECIFIED, 'Click Action: Recommended Locator not Specified!');
+      return new Status(Code.RECOMMENDED_LOCATOR_NOT_SPECIFIED, `${this.getClassName()} Action: Recommended Locator not Specified!`);
     }
     try {
       element = await this.findElement(driver);
       const text = await element.getText();
       if (text.includes(this.value)) {
-        return new Status(Code.OK, 'Read Action successful!');
+        return new Status(Code.OK, `${this.getClassName()} Action successful!`);
       }
       return new Status(Code.READ_VALUE_NOT_IN_TEXT, 'Html Element does not contain desired value.');
     } catch (error) {
