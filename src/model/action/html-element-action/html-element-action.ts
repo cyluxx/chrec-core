@@ -1,4 +1,4 @@
-import { WebDriver, WebElement } from 'selenium-webdriver';
+import { Locator as SeleniumLocator, WebDriver, WebElement } from 'selenium-webdriver';
 import { Action as AlexAction } from '../../../export/alex/action';
 import { BoundingBox } from '../../bounding-box';
 import { Locator } from '../../locator/locator';
@@ -38,6 +38,10 @@ export abstract class HtmlElementAction extends Action {
 
   public async findElement(driver: WebDriver): Promise<WebElement> {
     return this.recommendedLocator.findElement(driver);
+  }
+
+  public getSeleniumLocator(): SeleniumLocator {
+    return this.recommendedLocator.toSeleniumLocator();
   }
 
   public abstract async run(driver: WebDriver): Promise<Status>;

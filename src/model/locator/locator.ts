@@ -1,4 +1,4 @@
-import { WebDriver, WebElement } from 'selenium-webdriver';
+import { Locator as SeleniumLocator, WebDriver, WebElement } from 'selenium-webdriver';
 import { Node } from '../../export/alex/node';
 import { Status } from '../status';
 
@@ -16,6 +16,8 @@ export abstract class Locator {
   public getValue(): string {
     return this.value;
   }
+
+  public abstract toSeleniumLocator(): SeleniumLocator;
 
   public abstract async test(driver: WebDriver): Promise<Status>;
 

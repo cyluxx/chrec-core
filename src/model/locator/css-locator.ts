@@ -1,4 +1,4 @@
-import { By, WebDriver, WebElement } from 'selenium-webdriver';
+import { By, Locator as SeleniumLocator, WebDriver, WebElement } from 'selenium-webdriver';
 import { Node, NodeType } from '../../export/alex/node';
 import { Code, Status } from '../status';
 import { Locator } from './locator';
@@ -10,7 +10,7 @@ export class CssLocator extends Locator {
 
   public async test(driver: WebDriver): Promise<Status> {
     try {
-      await driver.findElement(By.css(this.value));
+      await this.findElement(driver);
       return this.ok();
     } catch (error) {
       if (error.name === 'NoSuchElementError') {
@@ -23,6 +23,10 @@ export class CssLocator extends Locator {
 
   public async findElement(driver: WebDriver): Promise<WebElement> {
     return await driver.findElement(By.css(this.value));
+  }
+
+  public toSeleniumLocator(): SeleniumLocator {
+    return By.css(this.value);
   }
 
   public toAlexNode(): Node {
