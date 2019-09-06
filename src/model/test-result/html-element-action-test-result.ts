@@ -5,20 +5,17 @@ import { LocatorTestResult } from './locator-test-result';
 import { TestResult } from './test-result';
 
 export class HtmlElementActionTestResult extends ActionTestResult implements TestResult {
-  constructor(date: Date, action: HtmlElementAction, private locatorTestResults: LocatorTestResult[]) {
+
+  constructor(date: Date, action: HtmlElementAction, public locatorTestResults: LocatorTestResult[]) {
     super(date, action);
   }
 
-  public getAction(): HtmlElementAction {
+  get action(): HtmlElementAction {
     return this.action as HtmlElementAction;
   }
 
   public addLocatorTestResult(locatorTestResult: LocatorTestResult): void {
     this.locatorTestResults.push(locatorTestResult);
-  }
-
-  public getLocatorTestResults(): LocatorTestResult[] {
-    return this.locatorTestResults;
   }
 
   public isReplayable(): boolean {

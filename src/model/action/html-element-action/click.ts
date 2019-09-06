@@ -13,7 +13,7 @@ export class Click extends HtmlElementAction {
   public async run(driver: WebDriver): Promise<Status> {
     let element: WebElement;
     if (!this.recommendedLocator) {
-      return new Status(Code.RECOMMENDED_LOCATOR_NOT_SPECIFIED, `${this.getClassName()} Action: Recommended Locator not Specified!`);
+      return new Status(Code.RECOMMENDED_LOCATOR_NOT_SPECIFIED, `${this.className} Action: Recommended Locator not Specified!`);
     }
     try {
       element = await this.findElement(driver);
@@ -21,12 +21,12 @@ export class Click extends HtmlElementAction {
     } catch (error) {
       return this.getErrorStatus(error);
     }
-    return new Status(Code.OK, `${this.getClassName()} Action successful!`);
+    return new Status(Code.OK, `${this.className} Action successful!`);
   }
 
   public toAlexActions(): Action[] {
-    if (this.getRecommendedLocator()) {
-      return [new WebClick(this.getRecommendedLocator().toAlexNode())];
+    if (this.recommendedLocator) {
+      return [new WebClick(this.recommendedLocator.toAlexNode())];
     }
     throw new Error(
       'No recommended locator specified, yet! Please run at least one test for this sequence before exporting it.',

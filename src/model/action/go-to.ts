@@ -4,16 +4,8 @@ import { Code, Status } from '../status';
 import { Action } from './action';
 
 export class GoTo extends Action {
-  constructor(image: string, private url: string) {
+  constructor(image: string, public url: string) {
     super('GoTo', image);
-  }
-
-  public getUrl(): string {
-    return this.url;
-  }
-
-  public setUrl(url: string) {
-    this.url = url;
   }
 
   public async run(driver: WebDriver): Promise<Status> {

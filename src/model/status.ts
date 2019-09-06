@@ -1,13 +1,5 @@
 export class Status {
-  constructor(private code: Code, private message: string) {}
-
-  public getCode(): Code {
-    return this.code;
-  }
-
-  public getMessage(): string {
-    return this.message;
-  }
+  constructor(public code: Code, public message: string) { }
 
   public isOk(): boolean {
     return this.code === Code.OK;

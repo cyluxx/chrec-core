@@ -3,21 +3,13 @@ import { Locator } from '../locator/locator';
 import { TestResult } from './test-result';
 
 export class ActionTestResult implements TestResult {
-  private valid: boolean;
+  public valid: boolean;
 
-  constructor(private date: Date, protected action: Action, valid?: boolean) {
+  constructor(public date: Date, public action: Action, valid?: boolean) {
     this.valid = false;
     if (valid) {
       this.valid = valid;
     }
-  }
-
-  public getDate(): Date {
-    return this.date;
-  }
-
-  public getAction(): Action {
-    return this.action;
   }
 
   public isReplayable(): boolean {

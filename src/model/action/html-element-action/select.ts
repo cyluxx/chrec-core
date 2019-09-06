@@ -10,37 +10,29 @@ export class Select extends HtmlElementAction {
     image: string,
     locators: Locator[],
     boundingBox: BoundingBox,
-    private value: string
+    public value: string
   ) {
     super('Select', image, locators, boundingBox);
-  }
-
-  public getValue(): string {
-    return this.value;
-  }
-
-  public setValue(value: string) {
-    this.value = value;
   }
 
   public async run(driver: WebDriver): Promise<Status> {
     let element: WebElement;
     if (!this.recommendedLocator) {
-      return new Status(Code.RECOMMENDED_LOCATOR_NOT_SPECIFIED, `${this.getClassName()} Action: Recommended Locator not Specified!`);
+      return new Status(Code.RECOMMENDED_LOCATOR_NOT_SPECIFIED, `${this.className} Action: Recommended Locator not Specified!`);
     }
     try {
       element = await this.findElement(driver);
       await element.sendKeys(this.value);
-      return new Status(Code.OK, `${this.getClassName()} Action successful!`);
+      return new Status(Code.OK, `${this.className} Action successful!`);
     } catch (error) {
       return this.getErrorStatus(error);
     }
   }
 
   public toAlexActions(): Action[] {
-    if (this.getRecommendedLocator()) {
+    if (this.recommendedLocator) {
       return [
-        new WebSelect(this.value, this.getRecommendedLocator().toAlexNode())
+        new WebSelect(this.value, this.recommendedLocator.toAlexNode())
       ];
     }
     throw new Error(

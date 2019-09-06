@@ -1,15 +1,9 @@
-import { Locator } from '../locator/locator';
+import { Locator, Method } from '../locator/locator';
 import { TestResult } from './test-result';
 
 export class LocatorTestResult implements TestResult {
-  constructor(private date: Date, private locator: Locator, private valid: boolean) {}
-  public getDate(): Date {
-    return this.date;
-  }
 
-  public getLocator(): Locator {
-    return this.locator;
-  }
+  constructor(public date: Date, public locator: Locator, public valid: boolean) { }
 
   public isReplayable(): boolean {
     return this.valid;
@@ -28,26 +22,26 @@ export class LocatorTestResult implements TestResult {
   }
 
   public getSuccessfulCssSelectorGeneratorCount(): number {
-    return this.valid && this.locator.getMethodName() === 'CssSelectorGenerator' ? 1 : 0;
+    return this.valid && this.locator.method === Method.CSS_SELECTOR_GENERATOR ? 1 : 0;
   }
 
   public getSuccessfulFinderCount(): number {
-    return this.valid && this.locator.getMethodName() === 'Finder' ? 1 : 0;
+    return this.valid && this.locator.method === Method.FINDER ? 1 : 0;
   }
 
   public getSuccessfulGetQuerySelectorCount(): number {
-    return this.valid && this.locator.getMethodName() === 'GetQuerySelector' ? 1 : 0;
+    return this.valid && this.locator.method === Method.GET_QUERY_SELECTOR ? 1 : 0;
   }
 
   public getSuccessfulOptimalSelectCount(): number {
-    return this.valid && this.locator.getMethodName() === 'OptimalSelect' ? 1 : 0;
+    return this.valid && this.locator.method === Method.OPTIMAL_SELECT ? 1 : 0;
   }
 
   public getSuccessfulSelectorQueryCount(): number {
-    return this.valid && this.locator.getMethodName() === 'SelectorQuery' ? 1 : 0;
+    return this.valid && this.locator.method === Method.SELECTOR_QUERY ? 1 : 0;
   }
 
   public getSuccessfulRobulaPlusCount(): number {
-    return this.valid && this.locator.getMethodName() === 'RobulaPlus' ? 1 : 0;
+    return this.valid && this.locator.method === Method.ROBULA_PLUS ? 1 : 0;
   }
 }

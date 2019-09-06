@@ -2,32 +2,12 @@ import { WebDriver } from 'selenium-webdriver';
 
 export abstract class Browser {
   constructor(
-    private className: string,
-    private name: string,
-    protected width: number,
-    protected height: number,
-    protected sleepMsBetweenActions: number,
-  ) {}
-
-  public getClassName(): string {
-    return this.className;
-  }
-
-  public getName(): string {
-    return this.name;
-  }
-
-  public getWidth(): number {
-    return this.width;
-  }
-
-  public getHeight(): number {
-    return this.height;
-  }
-
-  public getSleepMsBetweenActions(): number {
-    return this.sleepMsBetweenActions;
-  }
+    public className: string,
+    public name: string,
+    public width: number,
+    public height: number,
+    public sleepMsBetweenActions: number,
+  ) { }
 
   public abstract buildWebDriver(seleniumServerUrl: string): WebDriver;
 }

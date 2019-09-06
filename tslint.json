@@ -22,6 +22,11 @@
         "ordered-imports": true,
         "object-literal-sort-keys": false,
         "no-consecutive-blank-lines": true,
-        "trailing-comma": false
+        "trailing-comma": false,
+        "variable-name": {
+            "options": [
+                "allow-leading-underscore"
+            ]
+        }
     }
 }

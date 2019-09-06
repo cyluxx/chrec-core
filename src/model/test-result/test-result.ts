@@ -1,7 +1,8 @@
 import { Locator } from '../locator/locator';
 
 export interface TestResult {
-  getDate(): Date;
+
+  date: Date;
 
   isReplayable(): boolean;
 

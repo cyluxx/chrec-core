@@ -3,8 +3,17 @@ import { Options } from 'selenium-webdriver/chrome';
 import { Browser } from './browser';
 
 export class Chrome extends Browser {
-  constructor(name: string, width: number, height: number, sleepMsBetweenActions: number, private headless: boolean) {
+
+  public headless: boolean;
+
+  constructor(name: string, width: number, height: number, sleepMsBetweenActions: number, headless?: boolean) {
     super('Chrome', name, width, height, sleepMsBetweenActions);
+    if(headless){
+      this.headless = headless;
+    }
+    else {
+      this.headless = false;
+    }
   }
 
   public buildWebDriver(seleniumServerUrl: string): WebDriver {
@@ -19,9 +28,5 @@ export class Chrome extends Browser {
       .window()
       .setSize(this.width, this.height);
     return driver;
-  }
-
-  public isHeadless(): boolean {
-    return this.headless;
   }
 }

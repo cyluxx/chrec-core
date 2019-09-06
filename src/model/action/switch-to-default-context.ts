@@ -12,9 +12,9 @@ export class SwitchToDefaultContext extends Action {
     try {
       await driver.switchTo().defaultContent();
     } catch (error) {
-      return new Status(Code.ACTION_FAILED, `${this.getClassName()} Action Failed!`)
+      return new Status(Code.ACTION_FAILED, `${this.className} Action Failed!`)
     }
-    return new Status(Code.OK, `${this.getClassName()} Action successful!`);
+    return new Status(Code.OK, `${this.className} Action successful!`);
   }
 
   public toAlexActions(): AlexAction[] {

@@ -4,21 +4,11 @@ import { ActionTestResult } from './action-test-result';
 import { TestResult } from './test-result';
 
 export class BrowserTestResult implements TestResult {
-  constructor(private date: Date, private browser: Browser, private actionTestResults: ActionTestResult[]) {}
-  public getDate(): Date {
-    return this.date;
-  }
 
-  public getBrowser(): Browser {
-    return this.browser;
-  }
+  constructor(public date: Date, public browser: Browser, public actionTestResults: ActionTestResult[]) { }
 
   public addActionTestResult(actionTestResult: ActionTestResult): void {
     this.actionTestResults.push(actionTestResult);
-  }
-
-  public getActionTestResults(): ActionTestResult[] {
-    return this.actionTestResults;
   }
 
   public isReplayable(): boolean {

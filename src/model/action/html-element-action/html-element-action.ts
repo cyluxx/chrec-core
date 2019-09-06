@@ -6,34 +6,14 @@ import { Code, Status } from '../../status';
 import { Action } from '../action';
 
 export abstract class HtmlElementAction extends Action {
-  protected recommendedLocator!: Locator;
+  public recommendedLocator!: Locator;
 
-  constructor(className: string, image: string, protected locators: Locator[], protected boundingBox: BoundingBox) {
+  constructor(className: string, image: string, public locators: Locator[], public boundingBox: BoundingBox) {
     super(className, image);
-  }
-
-  public getRecommendedLocator(): Locator {
-    return this.recommendedLocator;
-  }
-
-  public setRecommendedLocator(locator: Locator): void {
-    this.recommendedLocator = locator;
   }
 
   public addLocator(locator: Locator): void {
     this.locators.push(locator);
-  }
-
-  public getLocators(): Locator[] {
-    return this.locators;
-  }
-
-  public setLocators(locators: Locator[]): void {
-    this.locators = locators;
-  }
-
-  public getBoundingBox(): BoundingBox {
-    return this.boundingBox;
   }
 
   public async findElement(driver: WebDriver): Promise<WebElement> {
