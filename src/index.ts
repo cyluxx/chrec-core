@@ -28,7 +28,7 @@ export class Core {
 
   public async addSequenceTest(project: Project, sequence: Sequence, settings: Settings): Promise<Project> {
     const sequenceTestResult: SequenceTestResult = await this.replayService.testSequence(sequence, settings);
-    const projectTestResult: ProjectTestResult = new ProjectTestResult(sequenceTestResult.getDate(), [
+    const projectTestResult: ProjectTestResult = new ProjectTestResult(sequenceTestResult.date, [
       sequenceTestResult,
     ]);
     project.addTestResult(projectTestResult);
@@ -36,12 +36,10 @@ export class Core {
   }
 
   public setRecommendedLocators(project: Project): void {
-    if (project.getTestResults().length > 0) {
-      for (const sequenceTestResult of project
-        .getTestResults()
-        [project.getTestResults().length - 1].getSequenceTestResults()) {
-        for (const browserTestResult of sequenceTestResult.getBrowserTestResults()) {
-          for (const actionTestResult of browserTestResult.getActionTestResults()) {
+    if (project.testResults.length > 0) {
+      for (const sequenceTestResult of project.testResults[project.testResults.length - 1].sequenceTestResults) {
+        for (const browserTestResult of sequenceTestResult.browserTestResults) {
+          for (const actionTestResult of browserTestResult.actionTestResults) {
             if (actionTestResult instanceof HtmlElementActionTestResult) {
               this.setRecommendedLocator(project, actionTestResult);
             }
@@ -67,10 +65,10 @@ export class Core {
     );
 
     for (const locatorCount of locatorCounts) {
-      for (const locatorTestResult of htmlElementActionTestResult.getLocatorTestResults()) {
-        const locator: Locator = locatorTestResult.getLocator();
-        if (locatorTestResult.isReplayable() && locator.getMethodName() === (locatorCount.methodName as string)) {
-          htmlElementActionTestResult.getAction().setRecommendedLocator(locator);
+      for (const locatorTestResult of htmlElementActionTestResult.locatorTestResults) {
+        const locator: Locator = locatorTestResult.locator;
+        if (locatorTestResult.isReplayable() && locator.method === (locatorCount.method as string)) {
+          htmlElementActionTestResult.action.recommendedLocator = locator;
           return;
         }
       }
@@ -78,11 +76,11 @@ export class Core {
   }
 
   public exportToAlexJson(project: Project, dirName: string): void {
-    this.exportService.exportToAlexJson(dirName + project.getName(), project);
+    this.exportService.exportToAlexJson(dirName + project.name, project);
   }
 
   public exportToChrecJson(project: Project, dirName: string): void {
-    this.exportService.exportToChrecJson(dirName + project.getName(), project);
+    this.exportService.exportToChrecJson(dirName + project.name, project);
   }
 
   public async importFromChrecJson(absolutePath: string): Promise<Project> {

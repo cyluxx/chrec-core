@@ -32,8 +32,8 @@ test('addProjectTest', async () => {
   project = await core.addProjectTest(project, SETTINGS);
 
   expect.assertions(2);
-  expect(project.getTestResults()[0]).toBeDefined();
-  expect(project.getTestResults()[0].getSequenceTestResults()[0]).toBeDefined();
+  expect(project.testResults[0]).toBeDefined();
+  expect(project.testResults[0].sequenceTestResults[0]).toBeDefined();
 });
 
 test('addSequenceTest', async () => {
@@ -49,9 +49,9 @@ test('addSequenceTest', async () => {
   project = await core.addSequenceTest(project, sequence, SETTINGS);
 
   expect.assertions(3);
-  expect(project.getTestResults()[0]).toBeDefined();
-  expect(project.getTestResults()[0].getSequenceTestResults()[0]).toBeDefined();
-  expect(project.getTestResults()[0].getSequenceTestResults().length).toBe(1);
+  expect(project.testResults[0]).toBeDefined();
+  expect(project.testResults[0].sequenceTestResults[0]).toBeDefined();
+  expect(project.testResults[0].sequenceTestResults.length).toBe(1);
 });
 
 test('setRecommendedLocators', () => {
@@ -96,7 +96,7 @@ test('setRecommendedLocators', () => {
 
   core.setRecommendedLocators(project);
 
-  expect(htmlElementActionTestResult.getAction().getRecommendedLocator()).toEqual(
+  expect(htmlElementActionTestResult.action.recommendedLocator).toEqual(
     new XpathLocator('RobulaPlus', 'foo'),
   );
 });

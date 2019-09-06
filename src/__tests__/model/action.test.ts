@@ -19,7 +19,7 @@ test('Back run returns OK status', async () => {
   await driver.quit();
 
   expect.assertions(1);
-  expect(status.getCode()).toBe(Code.OK);
+  expect(status.code).toBe(Code.OK);
 });
 
 test('Forward run returns OK status', async () => {
@@ -32,7 +32,7 @@ test('Forward run returns OK status', async () => {
   await driver.quit();
 
   expect.assertions(1);
-  expect(status.getCode()).toBe(Code.OK);
+  expect(status.code).toBe(Code.OK);
 });
 
 test('GoTo run returns OK status', async () => {
@@ -45,7 +45,7 @@ test('GoTo run returns OK status', async () => {
   await driver.quit();
 
   expect.assertions(1);
-  expect(status.getCode()).toBe(Code.OK);
+  expect(status.code).toBe(Code.OK);
 });
 
 test('Refresh run returns OK status', async () => {
@@ -58,5 +58,5 @@ test('Refresh run returns OK status', async () => {
   await driver.quit();
 
   expect.assertions(1);
-  expect(status.getCode()).toBe(Code.OK);
+  expect(status.code).toBe(Code.OK);
 });

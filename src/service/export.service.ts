@@ -27,18 +27,18 @@ export class ExportService {
 
   public convertToAlex(project: Project): AlexExport {
     const symbols: AlexSymbol[] = [];
-    for (const sequence of project.getSequences()) {
+    for (const sequence of project.sequences) {
       const steps: Step[] = [];
       let i: number = 0;
-      for (const action of sequence.getActions()) {
+      for (const action of sequence.actions) {
         for (const alexAction of action.toAlexActions()) {
           steps.push(new Step(alexAction, i));
           i++;
         }
       }
-      symbols.push(new AlexSymbol(sequence.getName(), steps));
+      symbols.push(new AlexSymbol(sequence.name, steps));
     }
-    const symbolGroup = new SymbolGroup(project.getName(), symbols);
+    const symbolGroup = new SymbolGroup(project.name, symbols);
     return new AlexExport(symbolGroup);
   }
 }

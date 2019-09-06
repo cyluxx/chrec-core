@@ -16,7 +16,7 @@ test('Project converts to proper AlexExport', () => {
   const locator: XpathLocator = new XpathLocator('foo', 'body');
   const htmlElementAction: Click = new Click('foo', [locator], new BoundingBox(42, 42, 42, 42));
   const action: GoTo = new GoTo('foo', 'https://github.com/cyluxx/chrec-core');
-  htmlElementAction.setRecommendedLocator(locator);
+  htmlElementAction.recommendedLocator = locator;
   const sequence: Sequence = new Sequence('Sequence Name', [action, htmlElementAction]);
   const project: Project = new Project('Project Name', [sequence], []);
 
@@ -41,7 +41,7 @@ test('AlexExport is properly written to file', async () => {
   const locator: XpathLocator = new XpathLocator('foo', 'body');
   const htmlElementAction: Click = new Click('foo', [locator], new BoundingBox(42, 42, 42, 42));
   const action: GoTo = new GoTo('foo', 'https://github.com/cyluxx/chrec-core');
-  htmlElementAction.setRecommendedLocator(locator);
+  htmlElementAction.recommendedLocator = locator;
   const sequence: Sequence = new Sequence('Sequence Name', [action, htmlElementAction]);
   const project: Project = new Project('Project Name', [sequence], []);
 
@@ -51,5 +51,5 @@ test('AlexExport is properly written to file', async () => {
   );
 
   expect.assertions(1);
-  expect(status.getCode()).toBe(Code.OK);
+  expect(status.code).toBe(Code.OK);
 });

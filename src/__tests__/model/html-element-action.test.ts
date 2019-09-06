@@ -23,7 +23,7 @@ test('HtmlElementAction findElement has invalid locator', async () => {
   const driver = buildWebDriver();
 
   const action: Click = new Click('foo', [], new BoundingBox(42, 42, 42, 42));
-  action.setRecommendedLocator(new CssLocator('foo', '#not-a-valid-locator-value'));
+  action.recommendedLocator = new CssLocator('foo', '#not-a-valid-locator-value');
 
   expect.assertions(1);
   await expect(action.findElement(driver)).rejects.toThrow();
@@ -36,7 +36,7 @@ test('HtmlElementAction findElement has valid locator', async () => {
   const driver = buildWebDriver();
 
   const action: Click = new Click('foo', [], new BoundingBox(42, 42, 42, 42));
-  action.setRecommendedLocator(new CssLocator('foo', 'body'));
+  action.recommendedLocator = new CssLocator('foo', 'body');
 
   expect.assertions(1);
   await expect(action.findElement(driver)).resolves.toBeDefined();
@@ -49,14 +49,14 @@ test('Click run returns ok status when has a valid recommended locator', async (
   const driver = buildWebDriver();
 
   const action: Click = new Click('foo', [], new BoundingBox(42, 42, 42, 42));
-  action.setRecommendedLocator(new CssLocator('foo', 'body'));
+  action.recommendedLocator = new CssLocator('foo', 'body');
 
   const status = await action.run(driver);
 
   await driver.quit();
 
   expect.assertions(1);
-  expect(status.getCode()).toBe(Code.OK);
+  expect(status.code).toBe(Code.OK);
 });
 
 test('Click run returns error status when has not a recommended locator', async () => {
@@ -70,7 +70,7 @@ test('Click run returns error status when has not a recommended locator', async 
   await driver.quit();
 
   expect.assertions(1);
-  expect(status.getCode()).toBe(Code.RECOMMENDED_LOCATOR_NOT_SPECIFIED);
+  expect(status.code).toBe(Code.RECOMMENDED_LOCATOR_NOT_SPECIFIED);
 });
 
 test('Click run returns error status when the recommended locator is not found', async () => {
@@ -78,19 +78,19 @@ test('Click run returns error status when the recommended locator is not found',
   const driver = buildWebDriver();
 
   const action: Click = new Click('foo', [], new BoundingBox(42, 42, 42, 42));
-  action.setRecommendedLocator(new CssLocator('foo', '#not-a-valid-locator-value'));
+  action.recommendedLocator = new CssLocator('foo', '#not-a-valid-locator-value');
 
   const status = await action.run(driver);
 
   await driver.quit();
 
   expect.assertions(1);
-  expect(status.getCode()).toBe(Code.NO_SUCH_ELEMENT);
+  expect(status.code).toBe(Code.NO_SUCH_ELEMENT);
 });
 
 test('Click toAlexActions returns valid Action array when has a recommended locator specified', () => {
   const action: Click = new Click('foo', [], new BoundingBox(42, 42, 42, 42));
-  action.setRecommendedLocator(new CssLocator('foo', '#bar'));
+  action.recommendedLocator = new CssLocator('foo', '#bar');
 
   expect(action.toAlexActions()).toEqual([new WebClick(new Node('#bar', NodeType.CSS))]);
 });

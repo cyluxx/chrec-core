@@ -1,11 +1,11 @@
 import { By, Locator as SeleniumLocator, WebDriver, WebElement } from 'selenium-webdriver';
 import { Node, NodeType } from '../../export/alex/node';
 import { Code, Status } from '../status';
-import { Locator } from './locator';
+import { Locator, Method } from './locator';
 
 export class XpathLocator extends Locator {
-  constructor(methodName: string, value: string) {
-    super('XpathLocator', methodName, value);
+  constructor(method: Method, value: string) {
+    super('CssLocator', method, value);
   }
 
   public async test(driver: WebDriver): Promise<Status> {
@@ -34,10 +34,10 @@ export class XpathLocator extends Locator {
   }
 
   private ok(): Status {
-    return new Status(Code.OK, `XPath Locator ${this.methodName}: ${this.value} found!`);
+    return new Status(Code.OK, `XPath Locator ${this.method}: ${this.value} found!`);
   }
 
   private noSuchElement(): Status {
-    return new Status(Code.NO_SUCH_ELEMENT, `XPath Locator ${this.methodName}: ${this.value} not found!`);
+    return new Status(Code.NO_SUCH_ELEMENT, `XPath Locator ${this.method}: ${this.value} not found!`);
   }
 }

@@ -17,7 +17,7 @@ import { SequenceTestResult } from '../model/test-result/sequence-test-result';
 export class ReplayService {
   public async testProject(project: Project, settings: Settings): Promise<ProjectTestResult> {
     const sequenceTestResults: SequenceTestResult[] = [];
-    for (const sequence of project.getSequences()) {
+    for (const sequence of project.sequences) {
       sequenceTestResults.push(await this.testSequence(sequence, settings));
     }
     return new ProjectTestResult(new Date(), sequenceTestResults);
@@ -25,8 +25,8 @@ export class ReplayService {
 
   public async testSequence(sequence: Sequence, settings: Settings): Promise<SequenceTestResult> {
     const browserTestResults: BrowserTestResult[] = [];
-    for (const browser of settings.getBrowsers()) {
-      browserTestResults.push(await this.testBrowser(browser, sequence.getActions(), settings.getSeleniumServerUrl()));
+    for (const browser of settings.browsers) {
+      browserTestResults.push(await this.testBrowser(browser, sequence.actions, settings.seleniumServerUrl));
     }
     return new SequenceTestResult(new Date(), sequence, browserTestResults);
   }
@@ -35,8 +35,8 @@ export class ReplayService {
     const actionTestResults: ActionTestResult[] = [];
     const driver: WebDriver = browser.buildWebDriver(seleniumServerUrl);
     for (const action of actions) {
-      if (browser.getSleepMsBetweenActions()) {
-        await driver.sleep(browser.getSleepMsBetweenActions());
+      if (browser.sleepMsBetweenActions) {
+        await driver.sleep(browser.sleepMsBetweenActions);
       }
       actionTestResults.push(await this.testAction(action, driver));
     }
@@ -58,7 +58,7 @@ export class ReplayService {
     driver: WebDriver,
   ): Promise<HtmlElementActionTestResult> {
     const locatorTestResults: LocatorTestResult[] = [];
-    for (const locator of action.getLocators()) {
+    for (const locator of action.locators) {
       const testResult = await this.testLocator(locator, driver);
       locatorTestResults.push(testResult);
     }

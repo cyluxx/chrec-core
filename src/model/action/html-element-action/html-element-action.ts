@@ -32,10 +32,10 @@ export abstract class HtmlElementAction extends Action {
     if (error.name === 'NoSuchElementError') {
       return new Status(
         Code.NO_SUCH_ELEMENT,
-        `CSS Locator ${this.recommendedLocator.getMethodName()}: ${this.recommendedLocator.getClassName()} not found!`,
+        `CSS Locator ${this.recommendedLocator.method}: ${this.recommendedLocator.className} not found!`,
       );
     } else {
-      return new Status(Code.HTML_ELEMENT_ACTION_FAILED, `Selenium Error: ${this.recommendedLocator.getClassName()} Action failed!`);
+      return new Status(Code.HTML_ELEMENT_ACTION_FAILED, `Selenium Error: ${this.recommendedLocator.method} Action failed!`);
     }
   }
 }

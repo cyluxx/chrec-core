@@ -34,7 +34,7 @@ test('testLocator', async () => {
   await driver.quit();
 
   expect.assertions(2);
-  expect(testResult.getLocator()).toEqual(locator);
+  expect(testResult.locator).toEqual(locator);
   expect(testResult.isReplayable()).toBe(true);
 });
 
@@ -50,7 +50,7 @@ test('testHtmlElementAction', async () => {
   await driver.quit();
 
   expect.assertions(2);
-  expect(testResult.getAction()).toEqual(action);
+  expect(testResult.action).toEqual(action);
   expect(testResult.isReplayable()).toBe(true);
 });
 
@@ -65,7 +65,7 @@ test('testAction', async () => {
   await driver.quit();
 
   expect.assertions(2);
-  expect(testResult.getAction()).toEqual(action);
+  expect(testResult.action).toEqual(action);
   expect(testResult.isReplayable()).toBe(true);
 });
 
@@ -81,7 +81,7 @@ test('testAction with HtmlElementAction', async () => {
   await driver.quit();
 
   expect.assertions(2);
-  expect(testResult.getAction()).toEqual(action);
+  expect(testResult.action).toEqual(action);
   expect(testResult.isReplayable()).toBe(true);
 });
 
@@ -92,7 +92,7 @@ test('testBrowser', async () => {
   const testResult: BrowserTestResult = await REPLAY_SERVICE.testBrowser(browser, actions, SELENIUM_SERVER_URL);
 
   expect.assertions(2);
-  expect(testResult.getBrowser()).toEqual(browser);
+  expect(testResult.browser).toEqual(browser);
   expect(testResult.isReplayable()).toBe(true);
 });
 
