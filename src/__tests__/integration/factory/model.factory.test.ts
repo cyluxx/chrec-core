@@ -1,11 +1,11 @@
-import { ModelFactory } from '../../factory/model.factory';
-import { Action } from '../../model/action/action';
-import { Back } from '../../model/action/back';
-import { Forward } from '../../model/action/forward';
-import { GoTo } from '../../model/action/go-to';
-import { Refresh } from '../../model/action/refresh';
-import { Project } from '../../model/project';
-import { Sequence } from '../../model/sequence';
+import { ModelFactory } from '../../../factory/model.factory';
+import { Action } from '../../../model/action/action';
+import { Back } from '../../../model/action/back';
+import { Forward } from '../../../model/action/forward';
+import { GoTo } from '../../../model/action/go-to';
+import { Refresh } from '../../../model/action/refresh';
+import { Project } from '../../../model/project';
+import { Sequence } from '../../../model/sequence';
 
 test('Model is build properly from JSON', () => {
   const modelFactory = new ModelFactory();

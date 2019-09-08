@@ -1,0 +1,55 @@
+{
+	"version": "1.6.1",
+	"type": "symbolGroups",
+	"symbolGroups": [
+		{
+			"name": "Project Name (ChRec import)",
+			"symbols": [
+				{
+					"name": "Sequence Name",
+					"steps": [
+						{
+							"action": {
+								"type": "web_goto",
+								"url": "https://github.com/cyluxx/chrec-core",
+								"credentials": {
+									"name": "",
+									"password": ""
+								}
+							},
+							"position": 0,
+							"type": "action",
+							"disabled": false,
+							"ignoreFailure": false,
+							"negated": false,
+							"errorOutput": null
+						},
+						{
+							"action": {
+								"type": "web_click",
+								"node": {
+									"selector": "body",
+									"type": "XPATH"
+								},
+								"doubleClick": false
+							},
+							"position": 1,
+							"type": "action",
+							"disabled": false,
+							"ignoreFailure": false,
+							"negated": false,
+							"errorOutput": null
+						}
+					],
+					"description": "",
+					"expectedResult": "",
+					"successOutput": null,
+					"inputs": [],
+					"outputs": []
+				}
+			],
+			"parent": null,
+			"groups": []
+		}
+	]
+}

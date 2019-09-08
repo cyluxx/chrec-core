@@ -21,5 +21,6 @@ install:
 
 script:
   - npm run lint
-  - npm run test-ci
+  - npm run test:unit
   - codecov
+  - npm run test:integration:ci

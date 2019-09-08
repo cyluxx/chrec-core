@@ -1,14 +1,14 @@
 import * as path from 'path';
-import { WebClick, WebGoTo } from '../../export/alex/action';
-import { AlexExport } from '../../export/alex/alex-export';
-import { GoTo } from '../../model/action/go-to';
-import { Click } from '../../model/action/html-element-action/click';
-import { BoundingBox } from '../../model/bounding-box';
-import { XpathLocator } from '../../model/locator/xpath-locator';
-import { Project } from '../../model/project';
-import { Sequence } from '../../model/sequence';
-import { Code, Status } from '../../model/status';
-import { ExportService } from '../../service/export.service';
+import { WebClick, WebGoTo } from '../../../export/alex/action';
+import { AlexExport } from '../../../export/alex/alex-export';
+import { GoTo } from '../../../model/action/go-to';
+import { Click } from '../../../model/action/html-element-action/click';
+import { BoundingBox } from '../../../model/bounding-box';
+import { XpathLocator } from '../../../model/locator/xpath-locator';
+import { Project } from '../../../model/project';
+import { Sequence } from '../../../model/sequence';
+import { Code, Status } from '../../../model/status';
+import { ExportService } from '../../../service/export.service';
 
 const EXPORT_SERVICE: ExportService = new ExportService();
 

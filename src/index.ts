@@ -10,9 +10,9 @@ import { ImportService } from './service/import.service';
 import { ReplayService } from './service/replay.service';
 
 export class Core {
-  private exportService: ExportService;
-  private importService: ImportService;
-  private replayService: ReplayService;
+  public exportService: ExportService;
+  public importService: ImportService;
+  public replayService: ReplayService;
 
   constructor() {
     this.exportService = new ExportService();
