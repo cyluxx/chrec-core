@@ -1,5 +1,5 @@
 import { Locator, Method } from '../locator/locator';
-import { TestResult } from './test-result';
+import { TestResult } from './test-result.interface';
 
 export class LocatorTestResult implements TestResult {
 

@@ -1,7 +1,7 @@
 import { Locator } from '../locator/locator';
 import { Sequence } from '../sequence';
 import { BrowserTestResult } from './browser-test-result';
-import { TestResult } from './test-result';
+import { TestResult } from './test-result.interface';
 
 export class SequenceTestResult implements TestResult {
 

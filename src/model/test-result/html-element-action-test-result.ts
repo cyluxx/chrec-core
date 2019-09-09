@@ -2,7 +2,7 @@ import { HtmlElementAction } from '../action/html-element-action/html-element-ac
 import { Locator } from '../locator/locator';
 import { ActionTestResult } from './action-test-result';
 import { LocatorTestResult } from './locator-test-result';
-import { TestResult } from './test-result';
+import { TestResult } from './test-result.interface';
 
 export class HtmlElementActionTestResult extends ActionTestResult implements TestResult {
 

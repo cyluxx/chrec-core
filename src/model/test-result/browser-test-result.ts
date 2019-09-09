@@ -1,7 +1,7 @@
 import { Browser } from '../browser/browser';
 import { Locator } from '../locator/locator';
 import { ActionTestResult } from './action-test-result';
-import { TestResult } from './test-result';
+import { TestResult } from './test-result.interface';
 
 export class BrowserTestResult implements TestResult {
 
