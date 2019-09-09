@@ -1,9 +1,15 @@
 import { Browser as BrowserName, Builder, WebDriver } from 'selenium-webdriver';
-import { Browser } from './browser';
+import { Browser, BrowserJSON } from './browser';
 
 export class Firefox extends Browser {
+
+  public static fromJSON(json: BrowserJSON): Firefox {
+    const action = Object.create(Firefox.prototype);
+    return Object.assign(action, json);
+  }
+
   constructor(name: string, width: number, height: number, sleepMsBetweenActions: number) {
-    super('Firefox', name, width, height, sleepMsBetweenActions);
+    super(name, width, height, sleepMsBetweenActions);
   }
 
   public buildWebDriver(seleniumServerUrl: string): WebDriver {

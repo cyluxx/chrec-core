@@ -1,9 +1,15 @@
 import { Browser as BrowserName, Builder, WebDriver } from 'selenium-webdriver';
-import { Browser } from './browser';
+import { Browser, BrowserJSON } from './browser';
 
 export class Edge extends Browser {
+
+  public static fromJSON(json: BrowserJSON): Edge {
+    const action = Object.create(Edge.prototype);
+    return Object.assign(action, json);
+  }
+
   constructor(name: string, width: number, height: number, sleepMsBetweenActions: number) {
-    super('Edge', name, width, height, sleepMsBetweenActions);
+    super(name, width, height, sleepMsBetweenActions);
   }
 
   public buildWebDriver(seleniumServerUrl: string): WebDriver {

@@ -1,9 +1,15 @@
 import { Browser as BrowserName, Builder, WebDriver } from 'selenium-webdriver';
-import { Browser } from './browser';
+import { Browser, BrowserJSON } from './browser';
 
 export class InternetExplorer extends Browser {
+
+  public static fromJSON(json: BrowserJSON): InternetExplorer {
+    const action = Object.create(InternetExplorer.prototype);
+    return Object.assign(action, json);
+  }
+
   constructor(name: string, width: number, height: number, sleepMsBetweenActions: number) {
-    super('InternetExplorer', name, width, height, sleepMsBetweenActions);
+    super(name, width, height, sleepMsBetweenActions);
   }
 
   public buildWebDriver(seleniumServerUrl: string): WebDriver {

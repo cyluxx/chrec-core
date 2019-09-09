@@ -1,19 +1,25 @@
 import { WebDriver } from 'selenium-webdriver';
 import { WebBrowser } from '../../export/alex/action';
 import { Code, Status } from '../status';
-import { Action } from './action';
+import { Action, ActionJSON } from './action';
 
 export class Forward extends Action {
+
+  public static fromJSON(json: ActionJSON): Forward {
+    const action = Object.create(Forward.prototype);
+    return Object.assign(action, json);
+  }
+
   constructor(image: string) {
-    super('Forward', image);
+    super(image);
   }
 
   public async run(driver: WebDriver): Promise<Status> {
     try {
       await driver.navigate().forward();
-      return new Status(Code.OK, 'Forward Action Successful!');
+      return new Status(Code.OK, `${this.constructor.name} Action successful!`);
     } catch (error) {
-      return Promise.reject(new Status(Code.ACTION_FAILED, 'Forward Action Failed!'));
+      return Promise.reject(new Status(Code.ACTION_FAILED, `${this.constructor.name} Action Failed!`));
     }
   }
 

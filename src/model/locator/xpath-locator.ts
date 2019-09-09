@@ -1,11 +1,17 @@
 import { By, Locator as SeleniumLocator, WebDriver, WebElement } from 'selenium-webdriver';
 import { Node, NodeType } from '../../export/alex/node';
 import { Code, Status } from '../status';
-import { Locator, Method } from './locator';
+import { Locator, LocatorJSON, Method } from './locator';
 
 export class XpathLocator extends Locator {
+
+  public static fromJSON(json: LocatorJSON): XpathLocator {
+    const action = Object.create(XpathLocator.prototype);
+    return Object.assign(action, json);
+  }
+
   constructor(method: Method, value: string) {
-    super('CssLocator', method, value);
+    super(method, value);
   }
 
   public async test(driver: WebDriver): Promise<Status> {

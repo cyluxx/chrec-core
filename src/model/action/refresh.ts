@@ -1,19 +1,25 @@
 import { WebDriver } from 'selenium-webdriver';
 import { WebBrowser } from '../../export/alex/action';
 import { Code, Status } from '../status';
-import { Action } from './action';
+import { Action, ActionJSON } from './action';
 
 export class Refresh extends Action {
+
+  public static fromJSON(json: ActionJSON): Refresh {
+    const action = Object.create(Refresh.prototype);
+    return Object.assign(action, json);
+  }
+
   constructor(image: string) {
-    super('Refresh', image);
+    super(image);
   }
 
   public async run(driver: WebDriver): Promise<Status> {
     try {
       await driver.navigate().refresh();
-      return new Status(Code.OK, 'Refresh Action Successful!');
+      return new Status(Code.OK, `${this.constructor.name} Action successful!`);
     } catch (error) {
-      return Promise.reject(new Status(Code.ACTION_FAILED, 'Refresh Action Failed!'));
+      return Promise.reject(new Status(Code.ACTION_FAILED, `${this.constructor.name} Action Failed!`));
     }
   }
 

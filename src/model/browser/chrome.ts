@@ -1,14 +1,23 @@
 import { Browser as BrowserName, Builder, WebDriver } from 'selenium-webdriver';
 import { Options } from 'selenium-webdriver/chrome';
-import { Browser } from './browser';
+import { Browser, BrowserJSON } from './browser';
+
+export interface ChromeJSON extends BrowserJSON {
+  headless: boolean
+}
 
 export class Chrome extends Browser {
+
+  public static fromJSON(json: ChromeJSON): Chrome {
+    const action = Object.create(Chrome.prototype);
+    return Object.assign(action, json);
+  }
 
   public headless: boolean;
 
   constructor(name: string, width: number, height: number, sleepMsBetweenActions: number, headless?: boolean) {
-    super('Chrome', name, width, height, sleepMsBetweenActions);
-    if(headless){
+    super(name, width, height, sleepMsBetweenActions);
+    if (headless) {
       this.headless = headless;
     }
     else {

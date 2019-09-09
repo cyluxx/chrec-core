@@ -87,3 +87,8 @@ export class Core {
     return this.importService.importFromChrecJson(absolutePath);
   }
 }
+
+const core = new Core();
+core.importFromChrecJson('C:\\Users\\aplewnia\\Documents\\liveDemo.json').then(
+  project => { console.log(project); }
+);
