@@ -4,15 +4,6 @@ import { BoundingBox } from '../../bounding-box';
 import { Locator } from '../../locator/locator';
 import { Code, Status } from '../../status';
 import { Action, ActionJSON } from '../action';
-import { Clear } from './clear';
-import { Click } from './click';
-import { Read, ReadJSON } from './read';
-import { Select, SelectJSON } from './select';
-import { Submit } from './submit';
-import { SwitchToContext } from './switch-to-context';
-import { Type, TypeJSON } from './type';
-import { WaitForAddedHtmlElement } from './wait-for-added-html-element';
-import { WaitForRemovedHtmlElement } from './wait-for-removed-html-element';
 
 export interface HtmlElementActionJSON extends ActionJSON {
   locators: Locator[],
@@ -20,40 +11,6 @@ export interface HtmlElementActionJSON extends ActionJSON {
 }
 
 export abstract class HtmlElementAction extends Action {
-
-  public static fromJSON(json: HtmlElementActionJSON): HtmlElementAction {
-    switch (json.className) {
-      case Clear.constructor.name:
-        return Clear.fromJSON(json);
-
-      case Click.constructor.name:
-        return Click.fromJSON(json);
-
-      case Read.constructor.name:
-        return Read.fromJSON(json as ReadJSON);
-
-      case Select.constructor.name:
-        return Select.fromJSON(json as SelectJSON);
-
-      case Submit.constructor.name:
-        return Submit.fromJSON(json);
-
-      case SwitchToContext.constructor.name:
-        return SwitchToContext.fromJSON(json);
-
-      case Type.constructor.name:
-        return Type.fromJSON(json as TypeJSON);
-
-      case WaitForAddedHtmlElement.constructor.name:
-        return WaitForAddedHtmlElement.fromJSON(json);
-
-      case WaitForRemovedHtmlElement.constructor.name:
-        return WaitForRemovedHtmlElement.fromJSON(json);
-
-      default:
-        throw new Error('Could not construct Action from ChRec JSON!');
-    }
-  }
 
   public recommendedLocator!: Locator;
 

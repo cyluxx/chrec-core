@@ -1,8 +1,6 @@
 import { Locator as SeleniumLocator, WebDriver, WebElement } from 'selenium-webdriver';
 import { Node } from '../../export/alex/node';
 import { Status } from '../status';
-import { CssLocator } from './css-locator';
-import { XpathLocator } from './xpath-locator';
 
 export enum Method {
   CSS_SELECTOR_GENERATOR = 'CssSelectorGenerator',
@@ -20,19 +18,6 @@ export interface LocatorJSON {
 }
 
 export abstract class Locator {
-
-  public static fromJSON(json: LocatorJSON): Locator {
-    switch (json.className) {
-      case CssLocator.constructor.name:
-        return CssLocator.fromJSON(json);
-
-      case XpathLocator.constructor.name:
-        return XpathLocator.fromJSON(json);
-
-      default:
-        throw new Error('Could not construct Locator from ChRec JSON!');
-    }
-  }
 
   constructor(public method: Method, public value: string) { }
 
