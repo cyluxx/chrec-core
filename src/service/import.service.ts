@@ -1,4 +1,6 @@
+import * as compareVersions from 'compare-versions';
 import loadJsonFile from 'load-json-file';
+import { name as appName, version as appVersion } from '../../package.json';
 import { Action } from '../model/action/action';
 import { Back } from '../model/action/back';
 import { Forward } from '../model/action/forward';
@@ -35,16 +37,29 @@ import { SequenceTestResult } from '../model/test-result/sequence-test-result';
 
 export class ImportService {
 
-  public async importFromChrecJson(absolutePath: string): Promise<Project> {
+  public async importChrecJson(absolutePath: string): Promise<Project> {
     try {
       const parsedJson: any = await loadJsonFile(absolutePath);
-      return this.reviveProject(parsedJson);
+
+      return this.validateChrecJson(parsedJson);
     } catch (error) {
       throw new Error(error.message);
     }
   }
 
-  public reviveProject(parsedJson: any): Project {
+  public validateChrecJson(parsedJson: any): Project {
+    if (parsedJson.name !== appName) {
+      throw new Error('Invalid ChRec JSON');
+    }
+
+    if (compareVersions.compare(parsedJson.version as string, appVersion as string, '>')) {
+      throw new Error('Incompatible Versions. Please Upgrade your ChRec version!');
+    }
+
+    return this.reviveProject(parsedJson.project);
+  }
+
+  private reviveProject(parsedJson: any): Project {
     const sequences: Sequence[] = [];
     for (const sequence of parsedJson.sequences) {
       sequences.push(this.reviveSequence(sequence));
@@ -56,7 +71,7 @@ export class ImportService {
     return new Project(parsedJson.name, sequences, projectTestResults);
   }
 
-  public reviveSequence(parsedJson: any): Sequence {
+  private reviveSequence(parsedJson: any): Sequence {
     const actions: Action[] = [];
     for (const action of parsedJson.actions) {
       actions.push(this.reviveAction(action));
@@ -64,7 +79,7 @@ export class ImportService {
     return new Sequence(parsedJson.name, actions);
   }
 
-  public reviveAction(parsedJson: any): Action {
+  private reviveAction(parsedJson: any): Action {
     switch (parsedJson.className) {
       case 'Back':
         return new Back(parsedJson.image);
@@ -81,7 +96,7 @@ export class ImportService {
     }
   }
 
-  public reviveHtmlElementAction(parsedJson: any): HtmlElementAction {
+  private reviveHtmlElementAction(parsedJson: any): HtmlElementAction {
     const locators: Locator[] = [];
     for (const locator of parsedJson.locators) {
       locators.push(this.reviveLocator(locator));
@@ -111,7 +126,7 @@ export class ImportService {
     }
   }
 
-  public reviveLocator(parsedJson: any): Locator {
+  private reviveLocator(parsedJson: any): Locator {
     switch (parsedJson.className) {
       case 'CssLocator':
         return new CssLocator(parsedJson.method, parsedJson.value);
@@ -122,11 +137,11 @@ export class ImportService {
     }
   }
 
-  public reviveBoundingBox(parsedJson: any): BoundingBox {
+  private reviveBoundingBox(parsedJson: any): BoundingBox {
     return new BoundingBox(parsedJson.x, parsedJson.y, parsedJson.width, parsedJson.height);
   }
 
-  public reviveBrowser(parsedJson: any): Browser {
+  private reviveBrowser(parsedJson: any): Browser {
     switch (parsedJson.className) {
       case 'Chrome':
         return new Chrome(parsedJson.name, parsedJson.width, parsedJson.height, parsedJson.sleepMsBetweenActions, parsedJson.headless);
@@ -141,7 +156,7 @@ export class ImportService {
     }
   }
 
-  public reviveProjectTestResult(parsedJson: any): ProjectTestResult {
+  private reviveProjectTestResult(parsedJson: any): ProjectTestResult {
     const sequenceTestResults: SequenceTestResult[] = [];
     for (const sequenceTestResult of parsedJson.sequenceTestResults) {
       sequenceTestResults.push(this.reviveSequenceTestResult(sequenceTestResult));
@@ -149,7 +164,7 @@ export class ImportService {
     return new ProjectTestResult(parsedJson.date, sequenceTestResults);
   }
 
-  public reviveSequenceTestResult(parsedJson: any): SequenceTestResult {
+  private reviveSequenceTestResult(parsedJson: any): SequenceTestResult {
     const sequence: Sequence = this.reviveSequence(parsedJson.sequence);
     const browserTestResults: BrowserTestResult[] = [];
     for (const browserTestResult of parsedJson.browserTestResults) {
@@ -158,7 +173,7 @@ export class ImportService {
     return new SequenceTestResult(parsedJson.date, sequence, browserTestResults);
   }
 
-  public reviveBrowserTestResult(parsedJson: any): BrowserTestResult {
+  private reviveBrowserTestResult(parsedJson: any): BrowserTestResult {
     const browser: Browser = this.reviveBrowser(parsedJson.browser);
     const actionTestResults: ActionTestResult[] = [];
     for (const actionTestResult of parsedJson.actionTestResults) {
@@ -167,7 +182,7 @@ export class ImportService {
     return new BrowserTestResult(parsedJson.date, browser, actionTestResults);
   }
 
-  public reviveActionTestResult(parsedJson: any): ActionTestResult {
+  private reviveActionTestResult(parsedJson: any): ActionTestResult {
     if (parsedJson.locatorTestResults) {
       return this.reviveHtmlElementActionTestResult(parsedJson);
     }
@@ -176,7 +191,7 @@ export class ImportService {
     return new ActionTestResult(parsedJson.date, action, valid);
   }
 
-  public reviveHtmlElementActionTestResult(parsedJson: any): HtmlElementActionTestResult {
+  private reviveHtmlElementActionTestResult(parsedJson: any): HtmlElementActionTestResult {
     const action: HtmlElementAction = this.reviveAction(parsedJson.action) as HtmlElementAction;
     const locatorTestResults: LocatorTestResult[] = [];
     for (const locatorTestResult of parsedJson.locatorTestResults) {
@@ -185,7 +200,7 @@ export class ImportService {
     return new HtmlElementActionTestResult(parsedJson.date, action, locatorTestResults);
   }
 
-  public reviveLocatorTestResult(parsedJson: any): LocatorTestResult {
+  private reviveLocatorTestResult(parsedJson: any): LocatorTestResult {
     const locator: Locator = this.reviveLocator(parsedJson.locator);
     return new LocatorTestResult(parsedJson.date, locator, parsedJson.valid);
   }

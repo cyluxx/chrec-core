@@ -6,7 +6,7 @@
   "types": "lib/index.d.ts",
   "scripts": {
     "test": "npm run test:unit && npm run test:integration:dev",
-    "test:unit" : "jest src/__tests__/unit -i -c jest.unit.config.json",
+    "test:unit": "jest src/__tests__/unit -i -c jest.unit.config.json",
     "test:integration:dev": "cross-env SELENIUM_SERVER_URL=http://localhost:4444/wd/hub NODE_ENV=dev jest src/__tests__/integration -i -c jest.integration.config.json",
     "test:integration:ci": "cross-env SELENIUM_SERVER_URL=http://localhost:4444/wd/hub NODE_ENV=test jest src/__tests__/integration -i -c jest.integration.config.json",
     "build": "tsc",
@@ -61,6 +61,7 @@
   },
   "dependencies": {
     "@types/selenium-webdriver": "^3.0.14",
+    "compare-versions": "^3.5.1",
     "load-json-file": "^5.2.0",
     "selenium-webdriver": "^3.6.0",
     "ts-mockito": "^2.4.2",

@@ -36,8 +36,8 @@ export class Core {
   }
 
   public setRecommendedLocators(project: Project): void {
-    if (project.testResults.length > 0) {
-      for (const sequenceTestResult of project.testResults[project.testResults.length - 1].sequenceTestResults) {
+    if (project.projectTestResults.length > 0) {
+      for (const sequenceTestResult of project.projectTestResults[project.projectTestResults.length - 1].sequenceTestResults) {
         for (const browserTestResult of sequenceTestResult.browserTestResults) {
           for (const actionTestResult of browserTestResult.actionTestResults) {
             if (actionTestResult instanceof HtmlElementActionTestResult) {
@@ -84,6 +84,6 @@ export class Core {
   }
 
   public async importFromChrecJson(absolutePath: string): Promise<Project> {
-    return this.importService.importFromChrecJson(absolutePath);
+    return this.importService.importChrecJson(absolutePath);
   }
 }

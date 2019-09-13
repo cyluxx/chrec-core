@@ -1,16 +1,20 @@
 {
-  "name": "Project With Refresh",
-  "sequences": [
-    {
-      "name": "Test Sequence",
-      "actions": [
-        {
-          "className": "Refresh",
-          "image": "foo"
-        }
-      ],
-      "sequenceTestResults": []
-    }
-  ],
-  "projectTestResults": []
+  "name": "chrec-core",
+  "version": "0.3.4",
+  "project": {
+    "name": "Project With Refresh",
+    "sequences": [
+      {
+        "name": "Test Sequence",
+        "actions": [
+          {
+            "className": "Refresh",
+            "image": "foo"
+          }
+        ],
+        "sequenceTestResults": []
+      }
+    ],
+    "projectTestResults": []
+  }
 }

@@ -1,34 +1,38 @@
 {
-  "name": "Project With Click, an XpathLocator and a CssLocator",
-  "sequences": [
-    {
-      "name": "Test Sequence",
-      "actions": [
-        {
-          "className": "Click",
-          "image": "foo",
-          "locators": [
-            {
-              "className": "CssLocator",
-              "method": "CssSelectorGenerator",
-              "value": "foo"
-            },
-            {
-              "className": "XpathLocator",
-              "method": "RobulaPlus",
-              "value": "foo"
+  "name": "chrec-core",
+  "version": "0.3.4",
+  "project": {
+    "name": "Project With Click, an XpathLocator and a CssLocator",
+    "sequences": [
+      {
+        "name": "Test Sequence",
+        "actions": [
+          {
+            "className": "Click",
+            "image": "foo",
+            "locators": [
+              {
+                "className": "CssLocator",
+                "method": "CssSelectorGenerator",
+                "value": "foo"
+              },
+              {
+                "className": "XpathLocator",
+                "method": "RobulaPlus",
+                "value": "foo"
+              }
+            ],
+            "boundingBox": {
+              "x": 42,
+              "y": 42,
+              "width": 42,
+              "height": 42
             }
-          ],
-          "boundingBox": {
-            "x": 42,
-            "y": 42,
-            "width": 42,
-            "height": 42
           }
-        }
-      ],
-      "sequenceTestResults": []
-    }
-  ],
-  "projectTestResults": []
+        ],
+        "sequenceTestResults": []
+      }
+    ],
+    "projectTestResults": []
+  }
 }

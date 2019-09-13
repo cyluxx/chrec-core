@@ -1,17 +1,21 @@
 {
-  "name": "Project With GoTo",
-  "sequences": [
-    {
-      "name": "Test Sequence",
-      "actions": [
-        {
-          "className": "GoTo",
-          "image": "foo",
-          "url": "https://www.github.com"
-        }
-      ],
-      "sequenceTestResults": []
-    }
-  ],
-  "projectTestResults": []
+  "name": "chrec-core",
+  "version": "0.3.4",
+  "project": {
+    "name": "Project With GoTo",
+    "sequences": [
+      {
+        "name": "Test Sequence",
+        "actions": [
+          {
+            "className": "GoTo",
+            "image": "foo",
+            "url": "https://www.github.com"
+          }
+        ],
+        "sequenceTestResults": []
+      }
+    ],
+    "projectTestResults": []
+  }
 }
