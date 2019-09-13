@@ -1,0 +1,16 @@
+{
+  "name": "Project With Refresh",
+  "sequences": [
+    {
+      "name": "Test Sequence",
+      "actions": [
+        {
+          "className": "Refresh",
+          "image": "foo"
+        }
+      ],
+      "sequenceTestResults": []
+    }
+  ],
+  "projectTestResults": []
+}

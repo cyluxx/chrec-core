@@ -7,11 +7,6 @@ import { HtmlElementAction, HtmlElementActionJSON } from './html-element-action'
 
 export class Clear extends HtmlElementAction {
 
-  public static fromJSON(json: HtmlElementActionJSON): Clear {
-    const action = Object.create(Clear.prototype);
-    return Object.assign(action, json);
-  }
-
   constructor(image: string, locators: Locator[], boundingBox: BoundingBox) {
     super(image, locators, boundingBox);
   }

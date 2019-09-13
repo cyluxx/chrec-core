@@ -1,14 +1,9 @@
 import { WebDriver } from 'selenium-webdriver';
 import { Action as AlexAction } from '../../export/alex/action';
 import { Code, Status } from '../status';
-import { Action, ActionJSON } from './action';
+import { Action } from './action';
 
 export class SwitchToDefaultContext extends Action {
-
-  public static fromJSON(json: ActionJSON): SwitchToDefaultContext {
-    const action = Object.create(SwitchToDefaultContext.prototype);
-    return Object.assign(action, json);
-  }
 
   constructor(image: string) {
     super(image);

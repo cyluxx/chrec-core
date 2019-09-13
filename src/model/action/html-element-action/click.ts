@@ -7,11 +7,6 @@ import { HtmlElementAction, HtmlElementActionJSON } from './html-element-action'
 
 export class Click extends HtmlElementAction {
 
-  public static fromJSON(json: HtmlElementActionJSON): Click {
-    const action = Object.create(Click.prototype);
-    return Object.assign(action, json);
-  }
-
   constructor(image: string, locators: Locator[], boundingBox: BoundingBox) {
     super(image, locators, boundingBox);
   }

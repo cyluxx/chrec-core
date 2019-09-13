@@ -11,11 +11,6 @@ export interface SelectJSON extends HtmlElementActionJSON {
 
 export class Select extends HtmlElementAction {
 
-  public static fromJSON(json: SelectJSON): Select {
-    const action = Object.create(Select.prototype);
-    return Object.assign(action, json);
-  }
-
   constructor(
     image: string,
     locators: Locator[],

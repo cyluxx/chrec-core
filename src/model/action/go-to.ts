@@ -9,11 +9,6 @@ export interface GoToJSON extends ActionJSON {
 
 export class GoTo extends Action {
 
-  public static fromJSON(json: GoToJSON): GoTo {
-    const action = Object.create(GoTo.prototype);
-    return Object.assign(action, json);
-  }
-
   constructor(image: string, public url: string) {
     super(image);
   }

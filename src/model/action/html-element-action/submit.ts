@@ -7,11 +7,6 @@ import { HtmlElementAction, HtmlElementActionJSON } from './html-element-action'
 
 export class Submit extends HtmlElementAction {
 
-  public static fromJSON(json: HtmlElementActionJSON): Submit {
-    const action = Object.create(Submit.prototype);
-    return Object.assign(action, json);
-  }
-
   constructor(image: string, locators: Locator[], boundingBox: BoundingBox) {
     super(image, locators, boundingBox);
   }

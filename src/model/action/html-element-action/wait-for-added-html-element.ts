@@ -6,12 +6,7 @@ import { Code, Status } from '../../status';
 import { HtmlElementAction, HtmlElementActionJSON } from './html-element-action';
 
 export class WaitForAddedHtmlElement extends HtmlElementAction {
-
-  public static fromJSON(json: HtmlElementActionJSON): WaitForAddedHtmlElement {
-    const action = Object.create(WaitForAddedHtmlElement.prototype);
-    return Object.assign(action, json);
-  }
-
+  
   constructor(image: string, locators: Locator[], boundingBox: BoundingBox, public timeout?: number) {
     super(image, locators, boundingBox);
   }

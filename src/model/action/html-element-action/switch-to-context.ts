@@ -7,11 +7,6 @@ import { HtmlElementAction, HtmlElementActionJSON } from './html-element-action'
 
 export class SwitchToContext extends HtmlElementAction {
 
-  public static fromJSON(json: HtmlElementActionJSON): SwitchToContext {
-    const action = Object.create(SwitchToContext.prototype);
-    return Object.assign(action, json);
-  }
-
   constructor(image: string, locators: Locator[], boundingBox: BoundingBox) {
     super(image, locators, boundingBox);
   }

@@ -7,11 +7,6 @@ import { HtmlElementAction, HtmlElementActionJSON } from './html-element-action'
 
 export class WaitForRemovedHtmlElement extends HtmlElementAction {
 
-  public static fromJSON(json: HtmlElementActionJSON): WaitForRemovedHtmlElement {
-    const action = Object.create(WaitForRemovedHtmlElement.prototype);
-    return Object.assign(action, json);
-  }
-
   constructor(image: string, locators: Locator[], boundingBox: BoundingBox, public timeout?: number) {
     super(image, locators, boundingBox);
   }

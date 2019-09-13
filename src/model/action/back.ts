@@ -1,14 +1,9 @@
 import { WebDriver } from 'selenium-webdriver';
 import { WebBrowser } from '../../export/alex/action';
 import { Code, Status } from '../status';
-import { Action, ActionJSON } from './action';
+import { Action } from './action';
 
 export class Back extends Action {
-
-  public static fromJSON(json: ActionJSON): Back {
-    const action = Object.create(Back.prototype);
-    return Object.assign(action, json);
-  }
 
   constructor(image: string) {
     super(image);

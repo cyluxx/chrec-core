@@ -3,15 +3,16 @@ import { Sequence } from './sequence';
 import { ProjectTestResult } from './test-result/project-test-result';
 
 export class Project {
-  constructor(public name: string, public sequences: Sequence[], public testResults: ProjectTestResult[]) {}
+
+  constructor(public name: string, public sequences: Sequence[], public projectTestResults: ProjectTestResult[]) { }
 
   public addTestResult(testResult: ProjectTestResult) {
-    this.testResults.push(testResult);
+    this.projectTestResults.push(testResult);
   }
 
   public calculateBestLocatorMethods(): Locator[] {
     let locators: Locator[] = [];
-    for (const testResult of this.testResults) {
+    for (const testResult of this.projectTestResults) {
       locators = locators.concat(testResult.calculateBestLocatorMethods());
     }
     return locators;
@@ -19,7 +20,7 @@ export class Project {
 
   public getSuccessfulCssSelectorGeneratorCount(): number {
     let count: number = 0;
-    for (const testResult of this.testResults) {
+    for (const testResult of this.projectTestResults) {
       count += testResult.getSuccessfulCssSelectorGeneratorCount();
     }
     return count;
@@ -27,7 +28,7 @@ export class Project {
 
   public getSuccessfulFinderCount(): number {
     let count: number = 0;
-    for (const testResult of this.testResults) {
+    for (const testResult of this.projectTestResults) {
       count += testResult.getSuccessfulFinderCount();
     }
     return count;
@@ -35,7 +36,7 @@ export class Project {
 
   public getSuccessfulGetQuerySelectorCount(): number {
     let count: number = 0;
-    for (const testResult of this.testResults) {
+    for (const testResult of this.projectTestResults) {
       count += testResult.getSuccessfulGetQuerySelectorCount();
     }
     return count;
@@ -43,7 +44,7 @@ export class Project {
 
   public getSuccessfulOptimalSelectCount(): number {
     let count: number = 0;
-    for (const testResult of this.testResults) {
+    for (const testResult of this.projectTestResults) {
       count += testResult.getSuccessfulOptimalSelectCount();
     }
     return count;
@@ -51,7 +52,7 @@ export class Project {
 
   public getSuccessfulSelectorQueryCount(): number {
     let count: number = 0;
-    for (const testResult of this.testResults) {
+    for (const testResult of this.projectTestResults) {
       count += testResult.getSuccessfulSelectorQueryCount();
     }
     return count;
@@ -59,7 +60,7 @@ export class Project {
 
   public getSuccessfulRobulaPlusCount(): number {
     let count: number = 0;
-    for (const testResult of this.testResults) {
+    for (const testResult of this.projectTestResults) {
       count += testResult.getSuccessfulRobulaPlusCount();
     }
     return count;

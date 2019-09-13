@@ -5,11 +5,6 @@ import { Locator, LocatorJSON, Method } from './locator';
 
 export class XpathLocator extends Locator {
 
-  public static fromJSON(json: LocatorJSON): XpathLocator {
-    const action = Object.create(XpathLocator.prototype);
-    return Object.assign(action, json);
-  }
-
   constructor(method: Method, value: string) {
     super(method, value);
   }

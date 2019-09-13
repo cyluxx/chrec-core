@@ -12,11 +12,6 @@ export interface TypeJSON extends HtmlElementActionJSON {
 
 export class Type extends HtmlElementAction {
 
-  public static fromJSON(json: TypeJSON): Type {
-    const action = Object.create(Type.prototype);
-    return Object.assign(action, json);
-  }
-
   constructor(
     image: string,
     locators: Locator[],

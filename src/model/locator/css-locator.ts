@@ -5,11 +5,6 @@ import { Locator, LocatorJSON, Method } from './locator';
 
 export class CssLocator extends Locator {
 
-  public static fromJSON(json: LocatorJSON): CssLocator {
-    const action = Object.create(CssLocator.prototype);
-    return Object.assign(action, json);
-  }
-
   constructor(method: Method, value: string) {
     super(method, value);
   }

@@ -3,11 +3,6 @@ import { Browser, BrowserJSON } from './browser';
 
 export class InternetExplorer extends Browser {
 
-  public static fromJSON(json: BrowserJSON): InternetExplorer {
-    const action = Object.create(InternetExplorer.prototype);
-    return Object.assign(action, json);
-  }
-
   constructor(name: string, width: number, height: number, sleepMsBetweenActions: number) {
     super(name, width, height, sleepMsBetweenActions);
   }

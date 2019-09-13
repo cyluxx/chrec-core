@@ -11,11 +11,6 @@ export interface ReadJSON extends HtmlElementActionJSON {
 
 export class Read extends HtmlElementAction {
 
-  public static fromJSON(json: ReadJSON): Read {
-    const action = Object.create(Read.prototype);
-    return Object.assign(action, json);
-  }
-
   constructor(image: string, locators: Locator[], boundingBox: BoundingBox, public value: string) {
     super(image, locators, boundingBox);
   }

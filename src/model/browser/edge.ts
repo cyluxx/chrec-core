@@ -3,11 +3,6 @@ import { Browser, BrowserJSON } from './browser';
 
 export class Edge extends Browser {
 
-  public static fromJSON(json: BrowserJSON): Edge {
-    const action = Object.create(Edge.prototype);
-    return Object.assign(action, json);
-  }
-
   constructor(name: string, width: number, height: number, sleepMsBetweenActions: number) {
     super(name, width, height, sleepMsBetweenActions);
   }

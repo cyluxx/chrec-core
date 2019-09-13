@@ -5,7 +5,7 @@ import { Settings } from '../../model/settings';
 import { ProjectTestResult } from '../../model/test-result/project-test-result';
 import { ReplayService } from '../../service/replay.service';
 
-describe('index', () => {
+describe('Core', () => {
   describe('addProjectTest', () => {
     test('returns project with new TestResult', async () => {
       expect.assertions(2);
@@ -23,7 +23,7 @@ describe('index', () => {
       const result = await core.addProjectTest(project, settings);
 
       expect(result).toEqual(project);
-      expect(result.testResults).toEqual([projectTestResult]);
+      expect(result.projectTestResults).toEqual([projectTestResult]);
     });
   });
 });

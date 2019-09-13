@@ -5,11 +5,6 @@ import { Action, ActionJSON } from './action';
 
 export class Forward extends Action {
 
-  public static fromJSON(json: ActionJSON): Forward {
-    const action = Object.create(Forward.prototype);
-    return Object.assign(action, json);
-  }
-
   constructor(image: string) {
     super(image);
   }

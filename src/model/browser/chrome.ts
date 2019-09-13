@@ -8,11 +8,6 @@ export interface ChromeJSON extends BrowserJSON {
 
 export class Chrome extends Browser {
 
-  public static fromJSON(json: ChromeJSON): Chrome {
-    const action = Object.create(Chrome.prototype);
-    return Object.assign(action, json);
-  }
-
   public headless: boolean;
 
   constructor(name: string, width: number, height: number, sleepMsBetweenActions: number, headless?: boolean) {

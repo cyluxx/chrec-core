@@ -5,11 +5,6 @@ import { Action, ActionJSON } from './action';
 
 export class Refresh extends Action {
 
-  public static fromJSON(json: ActionJSON): Refresh {
-    const action = Object.create(Refresh.prototype);
-    return Object.assign(action, json);
-  }
-
   constructor(image: string) {
     super(image);
   }
