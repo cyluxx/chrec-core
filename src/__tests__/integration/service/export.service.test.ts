@@ -4,6 +4,7 @@ import { AlexExport } from '../../../export/alex/alex-export';
 import { GoTo } from '../../../model/action/go-to';
 import { Click } from '../../../model/action/html-element-action/click';
 import { BoundingBox } from '../../../model/bounding-box';
+import { Method } from '../../../model/locator/locator';
 import { XpathLocator } from '../../../model/locator/xpath-locator';
 import { Project } from '../../../model/project';
 import { Sequence } from '../../../model/sequence';
@@ -13,7 +14,7 @@ import { ExportService } from '../../../service/export.service';
 const EXPORT_SERVICE: ExportService = new ExportService();
 
 test('Project converts to proper AlexExport', () => {
-  const locator: XpathLocator = new XpathLocator('foo', 'body');
+  const locator: XpathLocator = new XpathLocator(Method.ROBULA_PLUS, 'body');
   const htmlElementAction: Click = new Click('foo', [locator], new BoundingBox(42, 42, 42, 42));
   const action: GoTo = new GoTo('foo', 'https://github.com/cyluxx/chrec-core');
   htmlElementAction.recommendedLocator = locator;
@@ -38,7 +39,7 @@ test('Project converts to proper AlexExport', () => {
 });
 
 test('AlexExport is properly written to file', async () => {
-  const locator: XpathLocator = new XpathLocator('foo', 'body');
+  const locator: XpathLocator = new XpathLocator(Method.ROBULA_PLUS, 'body');
   const htmlElementAction: Click = new Click('foo', [locator], new BoundingBox(42, 42, 42, 42));
   const action: GoTo = new GoTo('foo', 'https://github.com/cyluxx/chrec-core');
   htmlElementAction.recommendedLocator = locator;

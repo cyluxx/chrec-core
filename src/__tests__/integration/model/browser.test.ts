@@ -1,7 +1,7 @@
 import { Capabilities, Capability, ISize, WebDriver } from 'selenium-webdriver';
-import { Chrome } from '../../model/browser/chrome';
-import { Edge } from '../../model/browser/edge';
-import { Firefox } from '../../model/browser/firefox';
+import { Chrome } from '../../../model/browser/chrome';
+import { Edge } from '../../../model/browser/edge';
+import { Firefox } from '../../../model/browser/firefox';
 
 const SELENIUM_SERVER_URL: string = process.env.SELENIUM_SERVER_URL as string;
 const NODE_ENV: string = process.env.NODE_ENV as string;

@@ -1,13 +1,12 @@
 import { WebDriver } from 'selenium-webdriver';
-import { WebClick } from '../../export/alex/action';
-import { Node, NodeType } from '../../export/alex/node';
-import { Click } from '../../model/action/html-element-action/click';
-import { Read } from '../../model/action/html-element-action/read';
-import { Type } from '../../model/action/html-element-action/type';
-import { BoundingBox } from '../../model/bounding-box';
-import { Chrome } from '../../model/browser/chrome';
-import { CssLocator } from '../../model/locator/css-locator';
-import { Code } from '../../model/status';
+import { WebClick } from '../../../export/alex/action';
+import { Node, NodeType } from '../../../export/alex/node';
+import { Click } from '../../../model/action/html-element-action/click';
+import { BoundingBox } from '../../../model/bounding-box';
+import { Chrome } from '../../../model/browser/chrome';
+import { CssLocator } from '../../../model/locator/css-locator';
+import { Method } from '../../../model/locator/locator';
+import { Code } from '../../../model/status';
 
 const SELENIUM_SERVER_URL: string = process.env.SELENIUM_SERVER_URL as string;
 
@@ -23,7 +22,7 @@ test('HtmlElementAction findElement has invalid locator', async () => {
   const driver = buildWebDriver();
 
   const action: Click = new Click('foo', [], new BoundingBox(42, 42, 42, 42));
-  action.recommendedLocator = new CssLocator('foo', '#not-a-valid-locator-value');
+  action.recommendedLocator = new CssLocator(Method.ROBULA_PLUS, '#not-a-valid-locator-value');
 
   expect.assertions(1);
   await expect(action.findElement(driver)).rejects.toThrow();
@@ -36,7 +35,7 @@ test('HtmlElementAction findElement has valid locator', async () => {
   const driver = buildWebDriver();
 
   const action: Click = new Click('foo', [], new BoundingBox(42, 42, 42, 42));
-  action.recommendedLocator = new CssLocator('foo', 'body');
+  action.recommendedLocator = new CssLocator(Method.CSS_SELECTOR_GENERATOR, 'body');
 
   expect.assertions(1);
   await expect(action.findElement(driver)).resolves.toBeDefined();
@@ -49,7 +48,7 @@ test('Click run returns ok status when has a valid recommended locator', async (
   const driver = buildWebDriver();
 
   const action: Click = new Click('foo', [], new BoundingBox(42, 42, 42, 42));
-  action.recommendedLocator = new CssLocator('foo', 'body');
+  action.recommendedLocator = new CssLocator(Method.CSS_SELECTOR_GENERATOR, 'body');
 
   const status = await action.run(driver);
 
@@ -78,7 +77,7 @@ test('Click run returns error status when the recommended locator is not found',
   const driver = buildWebDriver();
 
   const action: Click = new Click('foo', [], new BoundingBox(42, 42, 42, 42));
-  action.recommendedLocator = new CssLocator('foo', '#not-a-valid-locator-value');
+  action.recommendedLocator = new CssLocator(Method.CSS_SELECTOR_GENERATOR, '#not-a-valid-locator-value');
 
   const status = await action.run(driver);
 
@@ -90,7 +89,7 @@ test('Click run returns error status when the recommended locator is not found',
 
 test('Click toAlexActions returns valid Action array when has a recommended locator specified', () => {
   const action: Click = new Click('foo', [], new BoundingBox(42, 42, 42, 42));
-  action.recommendedLocator = new CssLocator('foo', '#bar');
+  action.recommendedLocator = new CssLocator(Method.CSS_SELECTOR_GENERATOR, '#bar');
 
   expect(action.toAlexActions()).toEqual([new WebClick(new Node('#bar', NodeType.CSS))]);
 });

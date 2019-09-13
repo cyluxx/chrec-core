@@ -5,6 +5,7 @@ import { BoundingBox } from '../../model/bounding-box';
 import { Chrome } from '../../model/browser/chrome';
 import { Firefox } from '../../model/browser/firefox';
 import { CssLocator } from '../../model/locator/css-locator';
+import { Method } from '../../model/locator/locator';
 import { XpathLocator } from '../../model/locator/xpath-locator';
 import { Project } from '../../model/project';
 import { Sequence } from '../../model/sequence';
@@ -23,7 +24,7 @@ test('addProjectTest', async () => {
   jest.setTimeout(10000);
   const core: Core = new Core();
 
-  const locator: CssLocator = new CssLocator('foo', 'foo');
+  const locator: CssLocator = new CssLocator(Method.CSS_SELECTOR_GENERATOR, 'foo');
   const action: Refresh = new Refresh('foo');
   const htmlElementAction: Click = new Click('foo', [locator], new BoundingBox(42, 42, 42, 42));
   const sequence: Sequence = new Sequence('foo', [action, htmlElementAction]);
@@ -32,15 +33,15 @@ test('addProjectTest', async () => {
   project = await core.addProjectTest(project, SETTINGS);
 
   expect.assertions(2);
-  expect(project.testResults[0]).toBeDefined();
-  expect(project.testResults[0].sequenceTestResults[0]).toBeDefined();
+  expect(project.projectTestResults[0]).toBeDefined();
+  expect(project.projectTestResults[0].sequenceTestResults[0]).toBeDefined();
 });
 
 test('addSequenceTest', async () => {
   jest.setTimeout(10000);
   const core: Core = new Core();
 
-  const locator: CssLocator = new CssLocator('foo', 'foo');
+  const locator: CssLocator = new CssLocator(Method.CSS_SELECTOR_GENERATOR, 'foo');
   const action: Refresh = new Refresh('foo');
   const htmlElementAction: Click = new Click('foo', [locator], new BoundingBox(42, 42, 42, 42));
   const sequence: Sequence = new Sequence('foo', [action, htmlElementAction]);
@@ -49,18 +50,18 @@ test('addSequenceTest', async () => {
   project = await core.addSequenceTest(project, sequence, SETTINGS);
 
   expect.assertions(3);
-  expect(project.testResults[0]).toBeDefined();
-  expect(project.testResults[0].sequenceTestResults[0]).toBeDefined();
-  expect(project.testResults[0].sequenceTestResults.length).toBe(1);
+  expect(project.projectTestResults[0]).toBeDefined();
+  expect(project.projectTestResults[0].sequenceTestResults[0]).toBeDefined();
+  expect(project.projectTestResults[0].sequenceTestResults.length).toBe(1);
 });
 
 test('setRecommendedLocators', () => {
-  const cssSelectorGenerator = new CssLocator('CssSelectorGenerator', 'foo');
-  const finder = new CssLocator('Finder', 'foo');
-  const getQuerySelector = new CssLocator('GetQuerySelector', 'foo');
-  const optimalSelect = new CssLocator('OptimalSelect', 'foo');
-  const selectorQuery = new CssLocator('SelectorQuery', 'foo');
-  const robulaPlus = new XpathLocator('RobulaPlus', 'foo');
+  const cssSelectorGenerator = new CssLocator(Method.CSS_SELECTOR_GENERATOR, 'foo');
+  const finder = new CssLocator(Method.FINDER, 'foo');
+  const getQuerySelector = new CssLocator(Method.GET_QUERY_SELECTOR, 'foo');
+  const optimalSelect = new CssLocator(Method.OPTIMAL_SELECT, 'foo');
+  const selectorQuery = new CssLocator(Method.SELECTOR_QUERY, 'foo');
+  const robulaPlus = new XpathLocator(Method.ROBULA_PLUS, 'foo');
 
   const action = new Refresh('foo');
   const htmlElementAction = new Click(
@@ -97,6 +98,6 @@ test('setRecommendedLocators', () => {
   core.setRecommendedLocators(project);
 
   expect(htmlElementActionTestResult.action.recommendedLocator).toEqual(
-    new XpathLocator('RobulaPlus', 'foo'),
+    new XpathLocator(Method.ROBULA_PLUS, 'foo'),
   );
 });

@@ -1,23 +1,23 @@
 import { WebDriver } from 'selenium-webdriver';
-import { Action } from '../../model/action/action';
-import { GoTo } from '../../model/action/go-to';
-import { Click } from '../../model/action/html-element-action/click';
-import { Refresh } from '../../model/action/refresh';
-import { BoundingBox } from '../../model/bounding-box';
-import { Chrome } from '../../model/browser/chrome';
-import { Firefox } from '../../model/browser/firefox';
-import { CssLocator } from '../../model/locator/css-locator';
-import { Locator } from '../../model/locator/locator';
-import { Project } from '../../model/project';
-import { Sequence } from '../../model/sequence';
-import { Settings } from '../../model/settings';
-import { ActionTestResult } from '../../model/test-result/action-test-result';
-import { BrowserTestResult } from '../../model/test-result/browser-test-result';
-import { HtmlElementActionTestResult } from '../../model/test-result/html-element-action-test-result';
-import { LocatorTestResult } from '../../model/test-result/locator-test-result';
-import { ProjectTestResult } from '../../model/test-result/project-test-result';
-import { SequenceTestResult } from '../../model/test-result/sequence-test-result';
-import { ReplayService } from '../../service/replay.service';
+import { Action } from '../../../model/action/action';
+import { GoTo } from '../../../model/action/go-to';
+import { Click } from '../../../model/action/html-element-action/click';
+import { Refresh } from '../../../model/action/refresh';
+import { BoundingBox } from '../../../model/bounding-box';
+import { Chrome } from '../../../model/browser/chrome';
+import { Firefox } from '../../../model/browser/firefox';
+import { CssLocator } from '../../../model/locator/css-locator';
+import { Locator, Method } from '../../../model/locator/locator';
+import { Project } from '../../../model/project';
+import { Sequence } from '../../../model/sequence';
+import { Settings } from '../../../model/settings';
+import { ActionTestResult } from '../../../model/test-result/action-test-result';
+import { BrowserTestResult } from '../../../model/test-result/browser-test-result';
+import { HtmlElementActionTestResult } from '../../../model/test-result/html-element-action-test-result';
+import { LocatorTestResult } from '../../../model/test-result/locator-test-result';
+import { ProjectTestResult } from '../../../model/test-result/project-test-result';
+import { SequenceTestResult } from '../../../model/test-result/sequence-test-result';
+import { ReplayService } from '../../../service/replay.service';
 
 const SELENIUM_SERVER_URL: string = process.env.SELENIUM_SERVER_URL as string;
 const REPLAY_SERVICE: ReplayService = new ReplayService();
@@ -28,7 +28,7 @@ test('testLocator', async () => {
   const driver: WebDriver = CHROME.buildWebDriver(SELENIUM_SERVER_URL);
   driver.navigate().to('https://github.com/cyluxx/chrec-core');
 
-  const locator: CssLocator = new CssLocator('foo', 'body');
+  const locator: CssLocator = new CssLocator(Method.CSS_SELECTOR_GENERATOR, 'body');
   const testResult: LocatorTestResult = await REPLAY_SERVICE.testLocator(locator, driver);
 
   await driver.quit();
@@ -43,7 +43,7 @@ test('testHtmlElementAction', async () => {
   const driver: WebDriver = CHROME.buildWebDriver(SELENIUM_SERVER_URL);
   driver.navigate().to('https://github.com/cyluxx/chrec-core');
 
-  const locators: Locator[] = [new CssLocator('foo', 'body')];
+  const locators: Locator[] = [new CssLocator(Method.CSS_SELECTOR_GENERATOR, 'body')];
   const action: Click = new Click('foo', locators, new BoundingBox(42, 42, 42, 42));
   const testResult: HtmlElementActionTestResult = await REPLAY_SERVICE.testHtmlElementAction(action, driver);
 
@@ -74,7 +74,7 @@ test('testAction with HtmlElementAction', async () => {
   const driver: WebDriver = CHROME.buildWebDriver(SELENIUM_SERVER_URL);
   driver.navigate().to('https://github.com/cyluxx/chrec-core');
 
-  const locators: Locator[] = [new CssLocator('foo', 'body')];
+  const locators: Locator[] = [new CssLocator(Method.CSS_SELECTOR_GENERATOR, 'body')];
   const action: Click = new Click('foo', locators, new BoundingBox(42, 42, 42, 42));
   const testResult: ActionTestResult = await REPLAY_SERVICE.testAction(action, driver);
 
