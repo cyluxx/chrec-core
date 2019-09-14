@@ -75,12 +75,12 @@ export class Core {
     }
   }
 
-  public exportToAlexJson(project: Project, dirName: string): void {
-    this.exportService.exportToAlexJson(dirName + project.name, project);
+  public exportAlexJson(project: Project, dirName: string): void {
+    this.exportService.exportAlexJson(dirName + project.name, project);
   }
 
-  public exportToChrecJson(project: Project, dirName: string): void {
-    this.exportService.exportToChrecJson(dirName + project.name, project);
+  public exportChrecJson(project: Project, dirName: string): void {
+    this.exportService.exportChrecJson(dirName + project.name, project);
   }
 
   public async importFromChrecJson(absolutePath: string): Promise<Project> {

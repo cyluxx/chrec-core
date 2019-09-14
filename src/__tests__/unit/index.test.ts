@@ -15,6 +15,7 @@ describe('Core', () => {
       const projectTestResult = new ProjectTestResult(new Date(), []);
       let mockedReplayService = mock(ReplayService);
       when(mockedReplayService.testProject(project, settings)).thenResolve(projectTestResult);
+
       mockedReplayService = instance(mockedReplayService);
       
       const core = new Core();

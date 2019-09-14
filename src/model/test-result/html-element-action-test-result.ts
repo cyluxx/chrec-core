@@ -10,10 +10,6 @@ export class HtmlElementActionTestResult extends ActionTestResult implements Tes
     super(date, action);
   }
 
-  get action(): HtmlElementAction {
-    return this.action as HtmlElementAction;
-  }
-
   public addLocatorTestResult(locatorTestResult: LocatorTestResult): void {
     this.locatorTestResults.push(locatorTestResult);
   }

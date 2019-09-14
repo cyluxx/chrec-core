@@ -2,4 +2,4 @@
 node_modules
 /lib
 /coverage
-/src/__tests__/assets/alex-export.json
+/src/__tests__/integration/assets/alex-export.json

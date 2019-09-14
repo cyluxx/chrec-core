@@ -13,6 +13,20 @@ import { ExportService } from '../../../service/export.service';
 
 const EXPORT_SERVICE: ExportService = new ExportService();
 
+describe('ExportService', () => {
+  describe('exportChrecJson', () => {
+
+    test('throws Error when invalid appName', async () => {
+      const exportServce = new ExportService();
+      const json = `{"name":"invalid", "version":"0.0.1", "projects": []}`;
+      const parsedJson = JSON.parse(json);
+      const absolutePath = path.resolve('../assets/chrec-export.json');
+
+        await expect(exportServce.exportChrecJson(absolutePath, parsedJson)).resolves.toEqual(new Status(Code.OK, `Saved ChRec export successfully at ${absolutePath}!`));
+    });
+  });
+});
+
 test('Project converts to proper AlexExport', () => {
   const locator: XpathLocator = new XpathLocator(Method.ROBULA_PLUS, 'body');
   const htmlElementAction: Click = new Click('foo', [locator], new BoundingBox(42, 42, 42, 42));
@@ -46,7 +60,7 @@ test('AlexExport is properly written to file', async () => {
   const sequence: Sequence = new Sequence('Sequence Name', [action, htmlElementAction]);
   const project: Project = new Project('Project Name', [sequence], []);
 
-  const status: Status = await EXPORT_SERVICE.exportToAlexJson(
+  const status: Status = await EXPORT_SERVICE.exportAlexJson(
     path.resolve(__dirname, '..', 'assets', 'alex-export.json'),
     project,
   );

@@ -1,4 +1,5 @@
 import writeJsonFile from 'write-json-file';
+import { name as appName, version as appVersion } from '../../package.json';
 import { AlexExport } from '../export/alex/alex-export';
 import { Step } from '../export/alex/step';
 import { Symbol as AlexSymbol } from '../export/alex/symbol';
@@ -7,7 +8,7 @@ import { Project } from '../model/project';
 import { Code, Status } from '../model/status';
 
 export class ExportService {
-  public async exportToAlexJson(absolutePath: string, project: Project): Promise<Status> {
+  public async exportAlexJson(absolutePath: string, project: Project): Promise<Status> {
     try {
       await writeJsonFile(absolutePath, this.convertToAlex(project));
       return new Status(Code.OK, `Saved ALEX export successfully at ${absolutePath}!`);
@@ -16,9 +17,10 @@ export class ExportService {
     }
   }
 
-  public async exportToChrecJson(absolutePath: string, project: Project): Promise<Status> {
+  public async exportChrecJson(absolutePath: string, project: Project): Promise<Status> {
     try {
-      await writeJsonFile(absolutePath, project);
+      const json = { name: appName, version: appVersion, project };
+      await writeJsonFile(absolutePath, json);
       return new Status(Code.OK, `Saved ChRec export successfully at ${absolutePath}!`);
     } catch (error) {
       throw new Error(error.message);
