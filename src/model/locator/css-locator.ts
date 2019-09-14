@@ -4,7 +4,6 @@ import { Code, Status } from '../status';
 import { Locator, LocatorJSON, Method } from './locator';
 
 export class CssLocator extends Locator {
-
   constructor(method: Method, value: string) {
     super(method, value);
   }

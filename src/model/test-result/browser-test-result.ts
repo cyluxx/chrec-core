@@ -4,8 +4,7 @@ import { ActionTestResult } from './action-test-result';
 import { TestResult } from './test-result.interface';
 
 export class BrowserTestResult implements TestResult {
-
-  constructor(public date: Date, public browser: Browser, public actionTestResults: ActionTestResult[]) { }
+  constructor(public date: Date, public browser: Browser, public actionTestResults: ActionTestResult[]) {}
 
   public addActionTestResult(actionTestResult: ActionTestResult): void {
     this.actionTestResults.push(actionTestResult);

@@ -23,13 +23,14 @@ import { ImportService } from '../../../service/import.service';
 
 describe('ImportService', () => {
   describe('validateChrecJson', () => {
-
     test('throws Error when invalid appName', () => {
       const importService = new ImportService();
       const json = `{"name":"invalid", "version":"0.0.1", "projects": []}`;
       const parsedJson = JSON.parse(json);
 
-      expect(() => { importService.validateChrecJson(parsedJson) }).toThrow();
+      expect(() => {
+        importService.validateChrecJson(parsedJson);
+      }).toThrow();
     });
 
     test('throws Error when invalid appVersion', () => {
@@ -37,7 +38,9 @@ describe('ImportService', () => {
       const json = `{"name":"chrec-core", "version":"999.999.999", "projects": []}`;
       const parsedJson = JSON.parse(json);
 
-      expect(() => { importService.validateChrecJson(parsedJson) }).toThrow();
+      expect(() => {
+        importService.validateChrecJson(parsedJson);
+      }).toThrow();
     });
 
     test('revives valid Project when valid appVersion and valid appName', () => {
@@ -284,7 +287,7 @@ describe('ImportService', () => {
           "projectTestResults": []
         }
       }
-      `
+      `;
       const parsedJson = JSON.parse(json);
 
       const boundingBox = new BoundingBox(42, 42, 42, 42);

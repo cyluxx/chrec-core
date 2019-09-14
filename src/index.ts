@@ -29,16 +29,15 @@ export class Core {
 
   public async addSequenceTest(project: Project, sequence: Sequence, settings: Settings): Promise<Project> {
     const sequenceTestResult: SequenceTestResult = await this.replayService.testSequence(sequence, settings);
-    const projectTestResult: ProjectTestResult = new ProjectTestResult(sequenceTestResult.date, [
-      sequenceTestResult,
-    ]);
+    const projectTestResult: ProjectTestResult = new ProjectTestResult(sequenceTestResult.date, [sequenceTestResult]);
     project.addTestResult(projectTestResult);
     return project;
   }
 
   public setRecommendedLocators(project: Project): void {
     if (project.projectTestResults.length > 0) {
-      for (const sequenceTestResult of project.projectTestResults[project.projectTestResults.length - 1].sequenceTestResults) {
+      for (const sequenceTestResult of project.projectTestResults[project.projectTestResults.length - 1]
+        .sequenceTestResults) {
         for (const browserTestResult of sequenceTestResult.browserTestResults) {
           for (const actionTestResult of browserTestResult.actionTestResults) {
             if (actionTestResult instanceof HtmlElementActionTestResult) {

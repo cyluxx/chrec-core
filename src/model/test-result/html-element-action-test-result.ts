@@ -5,7 +5,6 @@ import { LocatorTestResult } from './locator-test-result';
 import { TestResult } from './test-result.interface';
 
 export class HtmlElementActionTestResult extends ActionTestResult implements TestResult {
-
   constructor(date: Date, action: HtmlElementAction, public locatorTestResults: LocatorTestResult[]) {
     super(date, action);
   }

@@ -4,11 +4,10 @@ import { Code, Status } from '../status';
 import { Action, ActionJSON } from './action';
 
 export interface GoToJSON extends ActionJSON {
-  url: string
+  url: string;
 }
 
 export class GoTo extends Action {
-
   constructor(image: string, public url: string) {
     super(image);
   }

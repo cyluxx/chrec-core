@@ -4,8 +4,7 @@ import { BrowserTestResult } from './browser-test-result';
 import { TestResult } from './test-result.interface';
 
 export class SequenceTestResult implements TestResult {
-
-  constructor(public date: Date, public sequence: Sequence, public browserTestResults: BrowserTestResult[]) { }
+  constructor(public date: Date, public sequence: Sequence, public browserTestResults: BrowserTestResult[]) {}
 
   public addBrowserTestResult(browserTestResult: BrowserTestResult): void {
     this.browserTestResults.push(browserTestResult);

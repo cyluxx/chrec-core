@@ -22,9 +22,11 @@ describe('ImportService', () => {
 
       const action = new Refresh('foo');
       const sequence = new Sequence('Test Sequence', [action]);
-      const project = new Project('Project With Refresh', [sequence], [])
+      const project = new Project('Project With Refresh', [sequence], []);
 
-      const imported: Project = await importService.importChrecJson('src/__tests__/integration/assets/project-with-refresh.json');
+      const imported: Project = await importService.importChrecJson(
+        'src/__tests__/integration/assets/project-with-refresh.json',
+      );
 
       expect(imported).toEqual(project);
       expect(imported.sequences[0]).toEqual(sequence);
@@ -34,7 +36,9 @@ describe('ImportService', () => {
     test('returns project with valid GoTo Action', async () => {
       expect.assertions(1);
 
-      const project: Project = await importService.importChrecJson('src/__tests__/integration/assets/project-with-goto.json');
+      const project: Project = await importService.importChrecJson(
+        'src/__tests__/integration/assets/project-with-goto.json',
+      );
 
       expect(project.sequences[0].actions[0]).toEqual(new GoTo('foo', 'https://www.github.com'));
     });
@@ -42,22 +46,25 @@ describe('ImportService', () => {
     test('returns project with valid Click Action', async () => {
       expect.assertions(1);
 
-      const project: Project = await importService.importChrecJson('src/__tests__/integration/assets/project-with-click.json');
+      const project: Project = await importService.importChrecJson(
+        'src/__tests__/integration/assets/project-with-click.json',
+      );
 
       expect(project.sequences[0].actions[0]).toEqual(
         new Click(
           'foo',
-          [
-            new CssLocator(Method.CSS_SELECTOR_GENERATOR, 'foo'),
-            new XpathLocator(Method.ROBULA_PLUS, 'foo')
-          ],
-          new BoundingBox(42, 42, 42, 42)));
+          [new CssLocator(Method.CSS_SELECTOR_GENERATOR, 'foo'), new XpathLocator(Method.ROBULA_PLUS, 'foo')],
+          new BoundingBox(42, 42, 42, 42),
+        ),
+      );
     });
 
     test('returns valid Project with correctly typed objects', async () => {
       expect.assertions(1);
 
-      const imported: Project = await importService.importChrecJson('src/__tests__/integration/assets/project-with-all-actions.json');
+      const imported: Project = await importService.importChrecJson(
+        'src/__tests__/integration/assets/project-with-all-actions.json',
+      );
 
       expect(imported).toBeInstanceOf(Project);
     });

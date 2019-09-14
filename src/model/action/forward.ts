@@ -4,7 +4,6 @@ import { Code, Status } from '../status';
 import { Action, ActionJSON } from './action';
 
 export class Forward extends Action {
-
   constructor(image: string) {
     super(image);
   }

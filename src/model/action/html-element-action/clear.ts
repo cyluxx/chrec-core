@@ -6,7 +6,6 @@ import { Code, Status } from '../../status';
 import { HtmlElementAction, HtmlElementActionJSON } from './html-element-action';
 
 export class Clear extends HtmlElementAction {
-
   constructor(image: string, locators: Locator[], boundingBox: BoundingBox) {
     super(image, locators, boundingBox);
   }
@@ -14,7 +13,10 @@ export class Clear extends HtmlElementAction {
   public async run(driver: WebDriver): Promise<Status> {
     let element: WebElement;
     if (!this.recommendedLocator) {
-      return new Status(Code.RECOMMENDED_LOCATOR_NOT_SPECIFIED, `${this.constructor.name} Action: Recommended Locator not Specified!`);
+      return new Status(
+        Code.RECOMMENDED_LOCATOR_NOT_SPECIFIED,
+        `${this.constructor.name} Action: Recommended Locator not Specified!`,
+      );
     }
     try {
       element = await this.findElement(driver);

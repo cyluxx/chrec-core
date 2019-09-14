@@ -2,8 +2,7 @@ import { Locator, Method } from '../locator/locator';
 import { TestResult } from './test-result.interface';
 
 export class LocatorTestResult implements TestResult {
-
-  constructor(public date: Date, public locator: Locator, public valid: boolean) { }
+  constructor(public date: Date, public locator: Locator, public valid: boolean) {}
 
   public isReplayable(): boolean {
     return this.valid;

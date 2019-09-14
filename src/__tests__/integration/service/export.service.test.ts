@@ -15,14 +15,15 @@ const EXPORT_SERVICE: ExportService = new ExportService();
 
 describe('ExportService', () => {
   describe('exportChrecJson', () => {
-
     test('throws Error when invalid appName', async () => {
       const exportServce = new ExportService();
       const json = `{"name":"invalid", "version":"0.0.1", "projects": []}`;
       const parsedJson = JSON.parse(json);
       const absolutePath = path.resolve('../assets/chrec-export.json');
 
-        await expect(exportServce.exportChrecJson(absolutePath, parsedJson)).resolves.toEqual(new Status(Code.OK, `Saved ChRec export successfully at ${absolutePath}!`));
+      await expect(exportServce.exportChrecJson(absolutePath, parsedJson)).resolves.toEqual(
+        new Status(Code.OK, `Saved ChRec export successfully at ${absolutePath}!`),
+      );
     });
   });
 });

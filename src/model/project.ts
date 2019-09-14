@@ -3,8 +3,7 @@ import { Sequence } from './sequence';
 import { ProjectTestResult } from './test-result/project-test-result';
 
 export class Project {
-
-  constructor(public name: string, public sequences: Sequence[], public projectTestResults: ProjectTestResult[]) { }
+  constructor(public name: string, public sequences: Sequence[], public projectTestResults: ProjectTestResult[]) {}
 
   public addTestResult(testResult: ProjectTestResult) {
     this.projectTestResults.push(testResult);

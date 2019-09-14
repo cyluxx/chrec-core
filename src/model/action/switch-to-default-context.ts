@@ -4,7 +4,6 @@ import { Code, Status } from '../status';
 import { Action } from './action';
 
 export class SwitchToDefaultContext extends Action {
-
   constructor(image: string) {
     super(image);
   }
@@ -13,14 +12,12 @@ export class SwitchToDefaultContext extends Action {
     try {
       await driver.switchTo().defaultContent();
     } catch (error) {
-      return new Status(Code.ACTION_FAILED, `${this.constructor.name} Action Failed!`)
+      return new Status(Code.ACTION_FAILED, `${this.constructor.name} Action Failed!`);
     }
     return new Status(Code.OK, `${this.constructor.name} Action successful!`);
   }
 
   public toAlexActions(): AlexAction[] {
-    throw new Error(
-      'Not implemented yet',
-    );
+    throw new Error('Not implemented yet');
   }
 }

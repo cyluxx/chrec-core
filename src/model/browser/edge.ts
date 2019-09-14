@@ -2,7 +2,6 @@ import { Browser as BrowserName, Builder, WebDriver } from 'selenium-webdriver';
 import { Browser, BrowserJSON } from './browser';
 
 export class Edge extends Browser {
-
   constructor(name: string, width: number, height: number, sleepMsBetweenActions: number) {
     super(name, width, height, sleepMsBetweenActions);
   }

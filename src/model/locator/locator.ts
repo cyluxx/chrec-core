@@ -8,18 +8,17 @@ export enum Method {
   GET_QUERY_SELECTOR = 'GetQuerySelector',
   OPTIMAL_SELECT = 'OptimalSelect',
   SELECTOR_QUERY = 'SelectorQuery',
-  ROBULA_PLUS = 'RobulaPlus'
+  ROBULA_PLUS = 'RobulaPlus',
 }
 
 export interface LocatorJSON {
-  className: string,
-  method: Method,
-  value: string
+  className: string;
+  method: Method;
+  value: string;
 }
 
 export abstract class Locator {
-
-  constructor(public method: Method, public value: string) { }
+  constructor(public method: Method, public value: string) {}
 
   public toJSON(): LocatorJSON {
     return Object.assign({ className: this.constructor.name }, this);

@@ -6,12 +6,11 @@ import { Code, Status } from '../../status';
 import { Action, ActionJSON } from '../action';
 
 export interface HtmlElementActionJSON extends ActionJSON {
-  locators: Locator[],
-  boundingBox: BoundingBox
+  locators: Locator[];
+  boundingBox: BoundingBox;
 }
 
 export abstract class HtmlElementAction extends Action {
-
   public recommendedLocator!: Locator;
 
   constructor(image: string, public locators: Locator[], public boundingBox: BoundingBox) {
@@ -41,7 +40,10 @@ export abstract class HtmlElementAction extends Action {
         `CSS Locator ${this.recommendedLocator.method}: ${this.recommendedLocator.constructor.name} not found!`,
       );
     } else {
-      return new Status(Code.HTML_ELEMENT_ACTION_FAILED, `Selenium Error: ${this.recommendedLocator.method} Action failed!`);
+      return new Status(
+        Code.HTML_ELEMENT_ACTION_FAILED,
+        `Selenium Error: ${this.recommendedLocator.method} Action failed!`,
+      );
     }
   }
 }

@@ -3,19 +3,17 @@ import { Options } from 'selenium-webdriver/chrome';
 import { Browser, BrowserJSON } from './browser';
 
 export interface ChromeJSON extends BrowserJSON {
-  headless: boolean
+  headless: boolean;
 }
 
 export class Chrome extends Browser {
-
   public headless: boolean;
 
   constructor(name: string, width: number, height: number, sleepMsBetweenActions: number, headless?: boolean) {
     super(name, width, height, sleepMsBetweenActions);
     if (headless) {
       this.headless = headless;
-    }
-    else {
+    } else {
       this.headless = false;
     }
   }

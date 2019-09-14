@@ -36,7 +36,6 @@ import { ProjectTestResult } from '../model/test-result/project-test-result';
 import { SequenceTestResult } from '../model/test-result/sequence-test-result';
 
 export class ImportService {
-
   public async importChrecJson(absolutePath: string): Promise<Project> {
     try {
       const parsedJson: any = await loadJsonFile(absolutePath);
@@ -144,13 +143,24 @@ export class ImportService {
   private reviveBrowser(parsedJson: any): Browser {
     switch (parsedJson.className) {
       case 'Chrome':
-        return new Chrome(parsedJson.name, parsedJson.width, parsedJson.height, parsedJson.sleepMsBetweenActions, parsedJson.headless);
+        return new Chrome(
+          parsedJson.name,
+          parsedJson.width,
+          parsedJson.height,
+          parsedJson.sleepMsBetweenActions,
+          parsedJson.headless,
+        );
       case 'Edge':
         return new Edge(parsedJson.name, parsedJson.width, parsedJson.height, parsedJson.sleepMsBetweenActions);
       case 'Firefox':
         return new Firefox(parsedJson.name, parsedJson.width, parsedJson.height, parsedJson.sleepMsBetweenActions);
       case 'InternetExplorer':
-        return new InternetExplorer(parsedJson.name, parsedJson.width, parsedJson.height, parsedJson.sleepMsBetweenActions);
+        return new InternetExplorer(
+          parsedJson.name,
+          parsedJson.width,
+          parsedJson.height,
+          parsedJson.sleepMsBetweenActions,
+        );
       default:
         throw new Error('Could not construct Browser from ChRec JSON!');
     }

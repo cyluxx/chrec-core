@@ -3,8 +3,7 @@ import { SequenceTestResult } from './sequence-test-result';
 import { TestResult } from './test-result.interface';
 
 export class ProjectTestResult implements TestResult {
-
-  constructor(public date: Date, public sequenceTestResults: SequenceTestResult[]) { }
+  constructor(public date: Date, public sequenceTestResults: SequenceTestResult[]) {}
 
   public addSequenceTestResult(sequenceTestResult: SequenceTestResult): void {
     this.sequenceTestResults.push(sequenceTestResult);

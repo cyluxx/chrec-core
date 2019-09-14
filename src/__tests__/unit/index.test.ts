@@ -9,7 +9,7 @@ describe('Core', () => {
   describe('addProjectTest', () => {
     test('returns project with new TestResult', async () => {
       expect.assertions(2);
-      
+
       const project = new Project('foo', [], []);
       const settings = new Settings('foo', []);
       const projectTestResult = new ProjectTestResult(new Date(), []);
@@ -17,7 +17,7 @@ describe('Core', () => {
       when(mockedReplayService.testProject(project, settings)).thenResolve(projectTestResult);
 
       mockedReplayService = instance(mockedReplayService);
-      
+
       const core = new Core();
       core.replayService = mockedReplayService;
 

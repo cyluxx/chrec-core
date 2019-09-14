@@ -6,26 +6,22 @@ import { Code, Status } from '../../status';
 import { HtmlElementAction, HtmlElementActionJSON } from './html-element-action';
 
 export interface TypeJSON extends HtmlElementActionJSON {
-  value: string,
-  key: string
+  value: string;
+  key: string;
 }
 
 export class Type extends HtmlElementAction {
-
-  constructor(
-    image: string,
-    locators: Locator[],
-    boundingBox: BoundingBox,
-    public value: string,
-    public key: string,
-  ) {
+  constructor(image: string, locators: Locator[], boundingBox: BoundingBox, public value: string, public key: string) {
     super(image, locators, boundingBox);
   }
 
   public async run(driver: WebDriver): Promise<Status> {
     let element: WebElement;
     if (!this.recommendedLocator) {
-      return new Status(Code.RECOMMENDED_LOCATOR_NOT_SPECIFIED, `${this.constructor.name} Action: Recommended Locator not Specified!`);
+      return new Status(
+        Code.RECOMMENDED_LOCATOR_NOT_SPECIFIED,
+        `${this.constructor.name} Action: Recommended Locator not Specified!`,
+      );
     }
     try {
       element = await this.findElement(driver);
