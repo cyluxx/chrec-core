@@ -1,3 +1,4 @@
+import { HtmlElementAction } from './model/action/html-element-action/html-element-action';
 import { Locator } from './model/locator/locator';
 import { Project } from './model/project';
 import { Sequence } from './model/sequence';
@@ -68,7 +69,7 @@ export class Core {
       for (const locatorTestResult of htmlElementActionTestResult.locatorTestResults) {
         const locator: Locator = locatorTestResult.locator;
         if (locatorTestResult.isReplayable() && locator.method === (locatorCount.method as string)) {
-          htmlElementActionTestResult.action.recommendedLocator = locator;
+          (htmlElementActionTestResult.action as HtmlElementAction).recommendedLocator = locator;
           return;
         }
       }
