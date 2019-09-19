@@ -1,6 +1,5 @@
 import * as compareVersions from 'compare-versions';
 import loadJsonFile from 'load-json-file';
-import { name as appName, version as appVersion } from '../../package.json';
 import { Action } from '../model/action/action';
 import { Back } from '../model/action/back';
 import { Forward } from '../model/action/forward';
@@ -47,11 +46,11 @@ export class ImportService {
   }
 
   public validateChrecJson(parsedJson: any): Project {
-    if (parsedJson.name !== appName) {
+    if (parsedJson.name !== process.env.npm_package_name) {
       throw new Error('Invalid ChRec JSON');
     }
 
-    if (compareVersions.compare(parsedJson.version as string, appVersion as string, '>')) {
+    if (compareVersions.compare(parsedJson.version as string, process.env.npm_package_version as string, '>')) {
       throw new Error('Incompatible Versions. Please Upgrade your ChRec version!');
     }
 
