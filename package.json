@@ -1,6 +1,6 @@
 {
   "name": "chrec-core",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "description": "ChRec's core business logic and model for testing HTML locator robustness",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
