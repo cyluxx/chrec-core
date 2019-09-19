@@ -5,7 +5,7 @@ import { ProjectTestResult } from './test-result/project-test-result';
 export class Project {
   constructor(public name: string, public sequences: Sequence[], public projectTestResults: ProjectTestResult[]) {}
 
-  public addSequence(sequence: Sequence){
+  public addSequence(sequence: Sequence) {
     this.sequences.push(sequence);
   }
 
