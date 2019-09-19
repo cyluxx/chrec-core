@@ -57,7 +57,7 @@ export class ImportService {
     return this.reviveProject(parsedJson.project);
   }
 
-  private reviveProject(parsedJson: any): Project {
+  public reviveProject(parsedJson: any): Project {
     const sequences: Sequence[] = [];
     for (const sequence of parsedJson.sequences) {
       sequences.push(this.reviveSequence(sequence));
@@ -69,7 +69,7 @@ export class ImportService {
     return new Project(parsedJson.name, sequences, projectTestResults);
   }
 
-  private reviveSequence(parsedJson: any): Sequence {
+  public reviveSequence(parsedJson: any): Sequence {
     const actions: Action[] = [];
     for (const action of parsedJson.actions) {
       actions.push(this.reviveAction(action));
@@ -77,7 +77,7 @@ export class ImportService {
     return new Sequence(parsedJson.name, actions);
   }
 
-  private reviveAction(parsedJson: any): Action {
+  public reviveAction(parsedJson: any): Action {
     switch (parsedJson.className) {
       case 'Back':
         return new Back(parsedJson.image);
@@ -94,7 +94,7 @@ export class ImportService {
     }
   }
 
-  private reviveHtmlElementAction(parsedJson: any): HtmlElementAction {
+  public reviveHtmlElementAction(parsedJson: any): HtmlElementAction {
     const locators: Locator[] = [];
     for (const locator of parsedJson.locators) {
       locators.push(this.reviveLocator(locator));
@@ -124,7 +124,7 @@ export class ImportService {
     }
   }
 
-  private reviveLocator(parsedJson: any): Locator {
+  public reviveLocator(parsedJson: any): Locator {
     switch (parsedJson.className) {
       case 'CssLocator':
         return new CssLocator(parsedJson.method, parsedJson.value);
@@ -135,11 +135,11 @@ export class ImportService {
     }
   }
 
-  private reviveBoundingBox(parsedJson: any): BoundingBox {
+  public reviveBoundingBox(parsedJson: any): BoundingBox {
     return new BoundingBox(parsedJson.x, parsedJson.y, parsedJson.width, parsedJson.height);
   }
 
-  private reviveBrowser(parsedJson: any): Browser {
+  public reviveBrowser(parsedJson: any): Browser {
     switch (parsedJson.className) {
       case 'Chrome':
         return new Chrome(
@@ -165,7 +165,7 @@ export class ImportService {
     }
   }
 
-  private reviveProjectTestResult(parsedJson: any): ProjectTestResult {
+  public reviveProjectTestResult(parsedJson: any): ProjectTestResult {
     const sequenceTestResults: SequenceTestResult[] = [];
     for (const sequenceTestResult of parsedJson.sequenceTestResults) {
       sequenceTestResults.push(this.reviveSequenceTestResult(sequenceTestResult));
@@ -173,7 +173,7 @@ export class ImportService {
     return new ProjectTestResult(parsedJson.date, sequenceTestResults);
   }
 
-  private reviveSequenceTestResult(parsedJson: any): SequenceTestResult {
+  public reviveSequenceTestResult(parsedJson: any): SequenceTestResult {
     const sequence: Sequence = this.reviveSequence(parsedJson.sequence);
     const browserTestResults: BrowserTestResult[] = [];
     for (const browserTestResult of parsedJson.browserTestResults) {
@@ -182,7 +182,7 @@ export class ImportService {
     return new SequenceTestResult(parsedJson.date, sequence, browserTestResults);
   }
 
-  private reviveBrowserTestResult(parsedJson: any): BrowserTestResult {
+  public reviveBrowserTestResult(parsedJson: any): BrowserTestResult {
     const browser: Browser = this.reviveBrowser(parsedJson.browser);
     const actionTestResults: ActionTestResult[] = [];
     for (const actionTestResult of parsedJson.actionTestResults) {
@@ -191,7 +191,7 @@ export class ImportService {
     return new BrowserTestResult(parsedJson.date, browser, actionTestResults);
   }
 
-  private reviveActionTestResult(parsedJson: any): ActionTestResult {
+  public reviveActionTestResult(parsedJson: any): ActionTestResult {
     if (parsedJson.locatorTestResults) {
       return this.reviveHtmlElementActionTestResult(parsedJson);
     }
@@ -200,7 +200,7 @@ export class ImportService {
     return new ActionTestResult(parsedJson.date, action, valid);
   }
 
-  private reviveHtmlElementActionTestResult(parsedJson: any): HtmlElementActionTestResult {
+  public reviveHtmlElementActionTestResult(parsedJson: any): HtmlElementActionTestResult {
     const action: HtmlElementAction = this.reviveAction(parsedJson.action) as HtmlElementAction;
     const locatorTestResults: LocatorTestResult[] = [];
     for (const locatorTestResult of parsedJson.locatorTestResults) {
@@ -209,7 +209,7 @@ export class ImportService {
     return new HtmlElementActionTestResult(parsedJson.date, action, locatorTestResults);
   }
 
-  private reviveLocatorTestResult(parsedJson: any): LocatorTestResult {
+  public reviveLocatorTestResult(parsedJson: any): LocatorTestResult {
     const locator: Locator = this.reviveLocator(parsedJson.locator);
     return new LocatorTestResult(parsedJson.date, locator, parsedJson.valid);
   }
