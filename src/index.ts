@@ -83,7 +83,7 @@ export class Core {
     this.exportService.exportChrecJson(dirName + project.name, project);
   }
 
-  public async importFromChrecJson(absolutePath: string): Promise<Project> {
+  public async importChrecJson(absolutePath: string): Promise<Project> {
     return this.importService.importChrecJson(absolutePath);
   }
 }
