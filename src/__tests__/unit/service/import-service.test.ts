@@ -47,7 +47,7 @@ describe('ImportService', () => {
       const importService = new ImportService();
       const json = `
       {
-        "name": "chrec-core",
+        "name": "ChRec",
         "version": "0.3.4",
         "project": {
           "name": "Project with all Actions",

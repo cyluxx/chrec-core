@@ -18,7 +18,7 @@ export class ExportService {
 
   public async exportChrecJson(absolutePath: string, project: Project): Promise<Status> {
     try {
-      const json = { name: process.env.npm_package_name, version: process.env.npm_package_version, project };
+      const json = { name: 'ChRec', version: process.env.npm_package_version, project };
       await writeJsonFile(absolutePath, json);
       return new Status(Code.OK, `Saved ChRec export successfully at ${absolutePath}!`);
     } catch (error) {

@@ -46,7 +46,7 @@ export class ImportService {
   }
 
   public validateChrecJson(parsedJson: any): Project {
-    if (parsedJson.name !== process.env.npm_package_name) {
+    if (parsedJson.name !== 'ChRec') {
       throw new Error('Invalid ChRec JSON');
     }
 
