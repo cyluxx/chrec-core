@@ -8,7 +8,6 @@ import { Method } from '../../../model/locator/locator';
 import { XpathLocator } from '../../../model/locator/xpath-locator';
 import { Project } from '../../../model/project';
 import { Sequence } from '../../../model/sequence';
-import { Code, Status } from '../../../model/status';
 import { ExportService } from '../../../service/export.service';
 
 const EXPORT_SERVICE: ExportService = new ExportService();
@@ -21,9 +20,7 @@ describe('ExportService', () => {
       const parsedJson = JSON.parse(json);
       const absolutePath = path.resolve('../assets/chrec-export.json');
 
-      await expect(exportServce.exportChrecJson(absolutePath, parsedJson)).resolves.toEqual(
-        new Status(Code.OK, `Saved ChRec export successfully at ${absolutePath}!`),
-      );
+      await expect(exportServce.exportChrecJson(absolutePath, parsedJson)).resolves.toBeTruthy();
     });
   });
 });
@@ -61,11 +58,6 @@ test('AlexExport is properly written to file', async () => {
   const sequence: Sequence = new Sequence('Sequence Name', [action, htmlElementAction]);
   const project: Project = new Project('Project Name', [sequence], []);
 
-  const status: Status = await EXPORT_SERVICE.exportAlexJson(
-    path.resolve(__dirname, '..', 'assets', 'alex-export.json'),
-    project,
-  );
-
   expect.assertions(1);
-  expect(status.code).toBe(Code.OK);
+  expect(await EXPORT_SERVICE.exportAlexJson(path.resolve(__dirname, '..', 'assets', 'alex-export.json'), project)).resolves.toBeTruthy();
 });

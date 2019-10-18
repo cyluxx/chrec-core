@@ -2,7 +2,6 @@ import { WebDriver, WebElement } from 'selenium-webdriver';
 import { Action, WebSelect } from '../../../export/alex/action';
 import { BoundingBox } from '../../bounding-box';
 import { Locator } from '../../locator/locator';
-import { Code, Status } from '../../status';
 import { HtmlElementAction, HtmlElementActionJSON } from './html-element-action';
 
 export interface SelectJSON extends HtmlElementActionJSON {
@@ -14,21 +13,8 @@ export class Select extends HtmlElementAction {
     super(image, locators, boundingBox);
   }
 
-  public async run(driver: WebDriver): Promise<Status> {
-    let element: WebElement;
-    if (!this.recommendedLocator) {
-      return new Status(
-        Code.RECOMMENDED_LOCATOR_NOT_SPECIFIED,
-        `${this.constructor.name} Action: Recommended Locator not Specified!`,
-      );
-    }
-    try {
-      element = await this.findElement(driver);
-      await element.sendKeys(this.value);
-      return new Status(Code.OK, `${this.constructor.name} Action successful!`);
-    } catch (error) {
-      return this.getErrorStatus(error);
-    }
+  public async testElement(driver: WebDriver, element: WebElement): Promise<void> {
+    await element.sendKeys(this.value);
   }
 
   public toAlexActions(): Action[] {

@@ -6,7 +6,6 @@ import { Locator } from '../model/locator/locator';
 import { Project } from '../model/project';
 import { Sequence } from '../model/sequence';
 import { Settings } from '../model/settings';
-import { Status } from '../model/status';
 import { ActionTestResult } from '../model/test-result/action-test-result';
 import { BrowserTestResult } from '../model/test-result/browser-test-result';
 import { HtmlElementActionTestResult } from '../model/test-result/html-element-action-test-result';
@@ -48,8 +47,13 @@ export class ReplayService {
     if (action instanceof HtmlElementAction) {
       return this.testHtmlElementAction(action, driver);
     } else {
-      const status: Status = await action.run(driver);
-      return new ActionTestResult(new Date(), action, status.isOk());
+      try {
+        await action.test(driver);
+      }
+      catch (error) {
+        return new ActionTestResult(new Date(), action, false);
+      }
+      return new ActionTestResult(new Date(), action, true);
     }
   }
 
@@ -62,12 +66,17 @@ export class ReplayService {
       const testResult = await this.testLocator(locator, driver);
       locatorTestResults.push(testResult);
     }
-    await action.run(driver);
+    await action.test(driver);
     return new HtmlElementActionTestResult(new Date(), action, locatorTestResults);
   }
 
   public async testLocator(locator: Locator, driver: WebDriver): Promise<LocatorTestResult> {
-    const valid: boolean = (await locator.test(driver)).isOk();
-    return new LocatorTestResult(new Date(), locator, valid);
+    try {
+      await locator.test(driver);
+    }
+    catch (error) {
+      return new LocatorTestResult(new Date(), locator, false);
+    }
+    return new LocatorTestResult(new Date(), locator, true);
   }
 }

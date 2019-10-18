@@ -1,6 +1,5 @@
 import { WebDriver } from 'selenium-webdriver';
 import { WebGoTo } from '../../export/alex/action';
-import { Code, Status } from '../status';
 import { Action, ActionJSON } from './action';
 
 export interface GoToJSON extends ActionJSON {
@@ -12,17 +11,8 @@ export class GoTo extends Action {
     super(image);
   }
 
-  public toJSON(): GoToJSON {
-    return Object.assign({ className: 'GoTo' }, this);
-  }
-
-  public async run(driver: WebDriver): Promise<Status> {
-    try {
-      await driver.navigate().to(this.url);
-      return new Status(Code.OK, `${this.constructor.name} Action successful!`);
-    } catch (error) {
-      return Promise.reject(new Status(Code.ACTION_FAILED, `${this.constructor.name} Action Failed!`));
-    }
+  public async test(driver: WebDriver): Promise<void> {
+    await driver.navigate().to(this.url);
   }
 
   public toAlexActions(): WebGoTo[] {

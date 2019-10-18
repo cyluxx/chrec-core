@@ -1,6 +1,5 @@
 import { Locator as SeleniumLocator, WebDriver, WebElement } from 'selenium-webdriver';
 import { Node } from '../../export/alex/node';
-import { Status } from '../status';
 
 export enum Method {
   CSS_SELECTOR_GENERATOR = 'CssSelectorGenerator',
@@ -18,17 +17,30 @@ export interface LocatorJSON {
 }
 
 export abstract class Locator {
-  constructor(public method: Method, public value: string) {}
+  constructor(public method: Method, public value: string) { }
 
   public toJSON(): LocatorJSON {
     return Object.assign({ className: this.constructor.name }, this);
   }
 
-  public abstract toSeleniumLocator(): SeleniumLocator;
+  public async test(driver: WebDriver): Promise<void> {
+    try {
+      await this.findElement(driver);
+    } catch (error) {
+      throw this.getError;
+    }
+  }
 
-  public abstract async test(driver: WebDriver): Promise<Status>;
+  public abstract toSeleniumLocator(): SeleniumLocator;
 
   public abstract async findElement(driver: WebDriver): Promise<WebElement>;
 
   public abstract toAlexNode(): Node;
+
+  private getError(error: Error): Error {
+    if (error.name === 'NoSuchElementError') {
+      return new Error(`${this.method} ${this.constructor.name} not found!`);
+    }
+    return error;
+  }
 }

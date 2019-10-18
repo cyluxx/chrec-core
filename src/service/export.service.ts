@@ -4,26 +4,15 @@ import { Step } from '../export/alex/step';
 import { Symbol as AlexSymbol } from '../export/alex/symbol';
 import { SymbolGroup } from '../export/alex/symbol-group';
 import { Project } from '../model/project';
-import { Code, Status } from '../model/status';
 
 export class ExportService {
-  public async exportAlexJson(absolutePath: string, project: Project): Promise<Status> {
-    try {
-      await writeJsonFile(absolutePath, this.convertToAlex(project));
-      return new Status(Code.OK, `Saved ALEX export successfully at ${absolutePath}!`);
-    } catch (error) {
-      throw new Error(error.message);
-    }
+  public async exportAlexJson(absolutePath: string, project: Project): Promise<void> {
+    await writeJsonFile(absolutePath, this.convertToAlex(project));
   }
 
-  public async exportChrecJson(absolutePath: string, project: Project): Promise<Status> {
-    try {
-      const json = { name: 'ChRec', version: process.env.npm_package_version, project };
-      await writeJsonFile(absolutePath, json);
-      return new Status(Code.OK, `Saved ChRec export successfully at ${absolutePath}!`);
-    } catch (error) {
-      throw new Error(error.message);
-    }
+  public async exportChrecJson(absolutePath: string, project: Project): Promise<void> {
+    const json = { name: 'ChRec', version: process.env.npm_package_version, project };
+    await writeJsonFile(absolutePath, json);
   }
 
   public convertToAlex(project: Project): AlexExport {
