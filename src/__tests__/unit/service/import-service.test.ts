@@ -306,7 +306,7 @@ describe('ImportService', () => {
       actions.push(new Select('foo', [cssLocator, xpathLocator], boundingBox, 'bar'));
       actions.push(new Submit('foo', [cssLocator, xpathLocator], boundingBox));
       actions.push(new SwitchToContext('foo', [cssLocator, xpathLocator], boundingBox));
-      actions.push(new Type('foo', [cssLocator, xpathLocator], boundingBox, 'bar', 'baz'));
+      actions.push(new Type('foo', [cssLocator, xpathLocator], boundingBox, 'bar'));
       actions.push(new WaitForAddedHtmlElement('foo', [cssLocator, xpathLocator], boundingBox, 42));
       actions.push(new WaitForRemovedHtmlElement('foo', [cssLocator, xpathLocator], boundingBox, 42));
       const sequence = new Sequence('Test Sequence', actions);

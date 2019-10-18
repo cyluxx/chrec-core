@@ -11,7 +11,7 @@ export interface TypeJSON extends HtmlElementActionJSON {
 }
 
 export class Type extends HtmlElementAction {
-  constructor(image: string, locators: Locator[], boundingBox: BoundingBox, public value: string, public key: string) {
+  constructor(image: string, locators: Locator[], boundingBox: BoundingBox, public value: string) {
     super(image, locators, boundingBox);
   }
 
@@ -25,11 +25,7 @@ export class Type extends HtmlElementAction {
     }
     try {
       element = await this.findElement(driver);
-      if (this.key) {
-        await element.sendKeys(this.value, this.key);
-      } else {
-        await element.sendKeys(this.value, Key.TAB);
-      }
+      await element.sendKeys(this.value);
       return new Status(Code.OK, `${this.constructor.name} Action successful!`);
     } catch (error) {
       return this.getErrorStatus(error);
@@ -39,8 +35,7 @@ export class Type extends HtmlElementAction {
   public toAlexActions(): Action[] {
     if (this.recommendedLocator) {
       return [
-        new WebFill(this.value, this.recommendedLocator.toAlexNode()),
-        new WebPressKey(this.key, this.recommendedLocator.toAlexNode()),
+        new WebFill(this.value, this.recommendedLocator.toAlexNode())
       ];
     }
     throw new Error(

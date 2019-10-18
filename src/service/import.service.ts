@@ -114,7 +114,7 @@ export class ImportService {
       case 'SwitchToContext':
         return new SwitchToContext(parsedJson.image, locators, boundingBox);
       case 'Type':
-        return new Type(parsedJson.image, locators, boundingBox, parsedJson.value, parsedJson.key);
+        return new Type(parsedJson.image, locators, boundingBox, parsedJson.value);
       case 'WaitForAddedHtmlElement':
         return new WaitForAddedHtmlElement(parsedJson.image, locators, boundingBox, parsedJson.timeout);
       case 'WaitForRemovedHtmlElement':
