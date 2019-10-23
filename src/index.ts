@@ -4,6 +4,7 @@ import { Project } from './model/project';
 import { Sequence } from './model/sequence';
 import { Settings } from './model/settings';
 import { HtmlElementActionTestResult } from './model/test-result/html-element-action-test-result';
+import { LocatorTestResult } from './model/test-result/locator-test-result';
 import { ProjectTestResult } from './model/test-result/project-test-result';
 import { SequenceTestResult } from './model/test-result/sequence-test-result';
 import { ExportService } from './service/export.service';
@@ -23,23 +24,23 @@ export class Core {
 
   public async addProjectTest(project: Project, settings: Settings): Promise<Project> {
     const testResult: ProjectTestResult = await this.replayService.testProject(project, settings);
-    project.addTestResult(testResult);
+    project.addChildTestResult(testResult);
     return project;
   }
 
   public async addSequenceTest(project: Project, sequence: Sequence, settings: Settings): Promise<Project> {
     const sequenceTestResult: SequenceTestResult = await this.replayService.testSequence(sequence, settings);
     const projectTestResult: ProjectTestResult = new ProjectTestResult(sequenceTestResult.date, [sequenceTestResult]);
-    project.addTestResult(projectTestResult);
+    project.addChildTestResult(projectTestResult);
     return project;
   }
 
   public setRecommendedLocators(project: Project): void {
-    if (project.projectTestResults.length > 0) {
-      for (const sequenceTestResult of project.projectTestResults[project.projectTestResults.length - 1]
-        .sequenceTestResults) {
-        for (const browserTestResult of sequenceTestResult.browserTestResults) {
-          for (const actionTestResult of browserTestResult.actionTestResults) {
+    if (project.childTestResults.length > 0) {
+      for (const sequenceTestResult of project.childTestResults[project.childTestResults.length - 1]
+        .childTestResults) {
+        for (const browserTestResult of sequenceTestResult.childTestResults) {
+          for (const actionTestResult of browserTestResult.childTestResults) {
             if (actionTestResult instanceof HtmlElementActionTestResult) {
               this.setRecommendedLocator(project, actionTestResult);
             }
@@ -65,8 +66,8 @@ export class Core {
     );
 
     for (const locatorCount of locatorCounts) {
-      for (const locatorTestResult of htmlElementActionTestResult.locatorTestResults) {
-        const locator: Locator = locatorTestResult.locator;
+      for (const locatorTestResult of htmlElementActionTestResult.childTestResults) {
+        const locator: Locator = (locatorTestResult as LocatorTestResult).locator;
         if (locatorTestResult.isReplayable() && locator.method === (locatorCount.method as string)) {
           (htmlElementActionTestResult.action as HtmlElementAction).recommendedLocator = locator;
           return;

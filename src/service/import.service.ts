@@ -62,11 +62,11 @@ export class ImportService {
     for (const sequence of parsedJson.sequences) {
       sequences.push(this.reviveSequence(sequence));
     }
-    const projectTestResults: ProjectTestResult[] = [];
-    for (const projectTestResult of parsedJson.projectTestResults) {
-      projectTestResults.push(this.reviveProjectTestResult(projectTestResult));
+    const childTestResults: ProjectTestResult[] = [];
+    for (const projectTestResult of parsedJson.childTestResults) {
+      childTestResults.push(this.reviveProjectTestResult(projectTestResult));
     }
-    return new Project(parsedJson.name, sequences, projectTestResults);
+    return new Project(parsedJson.name, sequences, childTestResults);
   }
 
   public reviveSequence(parsedJson: any): Sequence {
@@ -166,35 +166,36 @@ export class ImportService {
   }
 
   public reviveProjectTestResult(parsedJson: any): ProjectTestResult {
-    const sequenceTestResults: SequenceTestResult[] = [];
-    for (const sequenceTestResult of parsedJson.sequenceTestResults) {
-      sequenceTestResults.push(this.reviveSequenceTestResult(sequenceTestResult));
+    const childTestResults: SequenceTestResult[] = [];
+    for (const sequenceTestResult of parsedJson.childTestResults) {
+      childTestResults.push(this.reviveSequenceTestResult(sequenceTestResult));
     }
-    return new ProjectTestResult(parsedJson.date, sequenceTestResults);
+    return new ProjectTestResult(parsedJson.date, childTestResults);
   }
 
   public reviveSequenceTestResult(parsedJson: any): SequenceTestResult {
     const sequence: Sequence = this.reviveSequence(parsedJson.sequence);
-    const browserTestResults: BrowserTestResult[] = [];
-    for (const browserTestResult of parsedJson.browserTestResults) {
-      browserTestResults.push(this.reviveBrowserTestResult(browserTestResult));
+    const childTestResults: BrowserTestResult[] = [];
+    for (const browserTestResult of parsedJson.childTestResults) {
+      childTestResults.push(this.reviveBrowserTestResult(browserTestResult));
     }
-    return new SequenceTestResult(parsedJson.date, sequence, browserTestResults);
+    return new SequenceTestResult(parsedJson.date, sequence, childTestResults);
   }
 
   public reviveBrowserTestResult(parsedJson: any): BrowserTestResult {
     const browser: Browser = this.reviveBrowser(parsedJson.browser);
-    const actionTestResults: ActionTestResult[] = [];
-    for (const actionTestResult of parsedJson.actionTestResults) {
-      actionTestResults.push(this.reviveActionTestResult(actionTestResult));
+    const childTestResults: Array<ActionTestResult | HtmlElementActionTestResult> = [];
+    for (const actionTestResult of parsedJson.childTestResults) {
+      if (actionTestResult.locatorTestResults) {
+        childTestResults.push(this.reviveHtmlElementActionTestResult(actionTestResult));
+      } else {
+        childTestResults.push(this.reviveActionTestResult(actionTestResult));
+      }
     }
-    return new BrowserTestResult(parsedJson.date, browser, actionTestResults);
+    return new BrowserTestResult(parsedJson.date, browser, childTestResults);
   }
 
   public reviveActionTestResult(parsedJson: any): ActionTestResult {
-    if (parsedJson.locatorTestResults) {
-      return this.reviveHtmlElementActionTestResult(parsedJson);
-    }
     const action: Action = this.reviveAction(parsedJson.action);
     const valid: boolean = parsedJson.valid ? true : false;
     return new ActionTestResult(parsedJson.date, action, valid);

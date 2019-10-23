@@ -280,11 +280,10 @@ describe('ImportService', () => {
                     "height": 42
                   }
                 }
-              ],
-              "sequenceTestResults": []
+              ]
             }
           ],
-          "projectTestResults": []
+          "childTestResults": []
         }
       }
       `;

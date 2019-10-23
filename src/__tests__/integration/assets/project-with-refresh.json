@@ -11,10 +11,9 @@
             "className": "Refresh",
             "image": "foo"
           }
-        ],
-        "sequenceTestResults": []
+        ]
       }
     ],
-    "projectTestResults": []
+    "childTestResults": []
   }
 }

@@ -21,9 +21,9 @@ describe('Project', () => {
       const date = new Date();
       const project = new Project('foo', [], [new ProjectTestResult(date, [])]);
       const dateP = new Date();
-      project.addTestResult(new ProjectTestResult(dateP, []));
+      project.addChildTestResult(new ProjectTestResult(dateP, []));
 
-      expect(project.projectTestResults).toEqual(
+      expect(project.childTestResults).toEqual(
         [new ProjectTestResult(date, []), new ProjectTestResult(dateP, [])]
       );
     })

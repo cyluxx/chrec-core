@@ -20,7 +20,7 @@ test('is replayable', () => {
   const sequence: Sequence = new Sequence('foo', [action]);
 
   const locatorTestResult: LocatorTestResult = new LocatorTestResult(new Date(), locator, false);
-  const actionTestResult: ActionTestResult = new ActionTestResult(new Date(), action);
+  const actionTestResult: ActionTestResult = new ActionTestResult(new Date(), action, false);
   const htmlElementActionTestResult: HtmlElementActionTestResult = new HtmlElementActionTestResult(
     new Date(),
     htmlElementAction,
@@ -28,7 +28,7 @@ test('is replayable', () => {
   );
   const browserTestResult: BrowserTestResult = new BrowserTestResult(new Date(), browser, [
     actionTestResult,
-    htmlElementActionTestResult,
+    htmlElementActionTestResult
   ]);
   const sequenceTestResult: SequenceTestResult = new SequenceTestResult(new Date(), sequence, [browserTestResult]);
   const projectTestResult: ProjectTestResult = new ProjectTestResult(new Date(), [sequenceTestResult]);
@@ -49,7 +49,7 @@ test('getSuccessfullLocatorCount', () => {
   const sequence: Sequence = new Sequence('foo', [action]);
 
   const locatorTestResult: LocatorTestResult = new LocatorTestResult(new Date(), locator, false);
-  const actionTestResult: ActionTestResult = new ActionTestResult(new Date(), action);
+  const actionTestResult: ActionTestResult = new ActionTestResult(new Date(), action, false);
   const htmlElementActionTestResult: HtmlElementActionTestResult = new HtmlElementActionTestResult(
     new Date(),
     htmlElementAction,
@@ -78,7 +78,7 @@ test('getTotalLocatorCount', () => {
   const sequence: Sequence = new Sequence('foo', [action]);
 
   const locatorTestResult: LocatorTestResult = new LocatorTestResult(new Date(), locator, false);
-  const actionTestResult: ActionTestResult = new ActionTestResult(new Date(), action);
+  const actionTestResult: ActionTestResult = new ActionTestResult(new Date(), action, false);
   const htmlElementActionTestResult: HtmlElementActionTestResult = new HtmlElementActionTestResult(
     new Date(),
     htmlElementAction,

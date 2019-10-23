@@ -1,8 +1,14 @@
 import { Locator, Method } from '../locator/locator';
-import { TestResult } from './test-result.interface';
+import { TestResult } from './test-result';
 
-export class LocatorTestResult implements TestResult {
-  constructor(public date: Date, public locator: Locator, public valid: boolean) {}
+export class LocatorTestResult extends TestResult {
+  constructor(date: Date, public locator: Locator, public valid: boolean) {
+    super(date, [])
+  }
+
+  public addChildTestResult(childTestResult: TestResult): void {
+    throw new Error(`Internal: Do not add a childTestResult to LocatorTestResult`);
+  }
 
   public isReplayable(): boolean {
     return this.valid;

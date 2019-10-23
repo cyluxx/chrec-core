@@ -24,7 +24,7 @@ describe('Core', () => {
       const result = await core.addProjectTest(project, settings);
 
       expect(result).toEqual(project);
-      expect(result.projectTestResults).toEqual([projectTestResult]);
+      expect(result.childTestResults).toEqual([projectTestResult]);
     });
   });
 });
