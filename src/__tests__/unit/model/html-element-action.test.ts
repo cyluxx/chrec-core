@@ -1,13 +1,13 @@
-import { Clear } from '../../../../model/action/html-element-action/clear';
-import { Click } from '../../../../model/action/html-element-action/click';
-import { Read } from '../../../../model/action/html-element-action/read';
-import { Select } from '../../../../model/action/html-element-action/select';
-import { Submit } from '../../../../model/action/html-element-action/submit';
-import { SwitchToContext } from '../../../../model/action/html-element-action/switch-to-context';
-import { Type } from '../../../../model/action/html-element-action/type';
-import { WaitForAddedHtmlElement } from '../../../../model/action/html-element-action/wait-for-added-html-element';
-import { WaitForRemovedHtmlElement } from '../../../../model/action/html-element-action/wait-for-removed-html-element';
-import { BoundingBox } from '../../../../model/bounding-box';
+import { Clear } from '../../../model/action/html-element-action/clear';
+import { Click } from '../../../model/action/html-element-action/click';
+import { Read } from '../../../model/action/html-element-action/read';
+import { Select } from '../../../model/action/html-element-action/select';
+import { Submit } from '../../../model/action/html-element-action/submit';
+import { SwitchToContext } from '../../../model/action/html-element-action/switch-to-context';
+import { Type } from '../../../model/action/html-element-action/type';
+import { WaitForAddedHtmlElement } from '../../../model/action/html-element-action/wait-for-added-html-element';
+import { WaitForRemovedHtmlElement } from '../../../model/action/html-element-action/wait-for-removed-html-element';
+import { BoundingBox } from '../../../model/bounding-box';
 
 describe('Clear', () => {
   describe('toJSON', () => {

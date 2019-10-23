@@ -1,8 +1,8 @@
-import { Back } from '../../../../model/action/back';
-import { Forward } from '../../../../model/action/forward';
-import { GoTo } from '../../../../model/action/go-to';
-import { Refresh } from '../../../../model/action/refresh';
-import { SwitchToDefaultContext } from '../../../../model/action/switch-to-default-context';
+import { Back } from '../../../model/action/back';
+import { Forward } from '../../../model/action/forward';
+import { GoTo } from '../../../model/action/go-to';
+import { Refresh } from '../../../model/action/refresh';
+import { SwitchToDefaultContext } from '../../../model/action/switch-to-default-context';
 
 describe('Back', () => {
   describe('toJSON', () => {
