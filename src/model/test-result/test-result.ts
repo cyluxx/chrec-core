@@ -1,4 +1,5 @@
 import { Locator } from 'selenium-webdriver';
+import { Method } from '../locator/locator';
 
 export abstract class TestResult {
   constructor(public childTestResults: TestResult[]) { }
@@ -38,50 +39,10 @@ export abstract class TestResult {
     return locators;
   }
 
-  public getSuccessfulCssSelectorGeneratorCount(): number {
+  public getSpecificSuccessfulLocatorCount(method: Method): number {
     let count: number = 0;
     for (const testResult of this.childTestResults) {
-      count += testResult.getSuccessfulCssSelectorGeneratorCount();
-    }
-    return count;
-  }
-
-  public getSuccessfulFinderCount(): number {
-    let count: number = 0;
-    for (const testResult of this.childTestResults) {
-      count += testResult.getSuccessfulFinderCount();
-    }
-    return count;
-  }
-
-  public getSuccessfulGetQuerySelectorCount(): number {
-    let count: number = 0;
-    for (const testResult of this.childTestResults) {
-      count += testResult.getSuccessfulGetQuerySelectorCount();
-    }
-    return count;
-  }
-
-  public getSuccessfulOptimalSelectCount(): number {
-    let count: number = 0;
-    for (const testResult of this.childTestResults) {
-      count += testResult.getSuccessfulOptimalSelectCount();
-    }
-    return count;
-  }
-
-  public getSuccessfulSelectorQueryCount(): number {
-    let count: number = 0;
-    for (const testResult of this.childTestResults) {
-      count += testResult.getSuccessfulSelectorQueryCount();
-    }
-    return count;
-  }
-
-  public getSuccessfulRobulaPlusCount(): number {
-    let count: number = 0;
-    for (const testResult of this.childTestResults) {
-      count += testResult.getSuccessfulRobulaPlusCount();
+      count += testResult.getSpecificSuccessfulLocatorCount(method);
     }
     return count;
   }

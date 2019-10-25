@@ -26,27 +26,7 @@ export class LocatorTestResult extends TestResult {
     return this.valid ? [this.locator] : [];
   }
 
-  public getSuccessfulCssSelectorGeneratorCount(): number {
-    return this.valid && this.locator.method === Method.CSS_SELECTOR_GENERATOR ? 1 : 0;
-  }
-
-  public getSuccessfulFinderCount(): number {
-    return this.valid && this.locator.method === Method.FINDER ? 1 : 0;
-  }
-
-  public getSuccessfulGetQuerySelectorCount(): number {
-    return this.valid && this.locator.method === Method.GET_QUERY_SELECTOR ? 1 : 0;
-  }
-
-  public getSuccessfulOptimalSelectCount(): number {
-    return this.valid && this.locator.method === Method.OPTIMAL_SELECT ? 1 : 0;
-  }
-
-  public getSuccessfulSelectorQueryCount(): number {
-    return this.valid && this.locator.method === Method.SELECTOR_QUERY ? 1 : 0;
-  }
-
-  public getSuccessfulRobulaPlusCount(): number {
-    return this.valid && this.locator.method === Method.ROBULA_PLUS ? 1 : 0;
+  public getSpecificSuccessfulLocatorCount(method: Method): number {
+    return this.valid && this.locator.method === method ? 1 : 0;
   }
 }
