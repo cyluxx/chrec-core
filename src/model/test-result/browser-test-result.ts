@@ -8,21 +8,7 @@ export class BrowserTestResult extends TestResult {
     super(childTestResults);
   }
 
-  public addChildTestResult(childTestResults: ActionTestResult | HtmlElementActionTestResult): void {
-    this.childTestResults.push(childTestResults);
-  }
-
-  public getSuccessfulActionCount(): number {
-    let count: number = 0;
-    for (const actionTestResult of this.childTestResults) {
-      if (actionTestResult.isReplayable()) {
-        count++;
-      }
-    }
-    return count;
-  }
-
-  public getTotalActionCount(): number {
-    return this.childTestResults.length;
+  public addChildTestResult(childTestResult: ActionTestResult | HtmlElementActionTestResult): void {
+    this.childTestResults.push(childTestResult);
   }
 }
