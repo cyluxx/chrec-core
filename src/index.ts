@@ -1,5 +1,5 @@
 import { HtmlElementAction } from './model/action/html-element-action/html-element-action';
-import { Locator } from './model/locator/locator';
+import { Locator, Method } from './model/locator/locator';
 import { Project } from './model/project';
 import { Sequence } from './model/sequence';
 import { Settings } from './model/settings';
@@ -52,12 +52,12 @@ export class Core {
 
   public setRecommendedLocator(project: Project, htmlElementActionTestResult: HtmlElementActionTestResult): void {
     const locatorCounts: any[] = [];
-    locatorCounts.push({ methodName: 'CssSelectorGenerator', count: project.getSuccessfulCssSelectorGeneratorCount() });
-    locatorCounts.push({ methodName: 'Finder', count: project.getSuccessfulFinderCount() });
-    locatorCounts.push({ methodName: 'GetQuerySelector', count: project.getSuccessfulGetQuerySelectorCount() });
-    locatorCounts.push({ methodName: 'OptimalSelect', count: project.getSuccessfulOptimalSelectCount() });
-    locatorCounts.push({ methodName: 'SelectorQuery', count: project.getSuccessfulSelectorQueryCount() });
-    locatorCounts.push({ methodName: 'RobulaPlus', count: project.getSuccessfulRobulaPlusCount() });
+    locatorCounts.push({ methodName: 'CssSelectorGenerator', count: project.getSpecificSuccessfulLocatorCount(Method.CSS_SELECTOR_GENERATOR) });
+    locatorCounts.push({ methodName: 'Finder', count: project.getSpecificSuccessfulLocatorCount(Method.FINDER) });
+    locatorCounts.push({ methodName: 'GetQuerySelector', count: project.getSpecificSuccessfulLocatorCount(Method.GET_QUERY_SELECTOR) });
+    locatorCounts.push({ methodName: 'OptimalSelect', count: project.getSpecificSuccessfulLocatorCount(Method.OPTIMAL_SELECT) });
+    locatorCounts.push({ methodName: 'SelectorQuery', count: project.getSpecificSuccessfulLocatorCount(Method.SELECTOR_QUERY) });
+    locatorCounts.push({ methodName: 'RobulaPlus', count: project.getSpecificSuccessfulLocatorCount(Method.ROBULA_PLUS) });
 
     locatorCounts.sort(
       (a: any, b: any): number => {
