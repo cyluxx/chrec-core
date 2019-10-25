@@ -5,7 +5,7 @@ import { TestResult } from './test-result/test-result';
 
 export class Project extends TestResult{
   constructor(public name: string, public sequences: Sequence[], childTestResults: ProjectTestResult[]) {
-    super(null, childTestResults)
+    super(childTestResults)
   }
 
   public addSequence(sequence: Sequence) {

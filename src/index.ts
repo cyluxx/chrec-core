@@ -30,7 +30,7 @@ export class Core {
 
   public async addSequenceTest(project: Project, sequence: Sequence, settings: Settings): Promise<Project> {
     const sequenceTestResult: SequenceTestResult = await this.replayService.testSequence(sequence, settings);
-    const projectTestResult: ProjectTestResult = new ProjectTestResult(sequenceTestResult.date, [sequenceTestResult]);
+    const projectTestResult: ProjectTestResult = new ProjectTestResult(new Date(), [sequenceTestResult]);
     project.addChildTestResult(projectTestResult);
     return project;
   }

@@ -179,7 +179,7 @@ export class ImportService {
     for (const browserTestResult of parsedJson.childTestResults) {
       childTestResults.push(this.reviveBrowserTestResult(browserTestResult));
     }
-    return new SequenceTestResult(parsedJson.date, sequence, childTestResults);
+    return new SequenceTestResult(sequence, childTestResults);
   }
 
   public reviveBrowserTestResult(parsedJson: any): BrowserTestResult {
@@ -192,13 +192,13 @@ export class ImportService {
         childTestResults.push(this.reviveActionTestResult(actionTestResult));
       }
     }
-    return new BrowserTestResult(parsedJson.date, browser, childTestResults);
+    return new BrowserTestResult(browser, childTestResults);
   }
 
   public reviveActionTestResult(parsedJson: any): ActionTestResult {
     const action: Action = this.reviveAction(parsedJson.action);
     const valid: boolean = parsedJson.valid ? true : false;
-    return new ActionTestResult(parsedJson.date, action, valid);
+    return new ActionTestResult(action, valid);
   }
 
   public reviveHtmlElementActionTestResult(parsedJson: any): HtmlElementActionTestResult {
@@ -207,11 +207,11 @@ export class ImportService {
     for (const locatorTestResult of parsedJson.locatorTestResults) {
       locatorTestResults.push(this.reviveLocatorTestResult(locatorTestResult));
     }
-    return new HtmlElementActionTestResult(parsedJson.date, action, locatorTestResults);
+    return new HtmlElementActionTestResult(action, locatorTestResults);
   }
 
   public reviveLocatorTestResult(parsedJson: any): LocatorTestResult {
     const locator: Locator = this.reviveLocator(parsedJson.locator);
-    return new LocatorTestResult(parsedJson.date, locator, parsedJson.valid);
+    return new LocatorTestResult(locator, parsedJson.valid);
   }
 }

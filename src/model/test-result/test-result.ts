@@ -1,7 +1,7 @@
 import { Locator } from 'selenium-webdriver';
 
 export abstract class TestResult {
-  constructor(public date: Date | null, public childTestResults: TestResult[]) { }
+  constructor(public childTestResults: TestResult[]) { }
 
   public abstract addChildTestResult(childTestResult: TestResult): void;
 

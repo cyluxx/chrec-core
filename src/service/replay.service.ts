@@ -27,11 +27,11 @@ export class ReplayService {
     for (const browser of settings.browsers) {
       browserTestResults.push(await this.testBrowser(browser, sequence.actions, settings.seleniumServerUrl));
     }
-    return new SequenceTestResult(new Date(), sequence, browserTestResults);
+    return new SequenceTestResult(sequence, browserTestResults);
   }
 
   public async testBrowser(browser: Browser, actions: Action[], seleniumServerUrl: string): Promise<BrowserTestResult> {
-    const actionTestResults: ActionTestResult[] = [];
+    const actionTestResults: Array<ActionTestResult | HtmlElementActionTestResult> = [];
     const driver: WebDriver = browser.buildWebDriver(seleniumServerUrl);
     for (const action of actions) {
       if (browser.sleepMsBetweenActions) {
@@ -40,10 +40,10 @@ export class ReplayService {
       actionTestResults.push(await this.testAction(action, driver));
     }
     driver.quit();
-    return new BrowserTestResult(new Date(), browser, actionTestResults);
+    return new BrowserTestResult(browser, actionTestResults);
   }
 
-  public async testAction(action: Action, driver: WebDriver): Promise<ActionTestResult> {
+  public async testAction(action: Action, driver: WebDriver): Promise<ActionTestResult | HtmlElementActionTestResult> {
     if (action instanceof HtmlElementAction) {
       return this.testHtmlElementAction(action, driver);
     } else {
@@ -51,23 +51,20 @@ export class ReplayService {
         await action.test(driver);
       }
       catch (error) {
-        return new ActionTestResult(new Date(), action, false);
+        return new ActionTestResult(action, false);
       }
-      return new ActionTestResult(new Date(), action, true);
+      return new ActionTestResult(action, true);
     }
   }
 
-  public async testHtmlElementAction(
-    action: HtmlElementAction,
-    driver: WebDriver,
-  ): Promise<HtmlElementActionTestResult> {
+  public async testHtmlElementAction(action: HtmlElementAction, driver: WebDriver): Promise<HtmlElementActionTestResult> {
     const locatorTestResults: LocatorTestResult[] = [];
     for (const locator of action.locators) {
       const testResult = await this.testLocator(locator, driver);
       locatorTestResults.push(testResult);
     }
     await action.test(driver);
-    return new HtmlElementActionTestResult(new Date(), action, locatorTestResults);
+    return new HtmlElementActionTestResult(action, locatorTestResults);
   }
 
   public async testLocator(locator: Locator, driver: WebDriver): Promise<LocatorTestResult> {
@@ -75,8 +72,8 @@ export class ReplayService {
       await locator.test(driver);
     }
     catch (error) {
-      return new LocatorTestResult(new Date(), locator, false);
+      return new LocatorTestResult(locator, false);
     }
-    return new LocatorTestResult(new Date(), locator, true);
+    return new LocatorTestResult(locator, true);
   }
 }

@@ -19,18 +19,13 @@ test('is replayable', () => {
   const browser: Edge = new Edge('foo', 42, 42, 0);
   const sequence: Sequence = new Sequence('foo', [action]);
 
-  const locatorTestResult: LocatorTestResult = new LocatorTestResult(new Date(), locator, false);
-  const actionTestResult: ActionTestResult = new ActionTestResult(new Date(), action, false);
-  const htmlElementActionTestResult: HtmlElementActionTestResult = new HtmlElementActionTestResult(
-    new Date(),
-    htmlElementAction,
-    [locatorTestResult],
-  );
-  const browserTestResult: BrowserTestResult = new BrowserTestResult(new Date(), browser, [
-    actionTestResult,
-    htmlElementActionTestResult
-  ]);
-  const sequenceTestResult: SequenceTestResult = new SequenceTestResult(new Date(), sequence, [browserTestResult]);
+  const locatorTestResult: LocatorTestResult = new LocatorTestResult(locator, false);
+  const actionTestResult: ActionTestResult = new ActionTestResult(action, false);
+  const htmlElementActionTestResult: HtmlElementActionTestResult
+    = new HtmlElementActionTestResult(htmlElementAction, [locatorTestResult]);
+  const browserTestResult: BrowserTestResult
+    = new BrowserTestResult(browser, [actionTestResult, htmlElementActionTestResult]);
+  const sequenceTestResult: SequenceTestResult = new SequenceTestResult(sequence, [browserTestResult]);
   const projectTestResult: ProjectTestResult = new ProjectTestResult(new Date(), [sequenceTestResult]);
 
   expect(locatorTestResult.isReplayable()).toBe(false);
@@ -48,18 +43,13 @@ test('getSuccessfullLocatorCount', () => {
   const browser: Edge = new Edge('foo', 42, 42, 0);
   const sequence: Sequence = new Sequence('foo', [action]);
 
-  const locatorTestResult: LocatorTestResult = new LocatorTestResult(new Date(), locator, false);
-  const actionTestResult: ActionTestResult = new ActionTestResult(new Date(), action, false);
-  const htmlElementActionTestResult: HtmlElementActionTestResult = new HtmlElementActionTestResult(
-    new Date(),
-    htmlElementAction,
-    [locatorTestResult],
-  );
-  const browserTestResult: BrowserTestResult = new BrowserTestResult(new Date(), browser, [
-    actionTestResult,
-    htmlElementActionTestResult,
-  ]);
-  const sequenceTestResult: SequenceTestResult = new SequenceTestResult(new Date(), sequence, [browserTestResult]);
+  const locatorTestResult: LocatorTestResult = new LocatorTestResult(locator, false);
+  const actionTestResult: ActionTestResult = new ActionTestResult(action, false);
+  const htmlElementActionTestResult: HtmlElementActionTestResult
+    = new HtmlElementActionTestResult(htmlElementAction, [locatorTestResult]);
+  const browserTestResult: BrowserTestResult
+    = new BrowserTestResult(browser, [actionTestResult, htmlElementActionTestResult]);
+  const sequenceTestResult: SequenceTestResult = new SequenceTestResult(sequence, [browserTestResult]);
   const projectTestResult: ProjectTestResult = new ProjectTestResult(new Date(), [sequenceTestResult]);
 
   expect(locatorTestResult.getSuccessfulLocatorCount()).toBe(0);
@@ -77,18 +67,13 @@ test('getTotalLocatorCount', () => {
   const browser: Edge = new Edge('foo', 42, 42, 0);
   const sequence: Sequence = new Sequence('foo', [action]);
 
-  const locatorTestResult: LocatorTestResult = new LocatorTestResult(new Date(), locator, false);
-  const actionTestResult: ActionTestResult = new ActionTestResult(new Date(), action, false);
-  const htmlElementActionTestResult: HtmlElementActionTestResult = new HtmlElementActionTestResult(
-    new Date(),
-    htmlElementAction,
-    [locatorTestResult],
-  );
-  const browserTestResult: BrowserTestResult = new BrowserTestResult(new Date(), browser, [
-    actionTestResult,
-    htmlElementActionTestResult,
-  ]);
-  const sequenceTestResult: SequenceTestResult = new SequenceTestResult(new Date(), sequence, [browserTestResult]);
+  const locatorTestResult: LocatorTestResult = new LocatorTestResult(locator, false);
+  const actionTestResult: ActionTestResult = new ActionTestResult(action, false);
+  const htmlElementActionTestResult: HtmlElementActionTestResult
+    = new HtmlElementActionTestResult(htmlElementAction, [locatorTestResult]);
+  const browserTestResult: BrowserTestResult
+    = new BrowserTestResult(browser, [actionTestResult, htmlElementActionTestResult,]);
+  const sequenceTestResult: SequenceTestResult = new SequenceTestResult(sequence, [browserTestResult]);
   const projectTestResult: ProjectTestResult = new ProjectTestResult(new Date(), [sequenceTestResult]);
 
   expect(locatorTestResult.getTotalLocatorCount()).toBe(1);

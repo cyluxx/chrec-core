@@ -4,8 +4,8 @@ import { HtmlElementActionTestResult } from './html-element-action-test-result';
 import { TestResult } from './test-result';
 
 export class BrowserTestResult extends TestResult {
-  constructor(date: Date, public browser: Browser, childTestResults: Array<ActionTestResult | HtmlElementActionTestResult>) {
-    super(date, childTestResults);
+  constructor(public browser: Browser, childTestResults: Array<ActionTestResult | HtmlElementActionTestResult>) {
+    super(childTestResults);
   }
 
   public addChildTestResult(childTestResults: ActionTestResult | HtmlElementActionTestResult): void {

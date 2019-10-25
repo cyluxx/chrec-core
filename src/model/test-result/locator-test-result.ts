@@ -2,8 +2,8 @@ import { Locator, Method } from '../locator/locator';
 import { TestResult } from './test-result';
 
 export class LocatorTestResult extends TestResult {
-  constructor(date: Date, public locator: Locator, public valid: boolean) {
-    super(date, [])
+  constructor(public locator: Locator, public valid: boolean) {
+    super([]);
   }
 
   public addChildTestResult(childTestResult: TestResult): void {

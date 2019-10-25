@@ -3,8 +3,8 @@ import { TestResult } from './test-result';
 
 export class ActionTestResult extends TestResult {
 
-  constructor(date: Date, public action: Action, public valid: boolean) {
-    super(date, [])
+  constructor(public action: Action, public valid: boolean) {
+    super([]);
   }
 
   public addChildTestResult(childTestResult: TestResult): void {
