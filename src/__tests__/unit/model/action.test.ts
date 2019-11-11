@@ -15,7 +15,7 @@ describe('Back', () => {
   })
 
   describe('test', () => {
-    test('verify correct driver method call', () => {
+    test('verify correct driver method call', async () => {
       const action = new Back('foo');
 
       const mockedNavigation: Navigation = mock(Navigation);
@@ -42,7 +42,7 @@ describe('Forward', () => {
   })
 
   describe('test', () => {
-    test('verify correct driver method call', () => {
+    test('verify correct driver method call', async () => {
       const action = new Forward('foo');
 
       const mockedNavigation: Navigation = mock(Navigation);
@@ -69,7 +69,7 @@ describe('GoTo', () => {
   })
 
   describe('test', () => {
-    test('verify correct driver method call', () => {
+    test('verify correct driver method call', async () => {
       const action = new GoTo('foo', 'url');
 
       const mockedNavigation: Navigation = mock(Navigation);
@@ -96,7 +96,7 @@ describe('Refresh', () => {
   })
 
   describe('test', () => {
-    test('verify correct driver method call', () => {
+    test('verify correct driver method call', async () => {
       const action = new Refresh('foo');
 
       const mockedNavigation: Navigation = mock(Navigation);
@@ -123,7 +123,7 @@ describe('SwitchToDefaultContext', () => {
   })
 
   describe('test', () => {
-    test('verify correct driver method call', () => {
+    test('verify correct driver method call', async () => {
       const action = new SwitchToDefaultContext('foo');
 
       const mockedTargetLocator: TargetLocator = mock(TargetLocator);

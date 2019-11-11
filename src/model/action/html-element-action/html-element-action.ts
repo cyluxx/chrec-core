@@ -14,10 +14,6 @@ export abstract class HtmlElementAction extends Action {
     this.locators.push(locator);
   }
 
-  public getSeleniumLocator(): SeleniumLocator {
-    return this.recommendedLocator.toSeleniumLocator();
-  }
-
   public async test(driver: WebDriver): Promise<void> {
     if (!this.recommendedLocator) {
       throw new Error(`Internal Error: No recommended Locator specified for Action ${this.constructor.name}.`);
@@ -28,6 +24,10 @@ export abstract class HtmlElementAction extends Action {
     } catch (error) {
       throw this.getError(error);
     }
+  }
+
+  protected getSeleniumLocator(): SeleniumLocator {
+    return this.recommendedLocator.toSeleniumLocator();
   }
 
   protected abstract async testElement(driver: WebDriver, element: WebElement): Promise<void>;

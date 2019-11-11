@@ -1,3 +1,5 @@
+import { WebDriver, WebElement } from 'selenium-webdriver';
+import { instance, mock, verify, when } from 'ts-mockito';
 import { Clear } from '../../../model/action/html-element-action/clear';
 import { Click } from '../../../model/action/html-element-action/click';
 import { Read } from '../../../model/action/html-element-action/read';
@@ -8,6 +10,8 @@ import { Type } from '../../../model/action/html-element-action/type';
 import { WaitForAddedHtmlElement } from '../../../model/action/html-element-action/wait-for-added-html-element';
 import { WaitForRemovedHtmlElement } from '../../../model/action/html-element-action/wait-for-removed-html-element';
 import { BoundingBox } from '../../../model/bounding-box';
+import { Method } from '../../../model/locator/locator';
+import { XpathLocator } from '../../../model/locator/xpath-locator';
 
 describe('Clear', () => {
   describe('toJSON', () => {
@@ -48,6 +52,58 @@ describe('Read', () => {
         boundingBox: new BoundingBox(42, 42, 42, 42),
         text: 'bar'
       });
+    })
+  })
+});
+
+describe('HtmlElementAction', () => {
+  describe('test', () => {
+    test('when it has no recommended Locator, then it should throw an error', async () => {
+      const action = new Clear('foo', [], new BoundingBox(42, 42, 42, 42));
+
+      const mockedDriver: WebDriver = mock(WebDriver);
+      const driver = instance(mockedDriver);
+
+      expect.assertions(1);
+      await expect(action.test(driver)).rejects.toThrow();
+    })
+
+    test('when its recommended Locator Element not found, then it should throw a NoSuchElementError', async () => {
+      const action = new Click('foo', [], new BoundingBox(42, 42, 42, 42));
+
+      const mockedDriver: WebDriver = mock(WebDriver);
+      const driver = instance(mockedDriver);
+
+      const error = new Error('bar');
+      error.name = 'NoSuchElementError';
+
+      const mockedRecommendedLocator: XpathLocator = mock(XpathLocator);
+      when(mockedRecommendedLocator.findElement(driver)).thenThrow(error);
+      const recommendedLocator = instance(mockedRecommendedLocator);
+      recommendedLocator.method = Method.ROBULA_PLUS;
+
+      action.recommendedLocator = recommendedLocator;
+
+      expect.assertions(1);
+      await expect(action.test(driver)).rejects.toThrow(' RobulaPlus not found!');
+    })
+
+    test('when some other error, then it should throw that error', async () => {
+      const action = new Click('foo', [], new BoundingBox(42, 42, 42, 42));
+
+      const mockedDriver: WebDriver = mock(WebDriver);
+      const driver = instance(mockedDriver);
+
+      const error = new Error('Some other Error!');
+
+      const mockedRecommendedLocator: XpathLocator = mock(XpathLocator);
+      when(mockedRecommendedLocator.findElement(driver)).thenThrow(error);
+      const recommendedLocator = instance(mockedRecommendedLocator);
+
+      action.recommendedLocator = recommendedLocator;
+
+      expect.assertions(1);
+      await expect(action.test(driver)).rejects.toThrow('Some other Error!');
     })
   })
 });
