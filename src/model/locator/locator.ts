@@ -10,16 +10,10 @@ export enum Method {
   ROBULA_PLUS = 'RobulaPlus',
 }
 
-export interface LocatorJSON {
-  className: string;
-  method: Method;
-  value: string;
-}
-
 export abstract class Locator {
   constructor(public method: Method, public value: string) { }
 
-  public toJSON(): LocatorJSON {
+  public toJSON(): object {
     return Object.assign({ className: this.constructor.name }, this);
   }
 

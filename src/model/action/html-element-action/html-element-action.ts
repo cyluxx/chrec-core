@@ -1,12 +1,7 @@
 import { Locator as SeleniumLocator, WebDriver, WebElement } from 'selenium-webdriver';
 import { BoundingBox } from '../../bounding-box';
 import { Locator } from '../../locator/locator';
-import { Action, ActionJSON } from '../action';
-
-export interface HtmlElementActionJSON extends ActionJSON {
-  locators: Locator[];
-  boundingBox: BoundingBox;
-}
+import { Action } from '../action';
 
 export abstract class HtmlElementAction extends Action {
   public recommendedLocator!: Locator;

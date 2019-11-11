@@ -1,5 +1,5 @@
 import { Browser as BrowserName, Builder, WebDriver } from 'selenium-webdriver';
-import { Browser, BrowserJSON } from './browser';
+import { Browser } from './browser';
 
 export class InternetExplorer extends Browser {
   constructor(name: string, width: number, height: number, sleepMsBetweenActions: number) {

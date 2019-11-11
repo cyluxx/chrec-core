@@ -62,7 +62,7 @@ describe('Forward', () => {
 
 describe('GoTo', () => {
   describe('toJSON', () => {
-    test('when called, then the JSON should contain the ClassName: Back', () => {
+    test('when called, then the JSON should contain the ClassName: GoTo', () => {
       const action = new GoTo('foo', 'bar');
       expect(action.toJSON()).toEqual({ className: 'GoTo', image: 'foo', url: 'bar' });
     })
@@ -89,7 +89,7 @@ describe('GoTo', () => {
 
 describe('Refresh', () => {
   describe('toJSON', () => {
-    test('when called, then the JSON should contain the ClassName: Back', () => {
+    test('when called, then the JSON should contain the ClassName: Refresh', () => {
       const action = new Refresh('foo');
       expect(action.toJSON()).toEqual({ className: 'Refresh', image: 'foo' });
     })
@@ -116,7 +116,7 @@ describe('Refresh', () => {
 
 describe('SwitchToDefaultContext', () => {
   describe('toJSON', () => {
-    test('when called, then the JSON should contain the ClassName: Back', () => {
+    test('when called, then the JSON should contain the ClassName: SwitchToDefaultContext', () => {
       const action = new SwitchToDefaultContext('foo');
       expect(action.toJSON()).toEqual({ className: 'SwitchToDefaultContext', image: 'foo' });
     })

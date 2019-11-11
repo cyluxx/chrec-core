@@ -1,15 +1,10 @@
 import { WebDriver } from 'selenium-webdriver';
 import { Action as AlexAction } from '../../export/alex/action';
 
-export interface ActionJSON {
-  className: string;
-  image: string;
-}
-
 export abstract class Action {
   constructor(public image: string) { }
 
-  public toJSON(): ActionJSON {
+  public toJSON(): object {
     return Object.assign({ className: this.constructor.name }, this);
   }
 

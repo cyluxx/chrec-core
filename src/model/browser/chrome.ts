@@ -1,10 +1,6 @@
 import { Browser as BrowserName, Builder, WebDriver } from 'selenium-webdriver';
 import { Options } from 'selenium-webdriver/chrome';
-import { Browser, BrowserJSON } from './browser';
-
-export interface ChromeJSON extends BrowserJSON {
-  headless: boolean;
-}
+import { Browser } from './browser';
 
 export class Chrome extends Browser {
   public headless: boolean;

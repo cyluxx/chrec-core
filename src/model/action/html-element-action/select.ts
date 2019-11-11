@@ -2,11 +2,7 @@ import { WebDriver, WebElement } from 'selenium-webdriver';
 import { Action, WebSelect } from '../../../export/alex/action';
 import { BoundingBox } from '../../bounding-box';
 import { Locator } from '../../locator/locator';
-import { HtmlElementAction, HtmlElementActionJSON } from './html-element-action';
-
-export interface SelectJSON extends HtmlElementActionJSON {
-  value: string;
-}
+import { HtmlElementAction } from './html-element-action';
 
 export class Select extends HtmlElementAction {
   constructor(image: string, locators: Locator[], boundingBox: BoundingBox, public value: string) {
