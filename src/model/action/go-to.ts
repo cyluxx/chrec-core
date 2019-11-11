@@ -1,10 +1,6 @@
 import { WebDriver } from 'selenium-webdriver';
 import { WebGoTo } from '../../export/alex/action';
-import { Action, ActionJSON } from './action';
-
-export interface GoToJSON extends ActionJSON {
-  url: string;
-}
+import { Action } from './action';
 
 export class GoTo extends Action {
   constructor(image: string, public url: string) {
