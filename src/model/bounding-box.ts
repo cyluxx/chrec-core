@@ -6,5 +6,5 @@ export class BoundingBox {
     return new BoundingBox(domRect.x, domRect.y, domRect.width, domRect.height);
   }
 
-  constructor(public x: number, public y: number, public width: number, public height: number) {}
+  constructor(public x: number, public y: number, public width: number, public height: number) { }
 }

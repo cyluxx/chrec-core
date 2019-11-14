@@ -1,5 +1,6 @@
 import { Locator as SeleniumLocator, WebDriver, WebElement } from 'selenium-webdriver';
-import { Node } from '../../export/alex/node';
+import { Node } from '../export/alex/node';
+import { LocatorTestResult } from './locator-test-result';
 
 export enum Method {
   CSS_SELECTOR_GENERATOR = 'CssSelectorGenerator',
@@ -11,7 +12,7 @@ export enum Method {
 }
 
 export abstract class Locator {
-  constructor(public method: Method, public value: string) { }
+  constructor(public testResults: LocatorTestResult[], public method: Method, public value: string) { }
 
   public toJSON(): object {
     return Object.assign({ className: this.constructor.name }, this);

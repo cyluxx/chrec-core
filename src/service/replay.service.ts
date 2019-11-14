@@ -1,17 +1,17 @@
 import { WebDriver } from 'selenium-webdriver';
-import { Action } from '../model/action/action';
-import { HtmlElementAction } from '../model/action/html-element-action/html-element-action';
-import { Browser } from '../model/browser/browser';
-import { Locator } from '../model/locator/locator';
+import { Action } from '../model/action';
+import { ActionTestResult } from '../model/action-test-result';
+import { BrowserTestResult } from '../model/action-test-result/browser-test-result';
+import { HtmlElementActionTestResult } from '../model/action-test-result/html-element-action-test-result';
+import { ProjectTestResult } from '../model/action-test-result/project-test-result';
+import { SequenceTestResult } from '../model/action-test-result/sequence-test-result';
+import { HtmlElementAction } from '../model/action/html-element-action';
+import { Browser } from '../model/browser';
+import { Locator } from '../model/locator';
+import { LocatorTestResult } from '../model/locator-test-result';
 import { Project } from '../model/project';
 import { Sequence } from '../model/sequence';
 import { Settings } from '../model/settings';
-import { ActionTestResult } from '../model/test-result/action-test-result';
-import { BrowserTestResult } from '../model/test-result/browser-test-result';
-import { HtmlElementActionTestResult } from '../model/test-result/html-element-action-test-result';
-import { LocatorTestResult } from '../model/test-result/locator-test-result';
-import { ProjectTestResult } from '../model/test-result/project-test-result';
-import { SequenceTestResult } from '../model/test-result/sequence-test-result';
 
 export class ReplayService {
   public async testProject(project: Project, settings: Settings): Promise<ProjectTestResult> {

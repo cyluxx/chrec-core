@@ -1,6 +1,6 @@
 import { Browser as BrowserName, Builder, WebDriver } from 'selenium-webdriver';
 import { Options } from 'selenium-webdriver/chrome';
-import { Browser } from './browser';
+import { Browser } from '../browser';
 
 export class Chrome extends Browser {
   public headless: boolean;

@@ -1,12 +1,12 @@
-import { HtmlElementAction } from './model/action/html-element-action/html-element-action';
-import { Locator, Method } from './model/locator/locator';
+import { HtmlElementActionTestResult } from './model/action-test-result/html-element-action-test-result';
+import { ProjectTestResult } from './model/action-test-result/project-test-result';
+import { SequenceTestResult } from './model/action-test-result/sequence-test-result';
+import { HtmlElementAction } from './model/action/html-element-action';
+import { Locator, Method } from './model/locator';
+import { LocatorTestResult } from './model/locator-test-result';
 import { Project } from './model/project';
 import { Sequence } from './model/sequence';
 import { Settings } from './model/settings';
-import { HtmlElementActionTestResult } from './model/test-result/html-element-action-test-result';
-import { LocatorTestResult } from './model/test-result/locator-test-result';
-import { ProjectTestResult } from './model/test-result/project-test-result';
-import { SequenceTestResult } from './model/test-result/sequence-test-result';
 import { ExportService } from './service/export.service';
 import { ImportService } from './service/import.service';
 import { ReplayService } from './service/replay.service';

@@ -1,12 +1,16 @@
 import * as compareVersions from 'compare-versions';
 import loadJsonFile from 'load-json-file';
-import { Action } from '../model/action/action';
-import { Back } from '../model/action/back';
-import { Forward } from '../model/action/forward';
-import { GoTo } from '../model/action/go-to';
+import { Action } from '../model/action';
+import { ActionTestResult } from '../model/action-test-result';
+import { HtmlElementActionTestResult } from '../model/action-test-result/html-element-action-test-result';
+import { Back } from '../model/action/browser-action/back';
+import { Forward } from '../model/action/browser-action/forward';
+import { GoTo } from '../model/action/browser-action/go-to';
+import { Refresh } from '../model/action/browser-action/refresh';
+import { SwitchToDefaultContext } from '../model/action/browser-action/switch-to-default-context';
+import { HtmlElementAction } from '../model/action/html-element-action';
 import { Clear } from '../model/action/html-element-action/clear';
 import { Click } from '../model/action/html-element-action/click';
-import { HtmlElementAction } from '../model/action/html-element-action/html-element-action';
 import { Read } from '../model/action/html-element-action/read';
 import { Select } from '../model/action/html-element-action/select';
 import { Submit } from '../model/action/html-element-action/submit';
@@ -14,25 +18,18 @@ import { SwitchToContext } from '../model/action/html-element-action/switch-to-c
 import { Type } from '../model/action/html-element-action/type';
 import { WaitForAddedHtmlElement } from '../model/action/html-element-action/wait-for-added-html-element';
 import { WaitForRemovedHtmlElement } from '../model/action/html-element-action/wait-for-removed-html-element';
-import { Refresh } from '../model/action/refresh';
-import { SwitchToDefaultContext } from '../model/action/switch-to-default-context';
 import { BoundingBox } from '../model/bounding-box';
-import { Browser } from '../model/browser/browser';
+import { Browser } from '../model/browser';
 import { Chrome } from '../model/browser/chrome';
 import { Edge } from '../model/browser/edge';
 import { Firefox } from '../model/browser/firefox';
 import { InternetExplorer } from '../model/browser/internet-explorer';
+import { Locator } from '../model/locator';
+import { LocatorTestResult } from '../model/locator-test-result';
 import { CssLocator } from '../model/locator/css-locator';
-import { Locator } from '../model/locator/locator';
 import { XpathLocator } from '../model/locator/xpath-locator';
 import { Project } from '../model/project';
 import { Sequence } from '../model/sequence';
-import { ActionTestResult } from '../model/test-result/action-test-result';
-import { BrowserTestResult } from '../model/test-result/browser-test-result';
-import { HtmlElementActionTestResult } from '../model/test-result/html-element-action-test-result';
-import { LocatorTestResult } from '../model/test-result/locator-test-result';
-import { ProjectTestResult } from '../model/test-result/project-test-result';
-import { SequenceTestResult } from '../model/test-result/sequence-test-result';
 
 export class ImportService {
   public async importChrecJson(absolutePath: string): Promise<Project> {
@@ -62,11 +59,7 @@ export class ImportService {
     for (const sequence of parsedJson.sequences) {
       sequences.push(this.reviveSequence(sequence));
     }
-    const childTestResults: ProjectTestResult[] = [];
-    for (const projectTestResult of parsedJson.childTestResults) {
-      childTestResults.push(this.reviveProjectTestResult(projectTestResult));
-    }
-    return new Project(parsedJson.name, sequences, childTestResults);
+    return new Project(parsedJson.name, sequences);
   }
 
   public reviveSequence(parsedJson: any): Sequence {
@@ -78,23 +71,31 @@ export class ImportService {
   }
 
   public reviveAction(parsedJson: any): Action {
+    const actionTestResults: ActionTestResult[] = []
+    for (const actionTestResult of parsedJson.testResults) {
+      actionTestResults.push(actionTestResult)
+    }
     switch (parsedJson.className) {
       case 'Back':
-        return new Back(parsedJson.image);
+        return new Back(actionTestResults, parsedJson.image);
       case 'Forward':
-        return new Forward(parsedJson.image);
+        return new Forward(actionTestResults, parsedJson.image);
       case 'GoTo':
-        return new GoTo(parsedJson.image, parsedJson.url);
+        return new GoTo(actionTestResults, parsedJson.image, parsedJson.url);
       case 'Refresh':
-        return new Refresh(parsedJson.image);
+        return new Refresh(actionTestResults, parsedJson.image);
       case 'SwitchToDefaultContext':
-        return new SwitchToDefaultContext(parsedJson.image);
+        return new SwitchToDefaultContext(actionTestResults, parsedJson.image);
       default:
         return this.reviveHtmlElementAction(parsedJson);
     }
   }
 
   public reviveHtmlElementAction(parsedJson: any): HtmlElementAction {
+    const actionTestResults: HtmlElementActionTestResult[] = []
+    for (const actionTestResult of parsedJson.testResults) {
+      actionTestResults.push(actionTestResult)
+    }
     const locators: Locator[] = [];
     for (const locator of parsedJson.locators) {
       locators.push(this.reviveLocator(locator));
@@ -102,34 +103,38 @@ export class ImportService {
     const boundingBox: BoundingBox = this.reviveBoundingBox(parsedJson.boundingBox);
     switch (parsedJson.className) {
       case 'Clear':
-        return new Clear(parsedJson.image, locators, boundingBox);
+        return new Clear(actionTestResults, parsedJson.image, locators, boundingBox);
       case 'Click':
-        return new Click(parsedJson.image, locators, boundingBox);
+        return new Click(actionTestResults, parsedJson.image, locators, boundingBox);
       case 'Read':
-        return new Read(parsedJson.image, locators, boundingBox, parsedJson.value);
+        return new Read(actionTestResults, parsedJson.image, locators, boundingBox, parsedJson.value);
       case 'Select':
-        return new Select(parsedJson.image, locators, boundingBox, parsedJson.value);
+        return new Select(actionTestResults, parsedJson.image, locators, boundingBox, parsedJson.value);
       case 'Submit':
-        return new Submit(parsedJson.image, locators, boundingBox);
+        return new Submit(actionTestResults, parsedJson.image, locators, boundingBox);
       case 'SwitchToContext':
-        return new SwitchToContext(parsedJson.image, locators, boundingBox);
+        return new SwitchToContext(actionTestResults, parsedJson.image, locators, boundingBox);
       case 'Type':
-        return new Type(parsedJson.image, locators, boundingBox, parsedJson.value);
+        return new Type(actionTestResults, parsedJson.image, locators, boundingBox, parsedJson.value);
       case 'WaitForAddedHtmlElement':
-        return new WaitForAddedHtmlElement(parsedJson.image, locators, boundingBox, parsedJson.timeout);
+        return new WaitForAddedHtmlElement(actionTestResults, parsedJson.image, locators, boundingBox, parsedJson.timeout);
       case 'WaitForRemovedHtmlElement':
-        return new WaitForRemovedHtmlElement(parsedJson.image, locators, boundingBox, parsedJson.timeout);
+        return new WaitForRemovedHtmlElement(actionTestResults, parsedJson.image, locators, boundingBox, parsedJson.timeout);
       default:
         throw new Error(`Could not revive Action with className ${parsedJson.className} from JSON!`);
     }
   }
 
   public reviveLocator(parsedJson: any): Locator {
+    const locatorTestResults: LocatorTestResult[] = []
+    for (const locatorTestResult of parsedJson.testResults) {
+      locatorTestResults.push(locatorTestResult)
+    }
     switch (parsedJson.className) {
       case 'CssLocator':
-        return new CssLocator(parsedJson.method, parsedJson.value);
+        return new CssLocator(locatorTestResults, parsedJson.method, parsedJson.value);
       case 'XpathLocator':
-        return new XpathLocator(parsedJson.method, parsedJson.value);
+        return new XpathLocator(locatorTestResults, parsedJson.method, parsedJson.value);
       default:
         throw new Error('Could not construct Locator from ChRec JSON!');
     }
@@ -163,36 +168,6 @@ export class ImportService {
       default:
         throw new Error('Could not construct Browser from ChRec JSON!');
     }
-  }
-
-  public reviveProjectTestResult(parsedJson: any): ProjectTestResult {
-    const childTestResults: SequenceTestResult[] = [];
-    for (const sequenceTestResult of parsedJson.childTestResults) {
-      childTestResults.push(this.reviveSequenceTestResult(sequenceTestResult));
-    }
-    return new ProjectTestResult(parsedJson.date, childTestResults);
-  }
-
-  public reviveSequenceTestResult(parsedJson: any): SequenceTestResult {
-    const sequence: Sequence = this.reviveSequence(parsedJson.sequence);
-    const childTestResults: BrowserTestResult[] = [];
-    for (const browserTestResult of parsedJson.childTestResults) {
-      childTestResults.push(this.reviveBrowserTestResult(browserTestResult));
-    }
-    return new SequenceTestResult(sequence, childTestResults);
-  }
-
-  public reviveBrowserTestResult(parsedJson: any): BrowserTestResult {
-    const browser: Browser = this.reviveBrowser(parsedJson.browser);
-    const childTestResults: Array<ActionTestResult | HtmlElementActionTestResult> = [];
-    for (const actionTestResult of parsedJson.childTestResults) {
-      if (actionTestResult.locatorTestResults) {
-        childTestResults.push(this.reviveHtmlElementActionTestResult(actionTestResult));
-      } else {
-        childTestResults.push(this.reviveActionTestResult(actionTestResult));
-      }
-    }
-    return new BrowserTestResult(browser, childTestResults);
   }
 
   public reviveActionTestResult(parsedJson: any): ActionTestResult {

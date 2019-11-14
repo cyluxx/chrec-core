@@ -1,13 +1,18 @@
 import { Locator as SeleniumLocator, WebDriver, WebElement } from 'selenium-webdriver';
-import { BoundingBox } from '../../bounding-box';
-import { Locator } from '../../locator/locator';
 import { Action } from '../action';
+import { HtmlElementActionTestResult } from '../action-test-result/html-element-action-test-result';
+import { BoundingBox } from '../bounding-box';
+import { Locator } from '../locator';
 
 export abstract class HtmlElementAction extends Action {
   public recommendedLocator!: Locator;
 
-  constructor(image: string, public locators: Locator[], public boundingBox: BoundingBox) {
-    super(image);
+  constructor(testResults: HtmlElementActionTestResult[], image: string, public locators: Locator[], public boundingBox: BoundingBox) {
+    super(testResults, image);
+  }
+
+  public addTestResult(testResult: HtmlElementActionTestResult) {
+    this.testResults.push(testResult);
   }
 
   public addLocator(locator: Locator): void {

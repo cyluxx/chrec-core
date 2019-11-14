@@ -1,12 +1,13 @@
 import { WebDriver, WebElement } from 'selenium-webdriver';
 import { Action, WebCheckForText } from '../../../export/alex/action';
+import { HtmlElementActionTestResult } from '../../action-test-result/html-element-action-test-result';
 import { BoundingBox } from '../../bounding-box';
-import { Locator } from '../../locator/locator';
-import { HtmlElementAction } from './html-element-action';
+import { Locator } from '../../locator';
+import { HtmlElementAction } from '../html-element-action';
 
 export class Read extends HtmlElementAction {
-  constructor(image: string, locators: Locator[], boundingBox: BoundingBox, public text: string) {
-    super(image, locators, boundingBox);
+  constructor(testResults: HtmlElementActionTestResult[], image: string, locators: Locator[], boundingBox: BoundingBox, public text: string) {
+    super(testResults, image, locators, boundingBox);
   }
 
   public async testElement(driver: WebDriver, element: WebElement): Promise<void> {
