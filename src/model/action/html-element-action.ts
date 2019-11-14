@@ -3,9 +3,9 @@ import { Action } from '../action';
 import { HtmlElementActionTestResult } from '../action-test-result/html-element-action-test-result';
 import { BoundingBox } from '../bounding-box';
 import { Locator } from '../locator';
+import { Browser } from '../browser';
 
 export abstract class HtmlElementAction extends Action {
-  public recommendedLocator!: Locator;
 
   constructor(testResults: HtmlElementActionTestResult[], image: string, public locators: Locator[], public boundingBox: BoundingBox) {
     super(testResults, image);
@@ -19,9 +19,9 @@ export abstract class HtmlElementAction extends Action {
     this.locators.push(locator);
   }
 
-  public async test(driver: WebDriver): Promise<void> {
-    if (!this.recommendedLocator) {
-      throw new Error(`Internal Error: No recommended Locator specified for Action ${this.constructor.name}.`);
+  public async test(browser: Browser, driver: WebDriver) {
+    for (const locator of this.locators) {
+      await locator.test(driver);
     }
     try {
       const element: WebElement = await this.recommendedLocator.findElement(driver);

@@ -18,11 +18,21 @@ export abstract class Locator {
     return Object.assign({ className: this.constructor.name }, this);
   }
 
-  public async test(driver: WebDriver): Promise<void> {
+  public addTestResult(testResult: LocatorTestResult) {
+    this.testResults.push(testResult);
+  }
+
+  public async test(driver: WebDriver) {
+    let replayable = false;
     try {
       await this.findElement(driver);
-    } catch (error) {
-      throw this.getError;
+      replayable = true;
+    }
+    catch (error) {
+      throw this.getError(error);
+    }
+    finally {
+      this.addTestResult(new LocatorTestResult(replayable))
     }
   }
 

@@ -1,8 +1,9 @@
 import * as compareVersions from 'compare-versions';
 import loadJsonFile from 'load-json-file';
 import { Action } from '../model/action';
-import { ActionTestResult } from '../model/action-test-result';
+import { BrowserActionTestResult } from '../model/action-test-result/browser-action-test-result';
 import { HtmlElementActionTestResult } from '../model/action-test-result/html-element-action-test-result';
+import { BrowserAction } from '../model/action/browser-action';
 import { Back } from '../model/action/browser-action/back';
 import { Forward } from '../model/action/browser-action/forward';
 import { GoTo } from '../model/action/browser-action/go-to';
@@ -71,9 +72,22 @@ export class ImportService {
   }
 
   public reviveAction(parsedJson: any): Action {
-    const actionTestResults: ActionTestResult[] = []
+    if (
+      parsedJson.className === 'Back'
+      || parsedJson.className === 'Forward'
+      || parsedJson.className === 'GoTo'
+      || parsedJson.className === 'Refresh'
+      || parsedJson.className === 'SwitchToDefaultContext'
+    ) {
+      return this.reviveBrowserAction(parsedJson);
+    }
+    return this.reviveHtmlElementAction(parsedJson);
+  }
+
+  public reviveBrowserAction(parsedJson: any): BrowserAction {
+    const actionTestResults: BrowserActionTestResult[] = []
     for (const actionTestResult of parsedJson.testResults) {
-      actionTestResults.push(actionTestResult)
+      actionTestResults.push(this.reviveBrowserActionTestResult(actionTestResult))
     }
     switch (parsedJson.className) {
       case 'Back':
@@ -87,14 +101,14 @@ export class ImportService {
       case 'SwitchToDefaultContext':
         return new SwitchToDefaultContext(actionTestResults, parsedJson.image);
       default:
-        return this.reviveHtmlElementAction(parsedJson);
+        throw new Error(`Internal: Could not revive BrowserAction with className ${parsedJson.className} from JSON!`);
     }
   }
 
   public reviveHtmlElementAction(parsedJson: any): HtmlElementAction {
     const actionTestResults: HtmlElementActionTestResult[] = []
     for (const actionTestResult of parsedJson.testResults) {
-      actionTestResults.push(actionTestResult)
+      actionTestResults.push(this.reviveHtmlElementActionTestResult(actionTestResult))
     }
     const locators: Locator[] = [];
     for (const locator of parsedJson.locators) {
@@ -121,14 +135,18 @@ export class ImportService {
       case 'WaitForRemovedHtmlElement':
         return new WaitForRemovedHtmlElement(actionTestResults, parsedJson.image, locators, boundingBox, parsedJson.timeout);
       default:
-        throw new Error(`Could not revive Action with className ${parsedJson.className} from JSON!`);
+        throw new Error(`Internal: Could not revive HtmlElementAction with className ${parsedJson.className} from JSON!`);
     }
+  }
+
+  public reviveBoundingBox(parsedJson: any): BoundingBox {
+    return new BoundingBox(parsedJson.x, parsedJson.y, parsedJson.width, parsedJson.height);
   }
 
   public reviveLocator(parsedJson: any): Locator {
     const locatorTestResults: LocatorTestResult[] = []
     for (const locatorTestResult of parsedJson.testResults) {
-      locatorTestResults.push(locatorTestResult)
+      locatorTestResults.push(this.reviveLocatorTestResult(locatorTestResult))
     }
     switch (parsedJson.className) {
       case 'CssLocator':
@@ -136,12 +154,20 @@ export class ImportService {
       case 'XpathLocator':
         return new XpathLocator(locatorTestResults, parsedJson.method, parsedJson.value);
       default:
-        throw new Error('Could not construct Locator from ChRec JSON!');
+        throw new Error('Could not revive Locator from JSON!');
     }
   }
 
-  public reviveBoundingBox(parsedJson: any): BoundingBox {
-    return new BoundingBox(parsedJson.x, parsedJson.y, parsedJson.width, parsedJson.height);
+  public reviveLocatorTestResult(parsedJson: any): LocatorTestResult {
+    return new LocatorTestResult(parsedJson.replayable);
+  }
+
+  public reviveBrowserActionTestResult(parsedJson: any): BrowserActionTestResult {
+    return new BrowserActionTestResult(this.reviveBrowser(parsedJson.browser), parsedJson.replayable);
+  }
+
+  public reviveHtmlElementActionTestResult(parsedJson: any): HtmlElementActionTestResult {
+    return new HtmlElementActionTestResult(this.reviveBrowser(parsedJson.browser));
   }
 
   public reviveBrowser(parsedJson: any): Browser {
@@ -168,25 +194,5 @@ export class ImportService {
       default:
         throw new Error('Could not construct Browser from ChRec JSON!');
     }
-  }
-
-  public reviveActionTestResult(parsedJson: any): ActionTestResult {
-    const action: Action = this.reviveAction(parsedJson.action);
-    const valid: boolean = parsedJson.valid ? true : false;
-    return new ActionTestResult(action, valid);
-  }
-
-  public reviveHtmlElementActionTestResult(parsedJson: any): HtmlElementActionTestResult {
-    const action: HtmlElementAction = this.reviveAction(parsedJson.action) as HtmlElementAction;
-    const locatorTestResults: LocatorTestResult[] = [];
-    for (const locatorTestResult of parsedJson.locatorTestResults) {
-      locatorTestResults.push(this.reviveLocatorTestResult(locatorTestResult));
-    }
-    return new HtmlElementActionTestResult(action, locatorTestResults);
-  }
-
-  public reviveLocatorTestResult(parsedJson: any): LocatorTestResult {
-    const locator: Locator = this.reviveLocator(parsedJson.locator);
-    return new LocatorTestResult(locator, parsedJson.valid);
   }
 }

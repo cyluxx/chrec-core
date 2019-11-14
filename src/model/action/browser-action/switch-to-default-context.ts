@@ -8,7 +8,7 @@ export class SwitchToDefaultContext extends BrowserAction {
     super(testResults, image);
   }
 
-  public async test(driver: WebDriver): Promise<void> {
+  public async testBrowserAction(driver: WebDriver): Promise<void> {
     await driver.switchTo().defaultContent();
   }
 

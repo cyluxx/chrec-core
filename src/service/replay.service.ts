@@ -1,10 +1,7 @@
 import { WebDriver } from 'selenium-webdriver';
 import { Action } from '../model/action';
 import { ActionTestResult } from '../model/action-test-result';
-import { BrowserTestResult } from '../model/action-test-result/browser-test-result';
 import { HtmlElementActionTestResult } from '../model/action-test-result/html-element-action-test-result';
-import { ProjectTestResult } from '../model/action-test-result/project-test-result';
-import { SequenceTestResult } from '../model/action-test-result/sequence-test-result';
 import { HtmlElementAction } from '../model/action/html-element-action';
 import { Browser } from '../model/browser';
 import { Locator } from '../model/locator';
