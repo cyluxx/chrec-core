@@ -1,5 +1,5 @@
-import { WebDriver } from 'selenium-webdriver';
 import { instance, mock, when } from 'ts-mockito';
+import { HtmlElementActionTestResult } from '../../../model/action-test-result/html-element-action-test-result';
 import { Clear } from '../../../model/action/html-element-action/clear';
 import { Click } from '../../../model/action/html-element-action/click';
 import { Read } from '../../../model/action/html-element-action/read';
@@ -10,8 +10,71 @@ import { Type } from '../../../model/action/html-element-action/type';
 import { WaitForAddedHtmlElement } from '../../../model/action/html-element-action/wait-for-added-html-element';
 import { WaitForRemovedHtmlElement } from '../../../model/action/html-element-action/wait-for-removed-html-element';
 import { BoundingBox } from '../../../model/bounding-box';
+import { Firefox } from '../../../model/browser/firefox';
 import { Method } from '../../../model/locator';
-import { XpathLocator } from '../../../model/locator/xpath-locator';
+import { CssLocator } from '../../../model/locator/css-locator'
+import { XpathLocator } from '../../../model/locator/xpath-locator'
+
+describe('HtmlElementAction', () => {
+  describe('addTestResult', () => {
+    test('when HtmlElementActionTestResult, then add it to list', () => {
+      const mockedBrowser: Firefox = mock(Firefox);
+      const browser = instance(mockedBrowser);
+
+      const htmlElementAction = new Clear([], 'bar', [], new BoundingBox(42, 42, 42, 42));
+      htmlElementAction.addTestResult(new HtmlElementActionTestResult(browser));
+
+      expect(htmlElementAction.testResults).toEqual(
+        [new HtmlElementActionTestResult(browser)]
+      );
+    })
+  })
+
+  describe('addLocator', () => {
+    test('when Locator, then add it to list', () => {
+      const htmlElementAction = new Clear([], 'bar', [], new BoundingBox(42, 42, 42, 42));
+      htmlElementAction.addLocator(new CssLocator([], Method.CSS_SELECTOR_GENERATOR, 'foo'));
+
+      expect(htmlElementAction.locators).toEqual(
+        [new CssLocator([], Method.CSS_SELECTOR_GENERATOR, 'foo')]
+      );
+    })
+  })
+
+  describe('recommended Locator', () => {
+    test('when all Locators replayable, then return Locator with highest count', () => {
+      const mockedLocatorLow: CssLocator = mock(CssLocator);
+      when(mockedLocatorLow.replayableTestResultCount()).thenReturn(1);
+      when(mockedLocatorLow.replayable).thenReturn(true);
+      const locatorLow = instance(mockedLocatorLow);
+
+      const mockedLocatorHigh: XpathLocator = mock(XpathLocator);
+      when(mockedLocatorHigh.replayableTestResultCount()).thenReturn(2);
+      when(mockedLocatorHigh.replayable).thenReturn(true);
+      const locatorHigh = instance(mockedLocatorHigh);
+
+      const htmlElementAction = new Submit([], 'foo', [locatorLow, locatorHigh], new BoundingBox(42, 42, 42, 42));
+
+      expect(htmlElementAction.recommendedLocator()).toEqual(locatorHigh);
+    })
+
+    test('when highest Locator not replayable, then return replayable Locator with highest count', () => {
+      const mockedLocatorLow: CssLocator = mock(CssLocator);
+      when(mockedLocatorLow.replayableTestResultCount()).thenReturn(1);
+      when(mockedLocatorLow.replayable).thenReturn(true);
+      const locatorLow = instance(mockedLocatorLow);
+
+      const mockedLocatorHigh: XpathLocator = mock(XpathLocator);
+      when(mockedLocatorHigh.replayableTestResultCount()).thenReturn(2);
+      when(mockedLocatorHigh.replayable).thenReturn(false);
+      const locatorHigh = instance(mockedLocatorHigh);
+
+      const htmlElementAction = new Submit([], 'foo', [locatorLow, locatorHigh], new BoundingBox(42, 42, 42, 42));
+
+      expect(htmlElementAction.recommendedLocator()).toEqual(locatorLow);
+    })
+  })
+});
 
 describe('Clear', () => {
   describe('toJSON', () => {
