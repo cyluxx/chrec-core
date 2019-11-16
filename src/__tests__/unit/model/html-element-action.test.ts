@@ -1,5 +1,5 @@
-import { WebDriver, WebElement } from 'selenium-webdriver';
-import { instance, mock, verify, when, spy } from 'ts-mockito';
+import { WebDriver } from 'selenium-webdriver';
+import { instance, mock, spy, verify, when } from 'ts-mockito';
 import { HtmlElementActionTestResult } from '../../../model/action-test-result/html-element-action-test-result';
 import { Clear } from '../../../model/action/html-element-action/clear';
 import { Click } from '../../../model/action/html-element-action/click';
@@ -13,7 +13,6 @@ import { WaitForRemovedHtmlElement } from '../../../model/action/html-element-ac
 import { BoundingBox } from '../../../model/bounding-box';
 import { Edge } from '../../../model/browser/edge';
 import { Firefox } from '../../../model/browser/firefox';
-import { InternetExplorer } from '../../../model/browser/internet-explorer';
 import { Method } from '../../../model/locator';
 import { CssLocator } from '../../../model/locator/css-locator'
 import { XpathLocator } from '../../../model/locator/xpath-locator'
