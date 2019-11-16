@@ -1,6 +1,4 @@
 import { HtmlElementActionTestResult } from './model/action-test-result/html-element-action-test-result';
-import { ProjectTestResult } from './model/action-test-result/project-test-result';
-import { SequenceTestResult } from './model/action-test-result/sequence-test-result';
 import { HtmlElementAction } from './model/action/html-element-action';
 import { Locator, Method } from './model/locator';
 import { LocatorTestResult } from './model/locator-test-result';
@@ -9,71 +7,22 @@ import { Sequence } from './model/sequence';
 import { Settings } from './model/settings';
 import { ExportService } from './service/export.service';
 import { ImportService } from './service/import.service';
-import { ReplayService } from './service/replay.service';
 
 export class Core {
   public exportService: ExportService;
   public importService: ImportService;
-  public replayService: ReplayService;
 
   constructor() {
     this.exportService = new ExportService();
     this.importService = new ImportService();
-    this.replayService = new ReplayService();
   }
 
-  public async addProjectTest(project: Project, settings: Settings): Promise<Project> {
-    const testResult: ProjectTestResult = await this.replayService.testProject(project, settings);
-    project.addChildTestResult(testResult);
-    return project;
+  public async testProject(project: Project, settings: Settings): Promise<void> {
+    await project.test(settings);
   }
 
-  public async addSequenceTest(project: Project, sequence: Sequence, settings: Settings): Promise<Project> {
-    const sequenceTestResult: SequenceTestResult = await this.replayService.testSequence(sequence, settings);
-    const projectTestResult: ProjectTestResult = new ProjectTestResult(new Date(), [sequenceTestResult]);
-    project.addChildTestResult(projectTestResult);
-    return project;
-  }
-
-  public setRecommendedLocators(project: Project): void {
-    if (project.childTestResults.length > 0) {
-      for (const sequenceTestResult of project.childTestResults[project.childTestResults.length - 1]
-        .childTestResults) {
-        for (const browserTestResult of sequenceTestResult.childTestResults) {
-          for (const actionTestResult of browserTestResult.childTestResults) {
-            if (actionTestResult instanceof HtmlElementActionTestResult) {
-              this.setRecommendedLocator(project, actionTestResult);
-            }
-          }
-        }
-      }
-    }
-  }
-
-  public setRecommendedLocator(project: Project, htmlElementActionTestResult: HtmlElementActionTestResult): void {
-    const locatorCounts: any[] = [];
-    locatorCounts.push({ methodName: 'CssSelectorGenerator', count: project.getSpecificSuccessfulLocatorCount(Method.CSS_SELECTOR_GENERATOR) });
-    locatorCounts.push({ methodName: 'Finder', count: project.getSpecificSuccessfulLocatorCount(Method.FINDER) });
-    locatorCounts.push({ methodName: 'GetQuerySelector', count: project.getSpecificSuccessfulLocatorCount(Method.GET_QUERY_SELECTOR) });
-    locatorCounts.push({ methodName: 'OptimalSelect', count: project.getSpecificSuccessfulLocatorCount(Method.OPTIMAL_SELECT) });
-    locatorCounts.push({ methodName: 'SelectorQuery', count: project.getSpecificSuccessfulLocatorCount(Method.SELECTOR_QUERY) });
-    locatorCounts.push({ methodName: 'RobulaPlus', count: project.getSpecificSuccessfulLocatorCount(Method.ROBULA_PLUS) });
-
-    locatorCounts.sort(
-      (a: any, b: any): number => {
-        return b.count - a.count;
-      },
-    );
-
-    for (const locatorCount of locatorCounts) {
-      for (const locatorTestResult of htmlElementActionTestResult.childTestResults) {
-        const locator: Locator = (locatorTestResult as LocatorTestResult).locator;
-        if (locatorTestResult.isReplayable() && locator.method === (locatorCount.method as string)) {
-          (htmlElementActionTestResult.action as HtmlElementAction).recommendedLocator = locator;
-          return;
-        }
-      }
-    }
+  public async testSequence(sequence: Sequence, settings: Settings): Promise<void> {
+    await sequence.test(settings);
   }
 
   public exportAlexJson(project: Project, dirName: string): void {

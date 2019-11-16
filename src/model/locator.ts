@@ -14,12 +14,29 @@ export enum Method {
 export abstract class Locator {
   constructor(public testResults: LocatorTestResult[], public method: Method, public value: string) { }
 
+  get replayable(): boolean {
+    if (this.testResults.length > 0) {
+      return this.testResults[0].replayable;
+    }
+    return false;
+  }
+
   public toJSON(): object {
     return Object.assign({ className: this.constructor.name }, this);
   }
 
   public addTestResult(testResult: LocatorTestResult) {
     this.testResults.push(testResult);
+  }
+
+  public replayableTestResultCount(): number {
+    let count = 0;
+    for (const testResult of this.testResults) {
+      if (testResult.replayable) {
+        count++;
+      }
+    }
+    return count;
   }
 
   public async test(driver: WebDriver) {

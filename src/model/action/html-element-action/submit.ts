@@ -16,7 +16,7 @@ export class Submit extends HtmlElementAction {
 
   public toAlexActions(): Action[] {
     if (this.recommendedLocator) {
-      return [new WebSubmit(this.recommendedLocator.toAlexNode())];
+      return [new WebSubmit(this.recommendedLocator().toAlexNode())];
     }
     throw new Error(
       'No recommended locator specified, yet! Please run at least one test for this sequence before exporting it.',

@@ -17,7 +17,7 @@ export class Type extends HtmlElementAction {
   public toAlexActions(): Action[] {
     if (this.recommendedLocator) {
       return [
-        new WebFill(this.value, this.recommendedLocator.toAlexNode())
+        new WebFill(this.value, this.recommendedLocator().toAlexNode())
       ];
     }
     throw new Error(

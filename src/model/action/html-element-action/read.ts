@@ -19,7 +19,7 @@ export class Read extends HtmlElementAction {
 
   public toAlexActions(): Action[] {
     if (this.recommendedLocator) {
-      return [new WebCheckForText(this.text, this.recommendedLocator.toAlexNode())];
+      return [new WebCheckForText(this.text, this.recommendedLocator().toAlexNode())];
     }
     throw new Error(
       'No recommended locator specified, yet! Please run at least one test for this sequence before exporting it.',

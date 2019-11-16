@@ -16,7 +16,7 @@ export class Clear extends HtmlElementAction {
 
   public toAlexActions(): Action[] {
     if (this.recommendedLocator) {
-      return [new WebClear(this.recommendedLocator.toAlexNode())];
+      return [new WebClear(this.recommendedLocator().toAlexNode())];
     }
     throw new Error(
       'No recommended locator specified, yet! Please run at least one test for this sequence before exporting it.',
