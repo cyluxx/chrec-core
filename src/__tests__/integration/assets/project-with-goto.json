@@ -9,12 +9,12 @@
         "actions": [
           {
             "className": "GoTo",
+            "testResults": [],
             "image": "foo",
             "url": "https://www.github.com"
           }
         ]
       }
-    ],
-    "childTestResults": []
+    ]
   }
 }

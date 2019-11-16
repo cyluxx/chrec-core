@@ -9,11 +9,11 @@
         "actions": [
           {
             "className": "Refresh",
+            "testResults": [],
             "image": "foo"
           }
         ]
       }
-    ],
-    "childTestResults": []
+    ]
   }
 }

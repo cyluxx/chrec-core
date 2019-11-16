@@ -9,15 +9,18 @@
         "actions": [
           {
             "className": "Click",
+            "testResults": [],
             "image": "foo",
             "locators": [
               {
                 "className": "CssLocator",
+                "testResults": [],
                 "method": "CssSelectorGenerator",
                 "value": "foo"
               },
               {
                 "className": "XpathLocator",
+                "testResults": [],
                 "method": "RobulaPlus",
                 "value": "foo"
               }
@@ -31,7 +34,6 @@
           }
         ]
       }
-    ],
-    "childTestResults": []
+    ]
   }
 }

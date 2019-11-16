@@ -34,19 +34,15 @@ export abstract class HtmlElementAction extends Action {
         return locatorCount.locator;
       }
     }
-    throw new Error(`All locators failed for Action ${this.constructor.name}`);
+    throw new Error(`No recommended Locator found for Action ${this.constructor.name}`);
   }
 
   public async test(browser: Browser, driver: WebDriver) {
     for (const locator of this.locators) {
       await locator.test(driver);
     }
-    try {
-      const element: WebElement = await this.recommendedLocator().findElement(driver);
-      await this.testElement(driver, element);
-    } catch (error) {
-      throw this.getError(error);
-    }
+    const element: WebElement = await this.recommendedLocator().findElement(driver);
+    await this.testElement(driver, element);
   }
 
   protected getSeleniumLocator(): SeleniumLocator {
@@ -54,13 +50,6 @@ export abstract class HtmlElementAction extends Action {
   }
 
   protected abstract async testElement(driver: WebDriver, element: WebElement): Promise<void>;
-
-  private getError(error: Error): Error {
-    if (error.name === 'NoSuchElementError') {
-      return new Error(`${this.recommendedLocator().constructor.name} ${this.recommendedLocator().method} not found!`);
-    }
-    return error;
-  }
 }
 
 interface LocatorCount {

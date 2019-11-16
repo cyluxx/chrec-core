@@ -9,36 +9,44 @@
         "actions": [
           {
             "className": "Back",
+            "testResults": [],
             "image": "foo"
           },
           {
             "className": "Forward",
+            "testResults": [],
             "image": "foo"
           },
           {
             "className": "GoTo",
+            "testResults": [],
             "image": "foo",
             "url": "bar"
           },
           {
             "className": "Refresh",
+            "testResults": [],
             "image": "foo"
           },
           {
             "className": "SwitchToDefaultContext",
+            "testResults": [],
             "image": "foo"
           },
           {
             "className": "Clear",
+            "testResults": [],
             "image": "foo",
             "locators": [
               {
                 "className": "CssLocator",
+                "testResults": [],
                 "method": "CssSelectorGenerator",
                 "value": "foo"
               },
               {
                 "className": "XpathLocator",
+                "testResults": [],
                 "method": "RobulaPlus",
                 "value": "foo"
               }
@@ -52,15 +60,18 @@
           },
           {
             "className": "Click",
+            "testResults": [],
             "image": "foo",
             "locators": [
               {
                 "className": "CssLocator",
+                "testResults": [],
                 "method": "CssSelectorGenerator",
                 "value": "foo"
               },
               {
                 "className": "XpathLocator",
+                "testResults": [],
                 "method": "RobulaPlus",
                 "value": "foo"
               }
@@ -74,16 +85,19 @@
           },
           {
             "className": "Read",
+            "testResults": [],
             "image": "foo",
             "value": "bar",
             "locators": [
               {
                 "className": "CssLocator",
+                "testResults": [],
                 "method": "CssSelectorGenerator",
                 "value": "foo"
               },
               {
                 "className": "XpathLocator",
+                "testResults": [],
                 "method": "RobulaPlus",
                 "value": "foo"
               }
@@ -97,16 +111,19 @@
           },
           {
             "className": "Select",
+            "testResults": [],
             "image": "foo",
             "value": "bar",
             "locators": [
               {
                 "className": "CssLocator",
+                "testResults": [],
                 "method": "CssSelectorGenerator",
                 "value": "foo"
               },
               {
                 "className": "XpathLocator",
+                "testResults": [],
                 "method": "RobulaPlus",
                 "value": "foo"
               }
@@ -120,15 +137,18 @@
           },
           {
             "className": "Submit",
+            "testResults": [],
             "image": "foo",
             "locators": [
               {
                 "className": "CssLocator",
+                "testResults": [],
                 "method": "CssSelectorGenerator",
                 "value": "foo"
               },
               {
                 "className": "XpathLocator",
+                "testResults": [],
                 "method": "RobulaPlus",
                 "value": "foo"
               }
@@ -142,15 +162,18 @@
           },
           {
             "className": "SwitchToContext",
+            "testResults": [],
             "image": "foo",
             "locators": [
               {
                 "className": "CssLocator",
+                "testResults": [],
                 "method": "CssSelectorGenerator",
                 "value": "foo"
               },
               {
                 "className": "XpathLocator",
+                "testResults": [],
                 "method": "RobulaPlus",
                 "value": "foo"
               }
@@ -164,17 +187,20 @@
           },
           {
             "className": "Type",
+            "testResults": [],
             "image": "foo",
             "value": "bar",
             "key": "baz",
             "locators": [
               {
                 "className": "CssLocator",
+                "testResults": [],
                 "method": "CssSelectorGenerator",
                 "value": "foo"
               },
               {
                 "className": "XpathLocator",
+                "testResults": [],
                 "method": "RobulaPlus",
                 "value": "foo"
               }
@@ -188,16 +214,19 @@
           },
           {
             "className": "WaitForAddedHtmlElement",
+            "testResults": [],
             "image": "foo",
             "timeout": 42,
             "locators": [
               {
                 "className": "CssLocator",
+                "testResults": [],
                 "method": "CssSelectorGenerator",
                 "value": "foo"
               },
               {
                 "className": "XpathLocator",
+                "testResults": [],
                 "method": "RobulaPlus",
                 "value": "foo"
               }
@@ -211,16 +240,19 @@
           },
           {
             "className": "WaitForRemovedHtmlElement",
+            "testResults": [],
             "image": "foo",
             "timeout": 42,
             "locators": [
               {
                 "className": "CssLocator",
+                "testResults": [],
                 "method": "CssSelectorGenerator",
                 "value": "foo"
               },
               {
                 "className": "XpathLocator",
+                "testResults": [],
                 "method": "RobulaPlus",
                 "value": "foo"
               }
@@ -234,7 +266,6 @@
           }
         ]
       }
-    ],
-    "childTestResults": []
+    ]
   }
 }

@@ -34,13 +34,8 @@ import { Sequence } from '../model/sequence';
 
 export class ImportService {
   public async importChrecJson(absolutePath: string): Promise<Project> {
-    try {
-      const parsedJson: any = await loadJsonFile(absolutePath);
-
-      return this.validateChrecJson(parsedJson);
-    } catch (error) {
-      throw new Error(error.message);
-    }
+    const parsedJson: any = await loadJsonFile(absolutePath);
+    return this.validateChrecJson(parsedJson);
   }
 
   public validateChrecJson(parsedJson: any): Project {
