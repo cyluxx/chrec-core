@@ -13,13 +13,4 @@ export class Click extends HtmlElementAction {
   public async testElement(driver: WebDriver, element: WebElement): Promise<void> {
     await element.click();
   }
-
-  public toAlexActions(): Action[] {
-    if (this.recommendedLocator) {
-      return [new WebClick(this.recommendedLocator().toAlexNode())];
-    }
-    throw new Error(
-      'No recommended locator specified, yet! Please run at least one test for this sequence before exporting it.',
-    );
-  }
 }

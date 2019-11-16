@@ -1,4 +1,5 @@
-import { instance, mock, when } from 'ts-mockito';
+import { WebDriver, WebElement } from 'selenium-webdriver';
+import { instance, mock, verify, when, spy } from 'ts-mockito';
 import { HtmlElementActionTestResult } from '../../../model/action-test-result/html-element-action-test-result';
 import { Clear } from '../../../model/action/html-element-action/clear';
 import { Click } from '../../../model/action/html-element-action/click';
@@ -10,7 +11,9 @@ import { Type } from '../../../model/action/html-element-action/type';
 import { WaitForAddedHtmlElement } from '../../../model/action/html-element-action/wait-for-added-html-element';
 import { WaitForRemovedHtmlElement } from '../../../model/action/html-element-action/wait-for-removed-html-element';
 import { BoundingBox } from '../../../model/bounding-box';
+import { Edge } from '../../../model/browser/edge';
 import { Firefox } from '../../../model/browser/firefox';
+import { InternetExplorer } from '../../../model/browser/internet-explorer';
 import { Method } from '../../../model/locator';
 import { CssLocator } from '../../../model/locator/css-locator'
 import { XpathLocator } from '../../../model/locator/xpath-locator'
@@ -41,7 +44,7 @@ describe('HtmlElementAction', () => {
     })
   })
 
-  describe('recommended Locator', () => {
+  describe('recommendedLocator', () => {
     test('when all Locators replayable, then return Locator with highest count', () => {
       const mockedLocatorLow: CssLocator = mock(CssLocator);
       when(mockedLocatorLow.replayableTestResultCount()).thenReturn(1);
@@ -74,7 +77,7 @@ describe('HtmlElementAction', () => {
       expect(htmlElementAction.recommendedLocator()).toEqual(locatorLow);
     })
 
-    test('when no Locator replayable, then throw Error', () => {
+    test('when no Locator replayable, then return null', () => {
       const mockedLocatorLow: CssLocator = mock(CssLocator);
       when(mockedLocatorLow.replayableTestResultCount()).thenReturn(1);
       when(mockedLocatorLow.replayable).thenReturn(false);
@@ -87,12 +90,36 @@ describe('HtmlElementAction', () => {
 
       const htmlElementAction = new Submit([], 'foo', [locatorLow, locatorHigh], new BoundingBox(42, 42, 42, 42));
 
-      expect(() => htmlElementAction.recommendedLocator()).toThrow();
+      expect(htmlElementAction.recommendedLocator()).toBeNull();
     })
 
-    test('when no Locator replayable, then throw Error', () => {
+    test('when no Locator replayable, then return null', () => {
       const htmlElementAction = new Submit([], 'foo', [], new BoundingBox(42, 42, 42, 42));
-      expect(() => htmlElementAction.recommendedLocator()).toThrow();
+      expect(htmlElementAction.recommendedLocator()).toBeNull();
+    })
+  })
+
+  describe('test', () => {
+    test('when no recommended Locator, then throw Error', async () => {
+      const mockedBrowser: Edge = mock(Edge);
+      const browser = instance(mockedBrowser);
+
+      const mockedDriver: WebDriver = mock(WebDriver);
+      const driver = instance(mockedDriver);
+
+      const mockedLocator: CssLocator = mock(CssLocator);
+      when(mockedLocator.test(driver)).thenResolve();
+      const locator = instance(mockedLocator);
+
+      const htmlElementAction = new WaitForRemovedHtmlElement([], 'foo', [locator], new BoundingBox(42, 42, 42, 42));
+
+      const spiedHtmlElementAction = spy(htmlElementAction);
+      when(spiedHtmlElementAction.recommendedLocator()).thenReturn(null);
+
+      expect.assertions(1);
+      await expect(htmlElementAction.test(browser, driver)).rejects.toThrow();
+
+      verify(mockedLocator.test(driver)).called();
     })
   })
 });

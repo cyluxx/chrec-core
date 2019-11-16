@@ -16,13 +16,4 @@ export class Read extends HtmlElementAction {
       throw new Error(`HTML Element does not contain the desired text: "${this.text}"`);
     }
   }
-
-  public toAlexActions(): Action[] {
-    if (this.recommendedLocator) {
-      return [new WebCheckForText(this.text, this.recommendedLocator().toAlexNode())];
-    }
-    throw new Error(
-      'No recommended locator specified, yet! Please run at least one test for this sequence before exporting it.',
-    );
-  }
 }

@@ -13,8 +13,4 @@ export class SwitchToContext extends HtmlElementAction {
   public async testElement(driver: WebDriver, element: WebElement): Promise<void> {
     await driver.switchTo().frame(element);
   }
-
-  public toAlexActions(): Action[] {
-    throw new Error('Not implemented yet');
-  }
 }

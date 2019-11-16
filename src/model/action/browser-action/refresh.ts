@@ -11,8 +11,4 @@ export class Refresh extends BrowserAction {
   public async testBrowserAction(driver: WebDriver): Promise<void> {
     await driver.navigate().refresh();
   }
-
-  public toAlexActions(): WebBrowser[] {
-    return [new WebBrowser('REFRESH')];
-  }
 }

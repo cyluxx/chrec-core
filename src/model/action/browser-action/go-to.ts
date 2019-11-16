@@ -11,8 +11,4 @@ export class GoTo extends BrowserAction {
   public async testBrowserAction(driver: WebDriver): Promise<void> {
     await driver.navigate().to(this.url);
   }
-
-  public toAlexActions(): WebGoTo[] {
-    return [new WebGoTo(this.url)];
-  }
 }

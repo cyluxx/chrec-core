@@ -11,8 +11,4 @@ export class Back extends BrowserAction {
   public async testBrowserAction(driver: WebDriver): Promise<void> {
     await driver.navigate().back();
   }
-
-  public toAlexActions(): WebBrowser[] {
-    throw new Error('Export Error: Alex does not support Back Action!');
-  }
 }

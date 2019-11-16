@@ -25,10 +25,6 @@ export class Core {
     await sequence.test(settings);
   }
 
-  public exportAlexJson(project: Project, dirName: string): void {
-    this.exportService.exportAlexJson(dirName, project);
-  }
-
   public exportChrecJson(project: Project, dirName: string): void {
     this.exportService.exportChrecJson(dirName, project);
   }

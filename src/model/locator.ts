@@ -40,16 +40,12 @@ export abstract class Locator {
   }
 
   public async test(driver: WebDriver) {
-    let replayable = false;
     try {
       await this.findElement(driver);
-      replayable = true;
+      this.addTestResult(new LocatorTestResult(true));
     }
     catch (error) {
-      throw this.getError(error);
-    }
-    finally {
-      this.addTestResult(new LocatorTestResult(replayable))
+      this.addTestResult(new LocatorTestResult(false));
     }
   }
 
@@ -58,11 +54,4 @@ export abstract class Locator {
   public abstract async findElement(driver: WebDriver): Promise<WebElement>;
 
   public abstract toAlexNode(): Node;
-
-  private getError(error: Error): Error {
-    if (error.name === 'NoSuchElementError') {
-      return new Error(`${this.method} ${this.constructor.name} not found!`);
-    }
-    return error;
-  }
 }

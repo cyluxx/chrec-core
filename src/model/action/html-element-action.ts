@@ -19,13 +19,11 @@ export abstract class HtmlElementAction extends Action {
     this.locators.push(locator);
   }
 
-  public recommendedLocator(): Locator {
+  public recommendedLocator(): Locator | null {
     const locatorCounts: LocatorCount[] = [];
     for (const locator of this.locators) {
-      locatorCounts.push({
-        locator,
-        count: locator.replayableTestResultCount()
-      });
+      const count: number = locator.replayableTestResultCount()
+      locatorCounts.push({ locator, count });
     }
     // sort desc
     locatorCounts.sort((a, b) => b.count - a.count);
@@ -34,15 +32,20 @@ export abstract class HtmlElementAction extends Action {
         return locatorCount.locator;
       }
     }
-    throw new Error(`No recommended Locator found for Action ${this.constructor.name}`);
+    return null;
   }
 
   public async test(browser: Browser, driver: WebDriver) {
     for (const locator of this.locators) {
       await locator.test(driver);
     }
-    const element: WebElement = await this.recommendedLocator().findElement(driver);
-    await this.testElement(driver, element);
+    const recommendedLocator = this.recommendedLocator();
+    if (recommendedLocator) {
+      const element: WebElement = await recommendedLocator.findElement(driver);
+      await this.testElement(driver, element);
+    } else {
+      throw new Error(`No recommended Locator found for Action ${this.constructor.name}`);
+    }
   }
 
   protected abstract async testElement(driver: WebDriver, element: WebElement): Promise<void>;

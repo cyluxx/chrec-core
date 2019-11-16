@@ -13,8 +13,4 @@ export class WaitForRemovedHtmlElement extends HtmlElementAction {
   public async testElement(driver: WebDriver, element: WebElement): Promise<void> {
     await driver.wait(until.stalenessOf(element), this.timeout);
   }
-
-  public toAlexActions(): Action[] {
-    throw new Error('Not implemented yet');
-  }
 }

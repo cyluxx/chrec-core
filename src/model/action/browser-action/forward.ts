@@ -11,8 +11,4 @@ export class Forward extends BrowserAction {
   public async testBrowserAction(driver: WebDriver): Promise<void> {
     await driver.navigate().forward();
   }
-
-  public toAlexActions(): WebBrowser[] {
-    throw new Error('Export Error: Alex does not support Forward Action!');
-  }
 }

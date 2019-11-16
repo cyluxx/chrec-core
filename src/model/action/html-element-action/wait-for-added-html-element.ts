@@ -11,14 +11,19 @@ export class WaitForAddedHtmlElement extends HtmlElementAction {
   }
 
   public async testElement(driver: WebDriver, element: WebElement): Promise<void> {
-    await driver.wait(until.elementLocated(this.getSeleniumLocator()), this.timeout);
+    const seleniumLocator = this.getSeleniumLocator();
+    if(seleniumLocator){
+      await driver.wait(until.elementLocated(seleniumLocator), this.timeout);
+    } else {
+      throw new Error(`${this.constructor.name}: No recommended Locator`);
+    }
   }
 
-  public toAlexActions(): Action[] {
-    throw new Error('Not implemented yet');
-  }
-
-  private getSeleniumLocator(): SeleniumLocator {
-    return this.recommendedLocator().toSeleniumLocator();
+  private getSeleniumLocator(): SeleniumLocator | null {
+    const recommendedLocator = this.recommendedLocator();
+    if (recommendedLocator) {
+      return recommendedLocator.toSeleniumLocator();
+    }
+    return null;
   }
 }

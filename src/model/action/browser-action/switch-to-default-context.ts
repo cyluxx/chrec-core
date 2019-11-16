@@ -11,8 +11,4 @@ export class SwitchToDefaultContext extends BrowserAction {
   public async testBrowserAction(driver: WebDriver): Promise<void> {
     await driver.switchTo().defaultContent();
   }
-
-  public toAlexActions(): AlexAction[] {
-    throw new Error('Not implemented yet');
-  }
 }
