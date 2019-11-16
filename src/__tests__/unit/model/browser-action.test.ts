@@ -1,11 +1,51 @@
 import { Navigation, TargetLocator, WebDriver } from 'selenium-webdriver';
 import { instance, mock, verify, when } from 'ts-mockito';
+import { BrowserActionTestResult } from '../../../model/action-test-result/browser-action-test-result';
 import { Back } from '../../../model/action/browser-action/back';
 import { Forward } from '../../../model/action/browser-action/forward';
 import { GoTo } from '../../../model/action/browser-action/go-to';
 import { Refresh } from '../../../model/action/browser-action/refresh';
 import { SwitchToDefaultContext } from '../../../model/action/browser-action/switch-to-default-context';
 import { Chrome } from '../../../model/browser/chrome';
+
+describe('BrowserAction', () => {
+  describe('test', () => {
+    test('when successful testBrowserAction, then add replayable testResult', async () => {
+      const action = new Back([], 'foo');
+
+      const mockedNavigation: Navigation = mock(Navigation);
+      const navigation = instance(mockedNavigation);
+
+      const mockedDriver: WebDriver = mock(WebDriver);
+      when(mockedDriver.navigate()).thenReturn(navigation);
+      const driver = instance(mockedDriver);
+
+      const mockedBrowser: Chrome = mock(Chrome);
+      const browser = instance(mockedBrowser);
+
+      await action.test(browser, driver);
+
+      expect.assertions(1);
+      expect(action.testResults).toEqual([new BrowserActionTestResult(browser, true)]);
+    })
+
+    test('when failed testBrowserAction, then add non-replaybale testResult', async () => {
+      const action = new Forward([], 'foo');
+
+      const mockedDriver: WebDriver = mock(WebDriver);
+      when(mockedDriver.navigate()).thenThrow(new Error());
+      const driver = instance(mockedDriver);
+
+      const mockedBrowser: Chrome = mock(Chrome);
+      const browser = instance(mockedBrowser);
+
+      await action.test(browser, driver);
+
+      expect.assertions(1);
+      expect(action.testResults).toEqual([new BrowserActionTestResult(browser, false)]);
+    })
+  })
+});
 
 describe('Back', () => {
   describe('toJSON', () => {
@@ -15,7 +55,7 @@ describe('Back', () => {
     })
   })
 
-  describe('test', () => {
+  describe('testBrowserAction', () => {
     test('verify correct driver method call', async () => {
       const action = new Back([], 'foo');
 
@@ -45,7 +85,7 @@ describe('Forward', () => {
     })
   })
 
-  describe('test', () => {
+  describe('testBrowserAction', () => {
     test('verify correct driver method call', async () => {
       const action = new Forward([], 'foo');
 
@@ -75,7 +115,7 @@ describe('GoTo', () => {
     })
   })
 
-  describe('test', () => {
+  describe('testBrowserAction', () => {
     test('verify correct driver method call', async () => {
       const action = new GoTo([], 'foo', 'url');
 
@@ -105,7 +145,7 @@ describe('Refresh', () => {
     })
   })
 
-  describe('test', () => {
+  describe('testBrowserAction', () => {
     test('verify correct driver method call', async () => {
       const action = new Refresh([], 'foo');
 
@@ -135,7 +175,7 @@ describe('SwitchToDefaultContext', () => {
     })
   })
 
-  describe('test', () => {
+  describe('testBrowserAction', () => {
     test('verify correct driver method call', async () => {
       const action = new SwitchToDefaultContext([], 'foo');
 

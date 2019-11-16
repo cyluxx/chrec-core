@@ -1,4 +1,4 @@
-import { Locator as SeleniumLocator, WebDriver, WebElement } from 'selenium-webdriver';
+import { WebDriver, WebElement } from 'selenium-webdriver';
 import { Action } from '../action';
 import { HtmlElementActionTestResult } from '../action-test-result/html-element-action-test-result';
 import { BoundingBox } from '../bounding-box';
@@ -43,10 +43,6 @@ export abstract class HtmlElementAction extends Action {
     }
     const element: WebElement = await this.recommendedLocator().findElement(driver);
     await this.testElement(driver, element);
-  }
-
-  protected getSeleniumLocator(): SeleniumLocator {
-    return this.recommendedLocator().toSeleniumLocator();
   }
 
   protected abstract async testElement(driver: WebDriver, element: WebElement): Promise<void>;

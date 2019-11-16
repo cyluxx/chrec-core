@@ -1,4 +1,4 @@
-import { until, WebDriver, WebElement } from 'selenium-webdriver';
+import { Locator as SeleniumLocator, until, WebDriver, WebElement } from 'selenium-webdriver';
 import { Action } from '../../../export/alex/action';
 import { HtmlElementActionTestResult } from '../../action-test-result/html-element-action-test-result';
 import { BoundingBox } from '../../bounding-box';
@@ -16,5 +16,9 @@ export class WaitForAddedHtmlElement extends HtmlElementAction {
 
   public toAlexActions(): Action[] {
     throw new Error('Not implemented yet');
+  }
+
+  private getSeleniumLocator(): SeleniumLocator {
+    return this.recommendedLocator().toSeleniumLocator();
   }
 }

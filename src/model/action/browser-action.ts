@@ -13,16 +13,12 @@ export abstract class BrowserAction extends Action {
   }
 
   public async test(browser: Browser, driver: WebDriver) {
-    let replayable = false;
     try {
       await this.testBrowserAction(driver);
-      replayable = true;
+      this.addTestResult(new BrowserActionTestResult(browser, true));
     }
     catch (error) {
-      throw new Error(`Could not replay ${this.constructor.name} in Browser ${browser.name}!`);
-    }
-    finally {
-      this.addTestResult(new BrowserActionTestResult(browser, replayable))
+      this.addTestResult(new BrowserActionTestResult(browser, false));
     }
   }
 
