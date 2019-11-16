@@ -73,6 +73,27 @@ describe('HtmlElementAction', () => {
 
       expect(htmlElementAction.recommendedLocator()).toEqual(locatorLow);
     })
+
+    test('when no Locator replayable, then throw Error', () => {
+      const mockedLocatorLow: CssLocator = mock(CssLocator);
+      when(mockedLocatorLow.replayableTestResultCount()).thenReturn(1);
+      when(mockedLocatorLow.replayable).thenReturn(false);
+      const locatorLow = instance(mockedLocatorLow);
+
+      const mockedLocatorHigh: XpathLocator = mock(XpathLocator);
+      when(mockedLocatorHigh.replayableTestResultCount()).thenReturn(2);
+      when(mockedLocatorHigh.replayable).thenReturn(false);
+      const locatorHigh = instance(mockedLocatorHigh);
+
+      const htmlElementAction = new Submit([], 'foo', [locatorLow, locatorHigh], new BoundingBox(42, 42, 42, 42));
+
+      expect(() => htmlElementAction.recommendedLocator()).toThrow();
+    })
+
+    test('when no Locator replayable, then throw Error', () => {
+      const htmlElementAction = new Submit([], 'foo', [], new BoundingBox(42, 42, 42, 42));
+      expect(() => htmlElementAction.recommendedLocator()).toThrow();
+    })
   })
 });
 
