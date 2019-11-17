@@ -1,4 +1,4 @@
-import { By, Locator as SeleniumLocator, WebDriver, WebElementPromise, WebElement } from 'selenium-webdriver';
+import { By, WebDriver } from 'selenium-webdriver';
 import { instance, mock, spy, when } from 'ts-mockito';
 import { Method } from '../../../model/locator';
 import { LocatorTestResult } from '../../../model/locator-test-result';

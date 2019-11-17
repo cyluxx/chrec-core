@@ -1,5 +1,4 @@
-import { By, Locator as SeleniumLocator, WebDriver, WebElement } from 'selenium-webdriver';
-import { Node, NodeType } from '../../export/alex/node';
+import { By, Locator as SeleniumLocator } from 'selenium-webdriver';
 import { Locator, Method } from '../locator';
 import { LocatorTestResult } from '../locator-test-result';
 

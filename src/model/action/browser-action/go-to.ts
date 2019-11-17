@@ -1,5 +1,4 @@
 import { WebDriver } from 'selenium-webdriver';
-import { WebGoTo } from '../../../export/alex/action';
 import { BrowserActionTestResult } from '../../action-test-result/browser-action-test-result';
 import { BrowserAction } from '../browser-action';
 

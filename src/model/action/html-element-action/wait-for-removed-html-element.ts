@@ -1,5 +1,4 @@
 import { until, WebDriver, WebElement } from 'selenium-webdriver';
-import { Action } from '../../../export/alex/action';
 import { HtmlElementActionTestResult } from '../../action-test-result/html-element-action-test-result';
 import { BoundingBox } from '../../bounding-box';
 import { Locator } from '../../locator';

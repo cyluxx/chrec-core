@@ -1,5 +1,4 @@
 import { Locator as SeleniumLocator, WebDriver, WebElement } from 'selenium-webdriver';
-import { Node } from '../export/alex/node';
 import { LocatorTestResult } from './locator-test-result';
 
 export enum Method {
