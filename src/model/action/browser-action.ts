@@ -16,8 +16,7 @@ export abstract class BrowserAction extends Action {
     try {
       await this.testBrowserAction(driver);
       this.addTestResult(new BrowserActionTestResult(browser, true));
-    }
-    catch (error) {
+    } catch (error) {
       this.addTestResult(new BrowserActionTestResult(browser, false));
     }
   }

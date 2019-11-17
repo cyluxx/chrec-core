@@ -6,8 +6,12 @@ import { Browser } from '../browser';
 import { Locator } from '../locator';
 
 export abstract class HtmlElementAction extends Action {
-
-  constructor(testResults: HtmlElementActionTestResult[], image: string, public locators: Locator[], public boundingBox: BoundingBox) {
+  constructor(
+    testResults: HtmlElementActionTestResult[],
+    image: string,
+    public locators: Locator[],
+    public boundingBox: BoundingBox,
+  ) {
     super(testResults, image);
   }
 
@@ -22,7 +26,7 @@ export abstract class HtmlElementAction extends Action {
   public recommendedLocator(): Locator | null {
     const locatorCounts: LocatorCount[] = [];
     for (const locator of this.locators) {
-      const count: number = locator.replayableTestResultCount()
+      const count: number = locator.replayableTestResultCount();
       locatorCounts.push({ locator, count });
     }
     // sort desc

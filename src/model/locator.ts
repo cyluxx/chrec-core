@@ -11,7 +11,7 @@ export enum Method {
 }
 
 export abstract class Locator {
-  constructor(public testResults: LocatorTestResult[], public method: Method, public value: string) { }
+  constructor(public testResults: LocatorTestResult[], public method: Method, public value: string) {}
 
   get replayable(): boolean {
     if (this.testResults.length > 0) {
@@ -42,8 +42,7 @@ export abstract class Locator {
     try {
       await this.findElement(driver);
       this.addTestResult(new LocatorTestResult(true));
-    }
-    catch (error) {
+    } catch (error) {
       this.addTestResult(new LocatorTestResult(false));
     }
   }

@@ -5,7 +5,12 @@ import { Locator } from '../../locator';
 import { HtmlElementAction } from '../html-element-action';
 
 export class Submit extends HtmlElementAction {
-  constructor(testResults: HtmlElementActionTestResult[], image: string, locators: Locator[], boundingBox: BoundingBox) {
+  constructor(
+    testResults: HtmlElementActionTestResult[],
+    image: string,
+    locators: Locator[],
+    boundingBox: BoundingBox,
+  ) {
     super(testResults, image, locators, boundingBox);
   }
 

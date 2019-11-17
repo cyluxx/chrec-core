@@ -14,8 +14,8 @@ import { BoundingBox } from '../../../model/bounding-box';
 import { Edge } from '../../../model/browser/edge';
 import { Firefox } from '../../../model/browser/firefox';
 import { Method } from '../../../model/locator';
-import { CssLocator } from '../../../model/locator/css-locator'
-import { XpathLocator } from '../../../model/locator/xpath-locator'
+import { CssLocator } from '../../../model/locator/css-locator';
+import { XpathLocator } from '../../../model/locator/xpath-locator';
 
 describe('HtmlElementAction', () => {
   describe('addTestResult', () => {
@@ -26,22 +26,18 @@ describe('HtmlElementAction', () => {
       const htmlElementAction = new Clear([], 'bar', [], new BoundingBox(42, 42, 42, 42));
       htmlElementAction.addTestResult(new HtmlElementActionTestResult(browser));
 
-      expect(htmlElementAction.testResults).toEqual(
-        [new HtmlElementActionTestResult(browser)]
-      );
-    })
-  })
+      expect(htmlElementAction.testResults).toEqual([new HtmlElementActionTestResult(browser)]);
+    });
+  });
 
   describe('addLocator', () => {
     test('when Locator, then add it to list', () => {
       const htmlElementAction = new Clear([], 'bar', [], new BoundingBox(42, 42, 42, 42));
       htmlElementAction.addLocator(new CssLocator([], Method.CSS_SELECTOR_GENERATOR, 'foo'));
 
-      expect(htmlElementAction.locators).toEqual(
-        [new CssLocator([], Method.CSS_SELECTOR_GENERATOR, 'foo')]
-      );
-    })
-  })
+      expect(htmlElementAction.locators).toEqual([new CssLocator([], Method.CSS_SELECTOR_GENERATOR, 'foo')]);
+    });
+  });
 
   describe('recommendedLocator', () => {
     test('when all Locators replayable, then return Locator with highest count', () => {
@@ -58,7 +54,7 @@ describe('HtmlElementAction', () => {
       const htmlElementAction = new Submit([], 'foo', [locatorLow, locatorHigh], new BoundingBox(42, 42, 42, 42));
 
       expect(htmlElementAction.recommendedLocator()).toEqual(locatorHigh);
-    })
+    });
 
     test('when highest Locator not replayable, then return replayable Locator with highest count', () => {
       const mockedLocatorLow: CssLocator = mock(CssLocator);
@@ -74,7 +70,7 @@ describe('HtmlElementAction', () => {
       const htmlElementAction = new Submit([], 'foo', [locatorLow, locatorHigh], new BoundingBox(42, 42, 42, 42));
 
       expect(htmlElementAction.recommendedLocator()).toEqual(locatorLow);
-    })
+    });
 
     test('when no Locator replayable, then return null', () => {
       const mockedLocatorLow: CssLocator = mock(CssLocator);
@@ -90,13 +86,13 @@ describe('HtmlElementAction', () => {
       const htmlElementAction = new Submit([], 'foo', [locatorLow, locatorHigh], new BoundingBox(42, 42, 42, 42));
 
       expect(htmlElementAction.recommendedLocator()).toBeNull();
-    })
+    });
 
     test('when no Locator replayable, then return null', () => {
       const htmlElementAction = new Submit([], 'foo', [], new BoundingBox(42, 42, 42, 42));
       expect(htmlElementAction.recommendedLocator()).toBeNull();
-    })
-  })
+    });
+  });
 
   describe('test', () => {
     test('when no recommended Locator, then throw Error', async () => {
@@ -119,8 +115,8 @@ describe('HtmlElementAction', () => {
       await expect(htmlElementAction.test(browser, driver)).rejects.toThrow();
 
       verify(mockedLocator.test(driver)).called();
-    })
-  })
+    });
+  });
 });
 
 describe('Clear', () => {
@@ -132,10 +128,10 @@ describe('Clear', () => {
         testResults: [],
         image: 'foo',
         locators: [],
-        boundingBox: new BoundingBox(42, 42, 42, 42)
+        boundingBox: new BoundingBox(42, 42, 42, 42),
       });
-    })
-  })
+    });
+  });
 });
 
 describe('Click', () => {
@@ -147,10 +143,10 @@ describe('Click', () => {
         testResults: [],
         image: 'foo',
         locators: [],
-        boundingBox: new BoundingBox(42, 42, 42, 42)
+        boundingBox: new BoundingBox(42, 42, 42, 42),
       });
-    })
-  })
+    });
+  });
 });
 
 describe('Read', () => {
@@ -163,10 +159,10 @@ describe('Read', () => {
         image: 'foo',
         locators: [],
         boundingBox: new BoundingBox(42, 42, 42, 42),
-        text: 'bar'
+        text: 'bar',
       });
-    })
-  })
+    });
+  });
 });
 
 describe('Select', () => {
@@ -179,10 +175,10 @@ describe('Select', () => {
         image: 'foo',
         locators: [],
         boundingBox: new BoundingBox(42, 42, 42, 42),
-        value: 'bar'
+        value: 'bar',
       });
-    })
-  })
+    });
+  });
 });
 
 describe('Submit', () => {
@@ -194,10 +190,10 @@ describe('Submit', () => {
         testResults: [],
         image: 'foo',
         locators: [],
-        boundingBox: new BoundingBox(42, 42, 42, 42)
+        boundingBox: new BoundingBox(42, 42, 42, 42),
       });
-    })
-  })
+    });
+  });
 });
 
 describe('SwitchToContext', () => {
@@ -209,10 +205,10 @@ describe('SwitchToContext', () => {
         testResults: [],
         image: 'foo',
         locators: [],
-        boundingBox: new BoundingBox(42, 42, 42, 42)
+        boundingBox: new BoundingBox(42, 42, 42, 42),
       });
-    })
-  })
+    });
+  });
 });
 
 describe('Type', () => {
@@ -225,10 +221,10 @@ describe('Type', () => {
         image: 'foo',
         locators: [],
         boundingBox: new BoundingBox(42, 42, 42, 42),
-        value: 'bar'
+        value: 'bar',
       });
-    })
-  })
+    });
+  });
 });
 
 describe('WaitForAddedHtmlElement', () => {
@@ -240,10 +236,10 @@ describe('WaitForAddedHtmlElement', () => {
         testResults: [],
         image: 'foo',
         locators: [],
-        boundingBox: new BoundingBox(42, 42, 42, 42)
+        boundingBox: new BoundingBox(42, 42, 42, 42),
       });
-    })
-  })
+    });
+  });
 });
 
 describe('WaitForRemovedHtmlElement', () => {
@@ -255,8 +251,8 @@ describe('WaitForRemovedHtmlElement', () => {
         testResults: [],
         image: 'foo',
         locators: [],
-        boundingBox: new BoundingBox(42, 42, 42, 42)
+        boundingBox: new BoundingBox(42, 42, 42, 42),
       });
-    })
-  })
+    });
+  });
 });

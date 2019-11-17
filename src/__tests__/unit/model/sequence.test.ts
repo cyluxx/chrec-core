@@ -1,6 +1,6 @@
 import { WebDriver } from 'selenium-webdriver';
 import { instance, mock, verify, when } from 'ts-mockito';
-import { Mocker } from 'ts-mockito/lib/Mock'
+import { Mocker } from 'ts-mockito/lib/Mock';
 import { Refresh } from '../../../model/action/browser-action/refresh';
 import { Clear } from '../../../model/action/html-element-action/clear';
 import { BoundingBox } from '../../../model/bounding-box';
@@ -24,11 +24,12 @@ describe('Sequence', () => {
       const sequence = new Sequence('bar', [action]);
       sequence.addAction(new Clear([], 'baz', [], new BoundingBox(42, 42, 42, 42)));
 
-      expect(sequence.actions).toEqual(
-        [new Refresh([], 'foo'), new Clear([], 'baz', [], new BoundingBox(42, 42, 42, 42))]
-      );
-    })
-  })
+      expect(sequence.actions).toEqual([
+        new Refresh([], 'foo'),
+        new Clear([], 'baz', [], new BoundingBox(42, 42, 42, 42)),
+      ]);
+    });
+  });
 
   describe('test', () => {
     test('verify driver is build and actions are tested and driver quits', async () => {
@@ -60,6 +61,6 @@ describe('Sequence', () => {
       verify(mockedDriver.sleep(42)).once();
       verify(mockedAction.test(browser, driver)).once();
       verify(mockedDriver.quit()).once();
-    })
-  })
+    });
+  });
 });

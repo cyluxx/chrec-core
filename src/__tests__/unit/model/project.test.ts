@@ -9,11 +9,9 @@ describe('Project', () => {
       const project = new Project('foo', [new Sequence('bar', [])]);
       project.addSequence(new Sequence('s', []));
 
-      expect(project.sequences).toEqual(
-        [new Sequence('bar', []), new Sequence('s', [])]
-      );
-    })
-  })
+      expect(project.sequences).toEqual([new Sequence('bar', []), new Sequence('s', [])]);
+    });
+  });
 
   describe('test', () => {
     test('verify squences are tested', async () => {
@@ -28,6 +26,6 @@ describe('Project', () => {
       project.test(settings);
 
       verify(mockedSequence.test(settings)).called();
-    })
-  })
+    });
+  });
 });

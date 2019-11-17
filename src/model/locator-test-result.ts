@@ -1,4 +1,3 @@
 export class LocatorTestResult {
-  
-  constructor(public replayable: boolean) { }
+  constructor(public replayable: boolean) {}
 }

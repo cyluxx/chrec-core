@@ -8,7 +8,9 @@ describe('ExportService', () => {
       const exportServce = new ExportService();
       const absolutePath = path.resolve('../assets/chrec-export.json');
       expect.assertions(1);
-      await expect(exportServce.exportChrecJson(absolutePath, new Project('projectName', []))).resolves.toEqual(undefined);
+      await expect(exportServce.exportChrecJson(absolutePath, new Project('projectName', []))).resolves.toEqual(
+        undefined,
+      );
     });
   });
 });

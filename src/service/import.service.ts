@@ -68,11 +68,11 @@ export class ImportService {
 
   public reviveAction(parsedJson: any): Action {
     if (
-      parsedJson.className === 'Back'
-      || parsedJson.className === 'Forward'
-      || parsedJson.className === 'GoTo'
-      || parsedJson.className === 'Refresh'
-      || parsedJson.className === 'SwitchToDefaultContext'
+      parsedJson.className === 'Back' ||
+      parsedJson.className === 'Forward' ||
+      parsedJson.className === 'GoTo' ||
+      parsedJson.className === 'Refresh' ||
+      parsedJson.className === 'SwitchToDefaultContext'
     ) {
       return this.reviveBrowserAction(parsedJson);
     }
@@ -80,9 +80,9 @@ export class ImportService {
   }
 
   public reviveBrowserAction(parsedJson: any): BrowserAction {
-    const actionTestResults: BrowserActionTestResult[] = []
+    const actionTestResults: BrowserActionTestResult[] = [];
     for (const actionTestResult of parsedJson.testResults) {
-      actionTestResults.push(this.reviveBrowserActionTestResult(actionTestResult))
+      actionTestResults.push(this.reviveBrowserActionTestResult(actionTestResult));
     }
     switch (parsedJson.className) {
       case 'Back':
@@ -101,9 +101,9 @@ export class ImportService {
   }
 
   public reviveHtmlElementAction(parsedJson: any): HtmlElementAction {
-    const actionTestResults: HtmlElementActionTestResult[] = []
+    const actionTestResults: HtmlElementActionTestResult[] = [];
     for (const actionTestResult of parsedJson.testResults) {
-      actionTestResults.push(this.reviveHtmlElementActionTestResult(actionTestResult))
+      actionTestResults.push(this.reviveHtmlElementActionTestResult(actionTestResult));
     }
     const locators: Locator[] = [];
     for (const locator of parsedJson.locators) {
@@ -126,11 +126,25 @@ export class ImportService {
       case 'Type':
         return new Type(actionTestResults, parsedJson.image, locators, boundingBox, parsedJson.value);
       case 'WaitForAddedHtmlElement':
-        return new WaitForAddedHtmlElement(actionTestResults, parsedJson.image, locators, boundingBox, parsedJson.timeout);
+        return new WaitForAddedHtmlElement(
+          actionTestResults,
+          parsedJson.image,
+          locators,
+          boundingBox,
+          parsedJson.timeout,
+        );
       case 'WaitForRemovedHtmlElement':
-        return new WaitForRemovedHtmlElement(actionTestResults, parsedJson.image, locators, boundingBox, parsedJson.timeout);
+        return new WaitForRemovedHtmlElement(
+          actionTestResults,
+          parsedJson.image,
+          locators,
+          boundingBox,
+          parsedJson.timeout,
+        );
       default:
-        throw new Error(`Internal: Could not revive HtmlElementAction with className ${parsedJson.className} from JSON!`);
+        throw new Error(
+          `Internal: Could not revive HtmlElementAction with className ${parsedJson.className} from JSON!`,
+        );
     }
   }
 
@@ -139,9 +153,9 @@ export class ImportService {
   }
 
   public reviveLocator(parsedJson: any): Locator {
-    const locatorTestResults: LocatorTestResult[] = []
+    const locatorTestResults: LocatorTestResult[] = [];
     for (const locatorTestResult of parsedJson.testResults) {
-      locatorTestResults.push(this.reviveLocatorTestResult(locatorTestResult))
+      locatorTestResults.push(this.reviveLocatorTestResult(locatorTestResult));
     }
     switch (parsedJson.className) {
       case 'CssLocator':
@@ -168,12 +182,7 @@ export class ImportService {
   public reviveBrowser(parsedJson: any): Browser {
     switch (parsedJson.className) {
       case 'Chrome':
-        return new Chrome(
-          parsedJson.name,
-          parsedJson.width,
-          parsedJson.height,
-          parsedJson.sleepMsBetweenActions
-        );
+        return new Chrome(parsedJson.name, parsedJson.width, parsedJson.height, parsedJson.sleepMsBetweenActions);
       case 'Edge':
         return new Edge(parsedJson.name, parsedJson.width, parsedJson.height, parsedJson.sleepMsBetweenActions);
       case 'Firefox':

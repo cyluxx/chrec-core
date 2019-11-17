@@ -9,9 +9,7 @@ describe('Settings', () => {
       const settings = new Settings('bar', [browser]);
       settings.addBrowser(new Edge('baz', 42, 42, 42));
 
-      expect(settings.browsers).toEqual(
-        [new Chrome('foo', 42, 42, 42), new Edge('baz', 42, 42, 42)]
-      );
-    })
-  })
+      expect(settings.browsers).toEqual([new Chrome('foo', 42, 42, 42), new Edge('baz', 42, 42, 42)]);
+    });
+  });
 });
