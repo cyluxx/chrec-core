@@ -50,6 +50,7 @@
   "devDependencies": {
     "@types/jest": "^24.0.0",
     "@types/node": "^11.9.4",
+    "@types/selenium-webdriver": "^3.0.14",
     "codecov": "^3.1.0",
     "cross-env": "^5.2.0",
     "jest": "^24.8.0",
@@ -61,7 +62,6 @@
     "typescript": "^3.5.3"
   },
   "dependencies": {
-    "@types/selenium-webdriver": "^3.0.14",
     "compare-versions": "^3.5.1",
     "load-json-file": "^5.2.0",
     "selenium-webdriver": "^3.6.0",
