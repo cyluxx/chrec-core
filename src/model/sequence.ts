@@ -16,7 +16,7 @@ export class Sequence {
         if (browser.sleepMsBetweenActions) {
           await driver.sleep(browser.sleepMsBetweenActions);
         }
-        action.test(browser, driver);
+        await action.test(browser, driver);
       }
       await driver.quit();
     }
