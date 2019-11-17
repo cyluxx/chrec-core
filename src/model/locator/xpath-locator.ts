@@ -8,15 +8,7 @@ export class XpathLocator extends Locator {
     super(testResults, method, value);
   }
 
-  public async findElement(driver: WebDriver): Promise<WebElement> {
-    return await driver.findElement(By.xpath(this.value));
-  }
-
   public toSeleniumLocator(): SeleniumLocator {
     return By.xpath(this.value);
-  }
-
-  public toAlexNode(): Node {
-    return new Node(this.value, NodeType.XPATH);
   }
 }

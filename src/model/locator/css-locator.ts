@@ -9,14 +9,10 @@ export class CssLocator extends Locator {
   }
 
   public async findElement(driver: WebDriver): Promise<WebElement> {
-    return await driver.findElement(By.css(this.value));
+    return await driver.findElement(this.toSeleniumLocator());
   }
 
   public toSeleniumLocator(): SeleniumLocator {
     return By.css(this.value);
-  }
-
-  public toAlexNode(): Node {
-    return new Node(this.value, NodeType.CSS);
   }
 }

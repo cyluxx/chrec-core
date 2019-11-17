@@ -49,9 +49,9 @@ export abstract class Locator {
     }
   }
 
+  public async findElement(driver: WebDriver): Promise<WebElement> {
+    return driver.findElement(this.toSeleniumLocator());
+  }
+
   public abstract toSeleniumLocator(): SeleniumLocator;
-
-  public abstract async findElement(driver: WebDriver): Promise<WebElement>;
-
-  public abstract toAlexNode(): Node;
 }
