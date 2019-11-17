@@ -11,7 +11,7 @@ export class Sequence {
 
   public async test(settings: Settings) {
     for (const browser of settings.browsers) {
-      const driver: WebDriver = browser.buildWebDriver(settings.seleniumServerUrl);
+      const driver: WebDriver = await browser.buildWebDriver(settings.seleniumServerUrl);
       for (const action of this.actions) {
         if (browser.sleepMsBetweenActions) {
           await driver.sleep(browser.sleepMsBetweenActions);

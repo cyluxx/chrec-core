@@ -172,8 +172,7 @@ export class ImportService {
           parsedJson.name,
           parsedJson.width,
           parsedJson.height,
-          parsedJson.sleepMsBetweenActions,
-          parsedJson.headless,
+          parsedJson.sleepMsBetweenActions
         );
       case 'Edge':
         return new Edge(parsedJson.name, parsedJson.width, parsedJson.height, parsedJson.sleepMsBetweenActions);

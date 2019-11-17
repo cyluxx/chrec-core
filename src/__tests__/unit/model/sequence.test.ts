@@ -1,11 +1,21 @@
 import { WebDriver } from 'selenium-webdriver';
 import { instance, mock, verify, when } from 'ts-mockito';
+import { Mocker } from 'ts-mockito/lib/Mock'
 import { Refresh } from '../../../model/action/browser-action/refresh';
 import { Clear } from '../../../model/action/html-element-action/clear';
 import { BoundingBox } from '../../../model/bounding-box';
 import { Edge } from '../../../model/browser/edge';
 import { Sequence } from '../../../model/sequence';
 import { Settings } from '../../../model/settings';
+
+// Workaround for Issue: https://github.com/NagRock/ts-mockito/issues/163
+/* tslint:disable-next-line */
+function betterMock<T>(clazz?: (new (...args: any[]) => T) | (Function & { prototype: T })): T {
+  const mocker = new Mocker(clazz);
+  /* tslint:disable-next-line */
+  mocker['excludedPropertyNames'] = ['hasOwnProperty', 'then'];
+  return mocker.getMock();
+}
 
 describe('Sequence', () => {
   describe('addAction', () => {
@@ -22,14 +32,14 @@ describe('Sequence', () => {
 
   describe('test', () => {
     test('verify driver is build and actions are tested and driver quits', async () => {
-      const mockedDriver: WebDriver = mock(WebDriver);
+      const mockedDriver: WebDriver = betterMock();
       when(mockedDriver.sleep(42)).thenResolve();
       when(mockedDriver.quit()).thenResolve();
       const driver = instance(mockedDriver);
 
       const mockedBrowser: Edge = mock(Edge);
       when(mockedBrowser.sleepMsBetweenActions).thenReturn(42);
-      when(mockedBrowser.buildWebDriver('foo')).thenReturn(driver);
+      when(mockedBrowser.buildWebDriver('foo')).thenResolve(driver);
       const browser = instance(mockedBrowser);
 
       const mockedSettings: Settings = mock(Settings);

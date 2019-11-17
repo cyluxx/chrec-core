@@ -6,14 +6,7 @@ export class Firefox extends Browser {
     super(name, width, height, sleepMsBetweenActions);
   }
 
-  public buildWebDriver(seleniumServerUrl: string): WebDriver {
-    const builder: Builder = new Builder().forBrowser(BrowserName.FIREFOX).usingServer(seleniumServerUrl);
-    const driver: WebDriver = builder.build();
-    driver.manage().deleteAllCookies();
-    driver
-      .manage()
-      .window()
-      .setSize(this.width, this.height);
-    return driver;
+  public getBuilder(seleniumServerUrl: string): Builder {
+    return new Builder().forBrowser(BrowserName.FIREFOX).usingServer(seleniumServerUrl);
   }
 }
