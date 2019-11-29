@@ -1,5 +1,6 @@
 import { Action } from '../../../model/action';
 import { BrowserActionTestResult } from '../../../model/action-test-result/browser-action-test-result';
+import { HtmlElementActionTestResult } from '../../../model/action-test-result/html-element-action-test-result';
 import { Back } from '../../../model/action/browser-action/back';
 import { Forward } from '../../../model/action/browser-action/forward';
 import { GoTo } from '../../../model/action/browser-action/go-to';
@@ -17,12 +18,12 @@ import { WaitForRemovedHtmlElement } from '../../../model/action/html-element-ac
 import { BoundingBox } from '../../../model/bounding-box';
 import { Edge } from '../../../model/browser/edge';
 import { Method } from '../../../model/locator';
+import { LocatorTestResult } from '../../../model/locator-test-result';
 import { CssLocator } from '../../../model/locator/css-locator';
 import { XpathLocator } from '../../../model/locator/xpath-locator';
 import { Project } from '../../../model/project';
 import { Sequence } from '../../../model/sequence';
 import { ChrecJsonService } from '../../../service/chrec-json.service';
-import { HtmlElementActionTestResult } from '../../../model/action-test-result/html-element-action-test-result';
 
 let service: ChrecJsonService;
 
@@ -132,21 +133,229 @@ describe('ChrecJsonService', () => {
       )
     });
 
-    // test('when correct json with Clear, then revive Action', () => {
-    //   const json = `{"className": "Clear",
-    //   "testResults": [{"browser": {"className": "Edge", "name": "foo", "width": 42, "height": 42, "sleepMsBetweenActions": 42}}],
-    //   "image": "bar",
-    //   "locators": ["className": "XpathLocator"]}`;
-    //   const parsedJson = JSON.parse(json);
+    test('when correct json with Clear, then revive Action', () => {
+      const json = `{
+        "className": "Clear",
+        "testResults": [{"browser": {"className": "Edge", "name": "foo", "width": 42, "height": 42, "sleepMsBetweenActions": 42}}],
+        "image": "bar",
+        "locators": [{"className": "XpathLocator", "testResults": [], "method": "RobulaPlus", "value": "baz"}],
+        "boundingBox": {"x": 42, "y": 42, "width": 42, "height": 42}
+      }`;
+      const parsedJson = JSON.parse(json);
 
-    //   expect(service.reviveAction(parsedJson)).toEqual(
-    //     new Clear(
-    //       [new HtmlElementActionTestResult(new Edge('foo', 42, 42, 42))],
-    //       'bar',
-    //       [new XpathLocator([], Method.ROBULA_PLUS, 'baz')],
-    //       new BoundingBox(42, 42, 42, 42)
-    //     )
-    //   )
-    // });
+      expect(service.reviveAction(parsedJson)).toEqual(
+        new Clear(
+          [new HtmlElementActionTestResult(new Edge('foo', 42, 42, 42))],
+          'bar',
+          [new XpathLocator([], Method.ROBULA_PLUS, 'baz')],
+          new BoundingBox(42, 42, 42, 42)
+        )
+      )
+    });
+
+    test('when correct json with Click, then revive Action', () => {
+      const json = `{
+        "className": "Click",
+        "testResults": [{"browser": {"className": "Edge", "name": "foo", "width": 42, "height": 42, "sleepMsBetweenActions": 42}}],
+        "image": "bar",
+        "locators": [{"className": "XpathLocator", "testResults": [], "method": "RobulaPlus", "value": "baz"}],
+        "boundingBox": {"x": 42, "y": 42, "width": 42, "height": 42}
+      }`;
+      const parsedJson = JSON.parse(json);
+
+      expect(service.reviveAction(parsedJson)).toEqual(
+        new Click(
+          [new HtmlElementActionTestResult(new Edge('foo', 42, 42, 42))],
+          'bar',
+          [new XpathLocator([], Method.ROBULA_PLUS, 'baz')],
+          new BoundingBox(42, 42, 42, 42)
+        )
+      )
+    });
+
+    test('when correct json with Read, then revive Action', () => {
+      const json = `{
+        "className": "Read",
+        "testResults": [{"browser": {"className": "Edge", "name": "foo", "width": 42, "height": 42, "sleepMsBetweenActions": 42}}],
+        "image": "bar",
+        "locators": [{"className": "XpathLocator", "testResults": [], "method": "RobulaPlus", "value": "baz"}],
+        "boundingBox": {"x": 42, "y": 42, "width": 42, "height": 42},
+        "text": "lol"
+      }`;
+      const parsedJson = JSON.parse(json);
+
+      expect(service.reviveAction(parsedJson)).toEqual(
+        new Read(
+          [new HtmlElementActionTestResult(new Edge('foo', 42, 42, 42))],
+          'bar',
+          [new XpathLocator([], Method.ROBULA_PLUS, 'baz')],
+          new BoundingBox(42, 42, 42, 42),
+          'lol'
+        )
+      )
+    });
+
+    test('when correct json with Select, then revive Action', () => {
+      const json = `{
+        "className": "Select",
+        "testResults": [{"browser": {"className": "Edge", "name": "foo", "width": 42, "height": 42, "sleepMsBetweenActions": 42}}],
+        "image": "bar",
+        "locators": [{"className": "XpathLocator", "testResults": [], "method": "RobulaPlus", "value": "baz"}],
+        "boundingBox": {"x": 42, "y": 42, "width": 42, "height": 42},
+        "value": "lol"
+      }`;
+      const parsedJson = JSON.parse(json);
+
+      expect(service.reviveAction(parsedJson)).toEqual(
+        new Select(
+          [new HtmlElementActionTestResult(new Edge('foo', 42, 42, 42))],
+          'bar',
+          [new XpathLocator([], Method.ROBULA_PLUS, 'baz')],
+          new BoundingBox(42, 42, 42, 42),
+          'lol'
+        )
+      )
+    });
+
+    test('when correct json with Submit, then revive Action', () => {
+      const json = `{
+        "className": "Submit",
+        "testResults": [{"browser": {"className": "Edge", "name": "foo", "width": 42, "height": 42, "sleepMsBetweenActions": 42}}],
+        "image": "bar",
+        "locators": [{"className": "XpathLocator", "testResults": [], "method": "RobulaPlus", "value": "baz"}],
+        "boundingBox": {"x": 42, "y": 42, "width": 42, "height": 42}
+      }`;
+      const parsedJson = JSON.parse(json);
+
+      expect(service.reviveAction(parsedJson)).toEqual(
+        new Submit(
+          [new HtmlElementActionTestResult(new Edge('foo', 42, 42, 42))],
+          'bar',
+          [new XpathLocator([], Method.ROBULA_PLUS, 'baz')],
+          new BoundingBox(42, 42, 42, 42)
+        )
+      )
+    });
+
+    test('when correct json with SwitchToContext, then revive Action', () => {
+      const json = `{
+        "className": "SwitchToContext",
+        "testResults": [{"browser": {"className": "Edge", "name": "foo", "width": 42, "height": 42, "sleepMsBetweenActions": 42}}],
+        "image": "bar",
+        "locators": [{"className": "XpathLocator", "testResults": [], "method": "RobulaPlus", "value": "baz"}],
+        "boundingBox": {"x": 42, "y": 42, "width": 42, "height": 42}
+      }`;
+      const parsedJson = JSON.parse(json);
+
+      expect(service.reviveAction(parsedJson)).toEqual(
+        new SwitchToContext(
+          [new HtmlElementActionTestResult(new Edge('foo', 42, 42, 42))],
+          'bar',
+          [new XpathLocator([], Method.ROBULA_PLUS, 'baz')],
+          new BoundingBox(42, 42, 42, 42)
+        )
+      )
+    });
+
+    test('when correct json with Type, then revive Action', () => {
+      const json = `{
+        "className": "Type",
+        "testResults": [{"browser": {"className": "Edge", "name": "foo", "width": 42, "height": 42, "sleepMsBetweenActions": 42}}],
+        "image": "bar",
+        "locators": [{"className": "XpathLocator", "testResults": [], "method": "RobulaPlus", "value": "baz"}],
+        "boundingBox": {"x": 42, "y": 42, "width": 42, "height": 42},
+        "value": "lol"
+      }`;
+      const parsedJson = JSON.parse(json);
+
+      expect(service.reviveAction(parsedJson)).toEqual(
+        new Type(
+          [new HtmlElementActionTestResult(new Edge('foo', 42, 42, 42))],
+          'bar',
+          [new XpathLocator([], Method.ROBULA_PLUS, 'baz')],
+          new BoundingBox(42, 42, 42, 42),
+          'lol'
+        )
+      )
+    });
+
+    test('when correct json with WaitForAddedHtmlElement, then revive Action', () => {
+      const json = `{
+        "className": "WaitForAddedHtmlElement",
+        "testResults": [{"browser": {"className": "Edge", "name": "foo", "width": 42, "height": 42, "sleepMsBetweenActions": 42}}],
+        "image": "bar",
+        "locators": [{"className": "XpathLocator", "testResults": [], "method": "RobulaPlus", "value": "baz"}],
+        "boundingBox": {"x": 42, "y": 42, "width": 42, "height": 42}
+      }`;
+      const parsedJson = JSON.parse(json);
+
+      expect(service.reviveAction(parsedJson)).toEqual(
+        new WaitForAddedHtmlElement(
+          [new HtmlElementActionTestResult(new Edge('foo', 42, 42, 42))],
+          'bar',
+          [new XpathLocator([], Method.ROBULA_PLUS, 'baz')],
+          new BoundingBox(42, 42, 42, 42)
+        )
+      )
+    });
+
+    test('when correct json with WaitForRemovedHtmlElement, then revive Action', () => {
+      const json = `{
+        "className": "WaitForRemovedHtmlElement",
+        "testResults": [{"browser": {"className": "Edge", "name": "foo", "width": 42, "height": 42, "sleepMsBetweenActions": 42}}],
+        "image": "bar",
+        "locators": [{"className": "XpathLocator", "testResults": [], "method": "RobulaPlus", "value": "baz"}],
+        "boundingBox": {"x": 42, "y": 42, "width": 42, "height": 42}
+      }`;
+      const parsedJson = JSON.parse(json);
+
+      expect(service.reviveAction(parsedJson)).toEqual(
+        new WaitForRemovedHtmlElement(
+          [new HtmlElementActionTestResult(new Edge('foo', 42, 42, 42))],
+          'bar',
+          [new XpathLocator([], Method.ROBULA_PLUS, 'baz')],
+          new BoundingBox(42, 42, 42, 42)
+        )
+      )
+    });
+  });
+
+  describe('reviveBoundingBox', () => {
+    test('when correct json, then revive BoundingBox', () => {
+      const json = `{"x": 42, "y": 42, "width": 42, "height": 42}`;
+      const parsedJson = JSON.parse(json);
+
+      expect(service.reviveBoundingBox(parsedJson)).toEqual(
+        new BoundingBox(42, 42, 42, 42)
+      );
+    });
+  });
+
+  describe('reviveLocator', () => {
+    test('when correct json with CssLocator, then revive Locator', () => {
+      const json = `{"className": "CssLocator", "testResults": [{"replayable": true}], "method": "Finder", "value": "baz"}`
+      const parsedJson = JSON.parse(json);
+
+      expect(service.reviveLocator(parsedJson)).toEqual(
+        new CssLocator(
+          [new LocatorTestResult(true)],
+          Method.FINDER,
+          'baz'
+        )
+      );
+    })
+
+    test('when correct json with XpathLocator, then revive Locator', () => {
+      const json = `{"className": "XpathLocator", "testResults": [{"replayable": true}], "method": "RobulaPlus", "value": "baz"}`
+      const parsedJson = JSON.parse(json);
+
+      expect(service.reviveLocator(parsedJson)).toEqual(
+        new XpathLocator(
+          [new LocatorTestResult(true)],
+          Method.ROBULA_PLUS,
+          'baz'
+        )
+      );
+    })
   });
 });

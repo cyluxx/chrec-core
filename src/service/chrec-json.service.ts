@@ -123,7 +123,7 @@ export class ChrecJsonService {
       case 'Click':
         return new Click(actionTestResults, parsedJson.image, locators, boundingBox);
       case 'Read':
-        return new Read(actionTestResults, parsedJson.image, locators, boundingBox, parsedJson.value);
+        return new Read(actionTestResults, parsedJson.image, locators, boundingBox, parsedJson.text);
       case 'Select':
         return new Select(actionTestResults, parsedJson.image, locators, boundingBox, parsedJson.value);
       case 'Submit':
