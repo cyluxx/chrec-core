@@ -19,27 +19,27 @@ import { CssLocator } from '../../../model/locator/css-locator';
 import { XpathLocator } from '../../../model/locator/xpath-locator';
 import { Project } from '../../../model/project';
 import { Sequence } from '../../../model/sequence';
-import { ImportService } from '../../../service/import.service';
+import { ChrecJsonService } from '../../../service/chrec-json.service';
 
-describe('ImportService', () => {
+describe('ChrecJsonService', () => {
   describe('validateChrecJson', () => {
     test('throws Error when invalid appName', () => {
-      const importService = new ImportService();
+      const service = new ChrecJsonService();
       const json = `{"name":"invalid", "version":"0.0.1", "projects": []}`;
       const parsedJson = JSON.parse(json);
 
       expect(() => {
-        importService.validateChrecJson(parsedJson);
+        service.validateChrecJson(parsedJson);
       }).toThrow();
     });
 
     test('throws Error when invalid appVersion', () => {
-      const importService = new ImportService();
+      const service = new ChrecJsonService();
       const json = `{"name":"chrec-core", "version":"999.999.999", "projects": []}`;
       const parsedJson = JSON.parse(json);
 
       expect(() => {
-        importService.validateChrecJson(parsedJson);
+        service.validateChrecJson(parsedJson);
       }).toThrow();
     });
   });

@@ -1,3 +1,4 @@
+import * as path from 'path';
 import { GoTo } from '../../../model/action/browser-action/go-to';
 import { Refresh } from '../../../model/action/browser-action/refresh';
 import { Click } from '../../../model/action/html-element-action/click';
@@ -7,24 +8,30 @@ import { CssLocator } from '../../../model/locator/css-locator';
 import { XpathLocator } from '../../../model/locator/xpath-locator';
 import { Project } from '../../../model/project';
 import { Sequence } from '../../../model/sequence';
-import { ImportService } from '../../../service/import.service';
+import { ChrecJsonService } from '../../../service/chrec-json.service';
 
-let importService: ImportService;
+describe('ChrecJsonService', () => {
+  describe('exportChrecJson', () => {
+    test('when Project, then JSON File containing application name, its version and the passed Project', async () => {
+      const service = new ChrecJsonService();
+      const absolutePath = path.resolve('../assets/chrec-export.json');
+      expect.assertions(1);
+      await expect(service.exportChrecJson(absolutePath, new Project('projectName', []))).resolves.toEqual(
+        undefined,
+      );
+    });
+  });
 
-beforeAll(() => {
-  importService = new ImportService();
-});
-
-describe('ImportService', () => {
   describe('importFromChrecJson', () => {
     test('returns project with valid Refresh Action', async () => {
+      const service = new ChrecJsonService();
       expect.assertions(3);
 
       const action = new Refresh([], 'foo');
       const sequence = new Sequence('Test Sequence', [action]);
       const project = new Project('Project With Refresh', [sequence]);
 
-      const imported: Project = await importService.importChrecJson(
+      const imported: Project = await service.importChrecJson(
         'src/__tests__/integration/assets/project-with-refresh.json',
       );
 
@@ -34,9 +41,10 @@ describe('ImportService', () => {
     });
 
     test('returns project with valid GoTo Action', async () => {
+      const service = new ChrecJsonService();
       expect.assertions(1);
 
-      const project: Project = await importService.importChrecJson(
+      const project: Project = await service.importChrecJson(
         'src/__tests__/integration/assets/project-with-goto.json',
       );
 
@@ -44,9 +52,10 @@ describe('ImportService', () => {
     });
 
     test('returns project with valid Click Action', async () => {
+      const service = new ChrecJsonService();
       expect.assertions(1);
 
-      const project: Project = await importService.importChrecJson(
+      const project: Project = await service.importChrecJson(
         'src/__tests__/integration/assets/project-with-click.json',
       );
 
@@ -61,9 +70,10 @@ describe('ImportService', () => {
     });
 
     test('returns valid Project with correctly typed objects', async () => {
+      const service = new ChrecJsonService();
       expect.assertions(1);
 
-      const imported: Project = await importService.importChrecJson(
+      const imported: Project = await service.importChrecJson(
         'src/__tests__/integration/assets/project-with-all-actions.json',
       );
 

@@ -1,5 +1,6 @@
 import * as compareVersions from 'compare-versions';
 import loadJsonFile from 'load-json-file';
+import writeJsonFile from 'write-json-file';
 import { Action } from '../model/action';
 import { BrowserActionTestResult } from '../model/action-test-result/browser-action-test-result';
 import { HtmlElementActionTestResult } from '../model/action-test-result/html-element-action-test-result';
@@ -32,7 +33,13 @@ import { XpathLocator } from '../model/locator/xpath-locator';
 import { Project } from '../model/project';
 import { Sequence } from '../model/sequence';
 
-export class ImportService {
+export class ChrecJsonService {
+
+  public async exportChrecJson(absolutePath: string, project: Project): Promise<void> {
+    const json = { name: 'ChRec', version: process.env.npm_package_version, project };
+    await writeJsonFile(absolutePath, json);
+  }
+
   public async importChrecJson(absolutePath: string): Promise<Project> {
     const parsedJson: any = await loadJsonFile(absolutePath);
     return this.validateChrecJson(parsedJson);

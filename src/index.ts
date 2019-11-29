@@ -1,20 +1,13 @@
-import { HtmlElementActionTestResult } from './model/action-test-result/html-element-action-test-result';
-import { HtmlElementAction } from './model/action/html-element-action';
-import { Locator, Method } from './model/locator';
-import { LocatorTestResult } from './model/locator-test-result';
 import { Project } from './model/project';
 import { Sequence } from './model/sequence';
 import { Settings } from './model/settings';
-import { ExportService } from './service/export.service';
-import { ImportService } from './service/import.service';
+import { ChrecJsonService } from './service/chrec-json.service';
 
 export class Core {
-  public exportService: ExportService;
-  public importService: ImportService;
+  public chrecJsonService: ChrecJsonService;
 
   constructor() {
-    this.exportService = new ExportService();
-    this.importService = new ImportService();
+    this.chrecJsonService = new ChrecJsonService();
   }
 
   public async testProject(project: Project, settings: Settings): Promise<void> {
@@ -26,10 +19,10 @@ export class Core {
   }
 
   public exportChrecJson(project: Project, dirName: string): void {
-    this.exportService.exportChrecJson(dirName, project);
+    this.chrecJsonService.exportChrecJson(dirName, project);
   }
 
   public async importChrecJson(absolutePath: string): Promise<Project> {
-    return this.importService.importChrecJson(absolutePath);
+    return this.chrecJsonService.importChrecJson(absolutePath);
   }
 }
