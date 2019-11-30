@@ -356,6 +356,37 @@ describe('ChrecJsonService', () => {
           'baz'
         )
       );
-    })
+    });
+  });
+
+  describe('reviveLocatorTestResult', () => {
+    test('when correct json, then revive LocatorTestResult', () => {
+      const json = `{"replayable": false}`;
+      const parsedJson = JSON.parse(json);
+
+      expect(service.reviveLocatorTestResult(parsedJson)).toEqual(new LocatorTestResult(false));
+    });
+  });
+
+  describe('reviveBrowserActionTestResult', () => {
+    test('when correct json, then revive BrowserActionTestResult', () => {
+      const json = `{"browser": {"className": "Edge", "name": "foo", "width": 42, "height": 42, "sleepMsBetweenActions": 42}, "replayable": false}`;
+      const parsedJson = JSON.parse(json);
+
+      expect(service.reviveBrowserActionTestResult(parsedJson)).toEqual(
+        new BrowserActionTestResult(new Edge('foo', 42, 42, 42), false)
+      );
+    });
+  });
+
+  describe('reviveHtmlElementActionTestResult', () => {
+    test('when correct json, then revive HtmlElementActionTestResult', () => {
+      const json = `{"browser": {"className": "Edge", "name": "foo", "width": 42, "height": 42, "sleepMsBetweenActions": 42}}`;
+      const parsedJson = JSON.parse(json);
+
+      expect(service.reviveHtmlElementActionTestResult(parsedJson)).toEqual(
+        new HtmlElementActionTestResult(new Edge('foo', 42, 42, 42))
+      );
+    });
   });
 });
