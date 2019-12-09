@@ -34,7 +34,6 @@ import { Project } from '../model/project';
 import { Sequence } from '../model/sequence';
 
 export class ChrecJsonService {
-
   public async exportChrecJson(absolutePath: string, project: Project): Promise<void> {
     const json = { name: 'ChRec', version: process.env.npm_package_version, project };
     await writeJsonFile(absolutePath, json);

@@ -16,9 +16,7 @@ describe('ChrecJsonService', () => {
       const service = new ChrecJsonService();
       const absolutePath = path.resolve('../assets/chrec-export.json');
       expect.assertions(1);
-      await expect(service.exportChrecJson(absolutePath, new Project('projectName', []))).resolves.toEqual(
-        undefined,
-      );
+      await expect(service.exportChrecJson(absolutePath, new Project('projectName', []))).resolves.toEqual(undefined);
     });
   });
 
@@ -44,9 +42,7 @@ describe('ChrecJsonService', () => {
       const service = new ChrecJsonService();
       expect.assertions(1);
 
-      const project: Project = await service.importChrecJson(
-        'src/__tests__/integration/assets/project-with-goto.json',
-      );
+      const project: Project = await service.importChrecJson('src/__tests__/integration/assets/project-with-goto.json');
 
       expect(project.sequences[0].actions[0]).toEqual(new GoTo([], 'foo', 'https://www.github.com'));
     });

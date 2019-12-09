@@ -87,8 +87,8 @@ describe('ChrecJsonService', () => {
       const parsedJson = JSON.parse(json);
 
       expect(service.reviveAction(parsedJson)).toEqual(
-        new Back([new BrowserActionTestResult(new Edge('foo', 42, 42, 42), true)], 'bar')
-      )
+        new Back([new BrowserActionTestResult(new Edge('foo', 42, 42, 42), true)], 'bar'),
+      );
     });
 
     test('when correct json with Forward, then revive Action', () => {
@@ -98,8 +98,8 @@ describe('ChrecJsonService', () => {
       const parsedJson = JSON.parse(json);
 
       expect(service.reviveAction(parsedJson)).toEqual(
-        new Forward([new BrowserActionTestResult(new Edge('foo', 42, 42, 42), true)], 'bar')
-      )
+        new Forward([new BrowserActionTestResult(new Edge('foo', 42, 42, 42), true)], 'bar'),
+      );
     });
 
     test('when correct json with GoTo, then revive Action', () => {
@@ -109,8 +109,8 @@ describe('ChrecJsonService', () => {
       const parsedJson = JSON.parse(json);
 
       expect(service.reviveAction(parsedJson)).toEqual(
-        new GoTo([new BrowserActionTestResult(new Edge('foo', 42, 42, 42), true)], 'bar', 'baz')
-      )
+        new GoTo([new BrowserActionTestResult(new Edge('foo', 42, 42, 42), true)], 'bar', 'baz'),
+      );
     });
 
     test('when correct json with Refresh, then revive Action', () => {
@@ -120,8 +120,8 @@ describe('ChrecJsonService', () => {
       const parsedJson = JSON.parse(json);
 
       expect(service.reviveAction(parsedJson)).toEqual(
-        new Refresh([new BrowserActionTestResult(new Edge('foo', 42, 42, 42), true)], 'bar')
-      )
+        new Refresh([new BrowserActionTestResult(new Edge('foo', 42, 42, 42), true)], 'bar'),
+      );
     });
 
     test('when correct json with SwitchToDefaultContext, then revive Action', () => {
@@ -131,8 +131,8 @@ describe('ChrecJsonService', () => {
       const parsedJson = JSON.parse(json);
 
       expect(service.reviveAction(parsedJson)).toEqual(
-        new SwitchToDefaultContext([new BrowserActionTestResult(new Edge('foo', 42, 42, 42), true)], 'bar')
-      )
+        new SwitchToDefaultContext([new BrowserActionTestResult(new Edge('foo', 42, 42, 42), true)], 'bar'),
+      );
     });
 
     test('when correct json with Clear, then revive Action', () => {
@@ -150,9 +150,9 @@ describe('ChrecJsonService', () => {
           [new HtmlElementActionTestResult(new Edge('foo', 42, 42, 42))],
           'bar',
           [new XpathLocator([], Method.ROBULA_PLUS, 'baz')],
-          new BoundingBox(42, 42, 42, 42)
-        )
-      )
+          new BoundingBox(42, 42, 42, 42),
+        ),
+      );
     });
 
     test('when correct json with Click, then revive Action', () => {
@@ -170,9 +170,9 @@ describe('ChrecJsonService', () => {
           [new HtmlElementActionTestResult(new Edge('foo', 42, 42, 42))],
           'bar',
           [new XpathLocator([], Method.ROBULA_PLUS, 'baz')],
-          new BoundingBox(42, 42, 42, 42)
-        )
-      )
+          new BoundingBox(42, 42, 42, 42),
+        ),
+      );
     });
 
     test('when correct json with Read, then revive Action', () => {
@@ -192,9 +192,9 @@ describe('ChrecJsonService', () => {
           'bar',
           [new XpathLocator([], Method.ROBULA_PLUS, 'baz')],
           new BoundingBox(42, 42, 42, 42),
-          'lol'
-        )
-      )
+          'lol',
+        ),
+      );
     });
 
     test('when correct json with Select, then revive Action', () => {
@@ -214,9 +214,9 @@ describe('ChrecJsonService', () => {
           'bar',
           [new XpathLocator([], Method.ROBULA_PLUS, 'baz')],
           new BoundingBox(42, 42, 42, 42),
-          'lol'
-        )
-      )
+          'lol',
+        ),
+      );
     });
 
     test('when correct json with Submit, then revive Action', () => {
@@ -234,9 +234,9 @@ describe('ChrecJsonService', () => {
           [new HtmlElementActionTestResult(new Edge('foo', 42, 42, 42))],
           'bar',
           [new XpathLocator([], Method.ROBULA_PLUS, 'baz')],
-          new BoundingBox(42, 42, 42, 42)
-        )
-      )
+          new BoundingBox(42, 42, 42, 42),
+        ),
+      );
     });
 
     test('when correct json with SwitchToContext, then revive Action', () => {
@@ -254,9 +254,9 @@ describe('ChrecJsonService', () => {
           [new HtmlElementActionTestResult(new Edge('foo', 42, 42, 42))],
           'bar',
           [new XpathLocator([], Method.ROBULA_PLUS, 'baz')],
-          new BoundingBox(42, 42, 42, 42)
-        )
-      )
+          new BoundingBox(42, 42, 42, 42),
+        ),
+      );
     });
 
     test('when correct json with Type, then revive Action', () => {
@@ -276,9 +276,9 @@ describe('ChrecJsonService', () => {
           'bar',
           [new XpathLocator([], Method.ROBULA_PLUS, 'baz')],
           new BoundingBox(42, 42, 42, 42),
-          'lol'
-        )
-      )
+          'lol',
+        ),
+      );
     });
 
     test('when correct json with WaitForAddedHtmlElement, then revive Action', () => {
@@ -296,9 +296,9 @@ describe('ChrecJsonService', () => {
           [new HtmlElementActionTestResult(new Edge('foo', 42, 42, 42))],
           'bar',
           [new XpathLocator([], Method.ROBULA_PLUS, 'baz')],
-          new BoundingBox(42, 42, 42, 42)
-        )
-      )
+          new BoundingBox(42, 42, 42, 42),
+        ),
+      );
     });
 
     test('when correct json with WaitForRemovedHtmlElement, then revive Action', () => {
@@ -316,9 +316,9 @@ describe('ChrecJsonService', () => {
           [new HtmlElementActionTestResult(new Edge('foo', 42, 42, 42))],
           'bar',
           [new XpathLocator([], Method.ROBULA_PLUS, 'baz')],
-          new BoundingBox(42, 42, 42, 42)
-        )
-      )
+          new BoundingBox(42, 42, 42, 42),
+        ),
+      );
     });
 
     test('when invalid ClassName, then throw Error', () => {
@@ -331,8 +331,9 @@ describe('ChrecJsonService', () => {
       }`;
       const parsedJson = JSON.parse(json);
 
-      expect(() => service.reviveAction(parsedJson))
-        .toThrow('Internal: Could not revive HtmlElementAction with className invalid from JSON!');
+      expect(() => service.reviveAction(parsedJson)).toThrow(
+        'Internal: Could not revive HtmlElementAction with className invalid from JSON!',
+      );
     });
   });
 
@@ -341,36 +342,26 @@ describe('ChrecJsonService', () => {
       const json = `{"x": 42, "y": 42, "width": 42, "height": 42}`;
       const parsedJson = JSON.parse(json);
 
-      expect(service.reviveBoundingBox(parsedJson)).toEqual(
-        new BoundingBox(42, 42, 42, 42)
-      );
+      expect(service.reviveBoundingBox(parsedJson)).toEqual(new BoundingBox(42, 42, 42, 42));
     });
   });
 
   describe('reviveLocator', () => {
     test('when correct json with CssLocator, then revive Locator', () => {
-      const json = `{"className": "CssLocator", "testResults": [{"replayable": true}], "method": "Finder", "value": "baz"}`
+      const json = `{"className": "CssLocator", "testResults": [{"replayable": true}], "method": "Finder", "value": "baz"}`;
       const parsedJson = JSON.parse(json);
 
       expect(service.reviveLocator(parsedJson)).toEqual(
-        new CssLocator(
-          [new LocatorTestResult(true)],
-          Method.FINDER,
-          'baz'
-        )
+        new CssLocator([new LocatorTestResult(true)], Method.FINDER, 'baz'),
       );
-    })
+    });
 
     test('when correct json with XpathLocator, then revive Locator', () => {
-      const json = `{"className": "XpathLocator", "testResults": [{"replayable": true}], "method": "RobulaPlus", "value": "baz"}`
+      const json = `{"className": "XpathLocator", "testResults": [{"replayable": true}], "method": "RobulaPlus", "value": "baz"}`;
       const parsedJson = JSON.parse(json);
 
       expect(service.reviveLocator(parsedJson)).toEqual(
-        new XpathLocator(
-          [new LocatorTestResult(true)],
-          Method.ROBULA_PLUS,
-          'baz'
-        )
+        new XpathLocator([new LocatorTestResult(true)], Method.ROBULA_PLUS, 'baz'),
       );
     });
 
@@ -397,7 +388,7 @@ describe('ChrecJsonService', () => {
       const parsedJson = JSON.parse(json);
 
       expect(service.reviveBrowserActionTestResult(parsedJson)).toEqual(
-        new BrowserActionTestResult(new Edge('foo', 42, 42, 42), false)
+        new BrowserActionTestResult(new Edge('foo', 42, 42, 42), false),
       );
     });
   });
@@ -408,7 +399,7 @@ describe('ChrecJsonService', () => {
       const parsedJson = JSON.parse(json);
 
       expect(service.reviveHtmlElementActionTestResult(parsedJson)).toEqual(
-        new HtmlElementActionTestResult(new Edge('foo', 42, 42, 42))
+        new HtmlElementActionTestResult(new Edge('foo', 42, 42, 42)),
       );
     });
   });
