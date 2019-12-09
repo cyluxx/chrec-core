@@ -1,4 +1,3 @@
-import { Action } from '../../../model/action';
 import { BrowserActionTestResult } from '../../../model/action-test-result/browser-action-test-result';
 import { HtmlElementActionTestResult } from '../../../model/action-test-result/html-element-action-test-result';
 import { Back } from '../../../model/action/browser-action/back';
@@ -16,7 +15,10 @@ import { Type } from '../../../model/action/html-element-action/type';
 import { WaitForAddedHtmlElement } from '../../../model/action/html-element-action/wait-for-added-html-element';
 import { WaitForRemovedHtmlElement } from '../../../model/action/html-element-action/wait-for-removed-html-element';
 import { BoundingBox } from '../../../model/bounding-box';
+import { Chrome } from '../../../model/browser/chrome';
 import { Edge } from '../../../model/browser/edge';
+import { Firefox } from '../../../model/browser/firefox';
+import { InternetExplorer } from '../../../model/browser/internet-explorer';
 import { Method } from '../../../model/locator';
 import { LocatorTestResult } from '../../../model/locator-test-result';
 import { CssLocator } from '../../../model/locator/css-locator';
@@ -318,6 +320,20 @@ describe('ChrecJsonService', () => {
         )
       )
     });
+
+    test('when invalid ClassName, then throw Error', () => {
+      const json = `{
+        "className": "invalid",
+        "testResults": [{"browser": {"className": "Edge", "name": "foo", "width": 42, "height": 42, "sleepMsBetweenActions": 42}}],
+        "image": "bar",
+        "locators": [{"className": "XpathLocator", "testResults": [], "method": "RobulaPlus", "value": "baz"}],
+        "boundingBox": {"x": 42, "y": 42, "width": 42, "height": 42}
+      }`;
+      const parsedJson = JSON.parse(json);
+
+      expect(() => service.reviveAction(parsedJson))
+        .toThrow('Internal: Could not revive HtmlElementAction with className invalid from JSON!');
+    });
   });
 
   describe('reviveBoundingBox', () => {
@@ -357,6 +373,13 @@ describe('ChrecJsonService', () => {
         )
       );
     });
+
+    test('when invalid ClassName, then throw Error', () => {
+      const json = `{"className": "invalid", "testResults": [{"replayable": true}], "method": "RobulaPlus", "value": "baz"}`;
+      const parsedJson = JSON.parse(json);
+
+      expect(() => service.reviveLocator(parsedJson)).toThrow('Could not revive Locator from JSON!');
+    });
   });
 
   describe('reviveLocatorTestResult', () => {
@@ -387,6 +410,43 @@ describe('ChrecJsonService', () => {
       expect(service.reviveHtmlElementActionTestResult(parsedJson)).toEqual(
         new HtmlElementActionTestResult(new Edge('foo', 42, 42, 42))
       );
+    });
+  });
+
+  describe('reviveBrowser', () => {
+    test('when correct json with Chrome, then revive Browser', () => {
+      const json = `{"className": "Chrome", "name": "foo", "width": 42, "height": 42, "sleepMsBetweenActions": 42}`;
+      const parsedJson = JSON.parse(json);
+
+      expect(service.reviveBrowser(parsedJson)).toEqual(new Chrome('foo', 42, 42, 42));
+    });
+
+    test('when correct json with Edge, then revive Browser', () => {
+      const json = `{"className": "Edge", "name": "foo", "width": 42, "height": 42, "sleepMsBetweenActions": 42}`;
+      const parsedJson = JSON.parse(json);
+
+      expect(service.reviveBrowser(parsedJson)).toEqual(new Edge('foo', 42, 42, 42));
+    });
+
+    test('when correct json with Firefox, then revive Browser', () => {
+      const json = `{"className": "Firefox", "name": "foo", "width": 42, "height": 42, "sleepMsBetweenActions": 42}`;
+      const parsedJson = JSON.parse(json);
+
+      expect(service.reviveBrowser(parsedJson)).toEqual(new Firefox('foo', 42, 42, 42));
+    });
+
+    test('when correct json with InternetExplorer, then revive Browser', () => {
+      const json = `{"className": "InternetExplorer", "name": "foo", "width": 42, "height": 42, "sleepMsBetweenActions": 42}`;
+      const parsedJson = JSON.parse(json);
+
+      expect(service.reviveBrowser(parsedJson)).toEqual(new InternetExplorer('foo', 42, 42, 42));
+    });
+
+    test('when invalid ClassName, then throw Error', () => {
+      const json = `{"className": "invalid", "name": "foo", "width": 42, "height": 42, "sleepMsBetweenActions": 42}`;
+      const parsedJson = JSON.parse(json);
+
+      expect(() => service.reviveBrowser(parsedJson)).toThrow('Could not construct Browser from ChRec JSON!');
     });
   });
 });

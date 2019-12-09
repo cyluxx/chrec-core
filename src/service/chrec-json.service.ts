@@ -100,11 +100,8 @@ export class ChrecJsonService {
         return new GoTo(actionTestResults, parsedJson.image, parsedJson.url);
       case 'Refresh':
         return new Refresh(actionTestResults, parsedJson.image);
-      case 'SwitchToDefaultContext':
-        return new SwitchToDefaultContext(actionTestResults, parsedJson.image);
-      default:
-        throw new Error(`Internal: Could not revive BrowserAction with className ${parsedJson.className} from JSON!`);
     }
+    return new SwitchToDefaultContext(actionTestResults, parsedJson.image);
   }
 
   public reviveHtmlElementAction(parsedJson: any): HtmlElementAction {
@@ -148,11 +145,8 @@ export class ChrecJsonService {
           boundingBox,
           parsedJson.timeout,
         );
-      default:
-        throw new Error(
-          `Internal: Could not revive HtmlElementAction with className ${parsedJson.className} from JSON!`,
-        );
     }
+    throw new Error(`Internal: Could not revive HtmlElementAction with className ${parsedJson.className} from JSON!`);
   }
 
   public reviveBoundingBox(parsedJson: any): BoundingBox {
@@ -169,9 +163,8 @@ export class ChrecJsonService {
         return new CssLocator(locatorTestResults, parsedJson.method, parsedJson.value);
       case 'XpathLocator':
         return new XpathLocator(locatorTestResults, parsedJson.method, parsedJson.value);
-      default:
-        throw new Error('Could not revive Locator from JSON!');
     }
+    throw new Error('Could not revive Locator from JSON!');
   }
 
   public reviveLocatorTestResult(parsedJson: any): LocatorTestResult {
@@ -201,8 +194,7 @@ export class ChrecJsonService {
           parsedJson.height,
           parsedJson.sleepMsBetweenActions,
         );
-      default:
-        throw new Error('Could not construct Browser from ChRec JSON!');
     }
+    throw new Error('Could not construct Browser from ChRec JSON!');
   }
 }
