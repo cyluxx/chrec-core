@@ -1,4 +1,4 @@
-import { WebDriver } from 'selenium-webdriver';
+import { WebDriver, WebElement } from 'selenium-webdriver';
 import { instance, mock, spy, verify, when } from 'ts-mockito';
 import { HtmlElementActionTestResult } from '../../../model/action-test-result/html-element-action-test-result';
 import { Clear } from '../../../model/action/html-element-action/clear';
@@ -132,6 +132,22 @@ describe('Clear', () => {
       });
     });
   });
+
+  describe('testElement', () => {
+    test('verify correct driver method call', async () => {
+      const action = new Clear([], 'foo', [], new BoundingBox(42, 42, 42, 42));
+
+      const mockedDriver: WebDriver = mock(WebDriver);
+      const driver = instance(mockedDriver);
+
+      const mockedWebElement: WebElement = mock(WebElement);
+      const webElement = instance(mockedWebElement);
+
+      action.testElement(driver, webElement);
+
+      verify(mockedWebElement.clear()).called();
+    });
+  });
 });
 
 describe('Click', () => {
@@ -145,6 +161,22 @@ describe('Click', () => {
         locators: [],
         boundingBox: new BoundingBox(42, 42, 42, 42),
       });
+    });
+  });
+
+  describe('testElement', () => {
+    test('verify correct driver method call', async () => {
+      const action = new Click([], 'foo', [], new BoundingBox(42, 42, 42, 42));
+
+      const mockedDriver: WebDriver = mock(WebDriver);
+      const driver = instance(mockedDriver);
+
+      const mockedWebElement: WebElement = mock(WebElement);
+      const webElement = instance(mockedWebElement);
+
+      action.testElement(driver, webElement);
+
+      verify(mockedWebElement.click()).called();
     });
   });
 });
@@ -192,6 +224,22 @@ describe('Submit', () => {
         locators: [],
         boundingBox: new BoundingBox(42, 42, 42, 42),
       });
+    });
+  });
+
+  describe('testElement', () => {
+    test('verify correct driver method call', async () => {
+      const action = new Submit([], 'foo', [], new BoundingBox(42, 42, 42, 42));
+
+      const mockedDriver: WebDriver = mock(WebDriver);
+      const driver = instance(mockedDriver);
+
+      const mockedWebElement: WebElement = mock(WebElement);
+      const webElement = instance(mockedWebElement);
+
+      action.testElement(driver, webElement);
+
+      verify(mockedWebElement.submit()).called();
     });
   });
 });

@@ -1,5 +1,6 @@
 import * as compareVersions from 'compare-versions';
 import loadJsonFile from 'load-json-file';
+import writeJsonFile from 'write-json-file';
 import { Action } from '../model/action';
 import { BrowserActionTestResult } from '../model/action-test-result/browser-action-test-result';
 import { HtmlElementActionTestResult } from '../model/action-test-result/html-element-action-test-result';
@@ -32,7 +33,12 @@ import { XpathLocator } from '../model/locator/xpath-locator';
 import { Project } from '../model/project';
 import { Sequence } from '../model/sequence';
 
-export class ImportService {
+export class ChrecJsonService {
+  public async exportChrecJson(absolutePath: string, project: Project): Promise<void> {
+    const json = { name: 'ChRec', version: process.env.npm_package_version, project };
+    await writeJsonFile(absolutePath, json);
+  }
+
   public async importChrecJson(absolutePath: string): Promise<Project> {
     const parsedJson: any = await loadJsonFile(absolutePath);
     return this.validateChrecJson(parsedJson);
@@ -93,11 +99,8 @@ export class ImportService {
         return new GoTo(actionTestResults, parsedJson.image, parsedJson.url);
       case 'Refresh':
         return new Refresh(actionTestResults, parsedJson.image);
-      case 'SwitchToDefaultContext':
-        return new SwitchToDefaultContext(actionTestResults, parsedJson.image);
-      default:
-        throw new Error(`Internal: Could not revive BrowserAction with className ${parsedJson.className} from JSON!`);
     }
+    return new SwitchToDefaultContext(actionTestResults, parsedJson.image);
   }
 
   public reviveHtmlElementAction(parsedJson: any): HtmlElementAction {
@@ -116,7 +119,7 @@ export class ImportService {
       case 'Click':
         return new Click(actionTestResults, parsedJson.image, locators, boundingBox);
       case 'Read':
-        return new Read(actionTestResults, parsedJson.image, locators, boundingBox, parsedJson.value);
+        return new Read(actionTestResults, parsedJson.image, locators, boundingBox, parsedJson.text);
       case 'Select':
         return new Select(actionTestResults, parsedJson.image, locators, boundingBox, parsedJson.value);
       case 'Submit':
@@ -141,11 +144,8 @@ export class ImportService {
           boundingBox,
           parsedJson.timeout,
         );
-      default:
-        throw new Error(
-          `Internal: Could not revive HtmlElementAction with className ${parsedJson.className} from JSON!`,
-        );
     }
+    throw new Error(`Internal: Could not revive HtmlElementAction with className ${parsedJson.className} from JSON!`);
   }
 
   public reviveBoundingBox(parsedJson: any): BoundingBox {
@@ -162,9 +162,8 @@ export class ImportService {
         return new CssLocator(locatorTestResults, parsedJson.method, parsedJson.value);
       case 'XpathLocator':
         return new XpathLocator(locatorTestResults, parsedJson.method, parsedJson.value);
-      default:
-        throw new Error('Could not revive Locator from JSON!');
     }
+    throw new Error('Could not revive Locator from JSON!');
   }
 
   public reviveLocatorTestResult(parsedJson: any): LocatorTestResult {
@@ -194,8 +193,7 @@ export class ImportService {
           parsedJson.height,
           parsedJson.sleepMsBetweenActions,
         );
-      default:
-        throw new Error('Could not construct Browser from ChRec JSON!');
     }
+    throw new Error('Could not construct Browser from ChRec JSON!');
   }
 }
