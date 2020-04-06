@@ -173,7 +173,12 @@ describe('SwitchToDefaultContext', () => {
   describe('toJSON', () => {
     test('when called, then the JSON should contain the ClassName: SwitchToDefaultContext', () => {
       const action = new SwitchToDefaultContext([], 'foo');
-      expect(action.toJSON()).toEqual({ id: action.id, className: 'SwitchToDefaultContext', testResults: [], image: 'foo' });
+      expect(action.toJSON()).toEqual({
+        id: action.id,
+        className: 'SwitchToDefaultContext',
+        testResults: [],
+        image: 'foo',
+      });
     });
   });
 

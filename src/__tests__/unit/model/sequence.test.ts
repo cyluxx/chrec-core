@@ -21,14 +21,11 @@ describe('Sequence', () => {
   describe('addAction', () => {
     test('when Action a, then return list of Actions with a appended to the end', () => {
       const refresh = new Refresh([], 'foo');
-      const clear = new Clear([], 'baz', [], new BoundingBox(42, 42, 42, 42))
+      const clear = new Clear([], 'baz', [], new BoundingBox(42, 42, 42, 42));
       const sequence = new Sequence('bar', [refresh]);
       sequence.addAction(clear);
 
-      expect(sequence.actions).toEqual([
-        refresh,
-        clear,
-      ]);
+      expect(sequence.actions).toEqual([refresh, clear]);
     });
   });
 

@@ -43,7 +43,9 @@ describe('ChrecJsonService', () => {
       const service = new ChrecJsonService();
       expect.assertions(7);
 
-      const imported: Project = await service.importChrecJson('src/__tests__/integration/assets/project-with-goto.json');
+      const imported: Project = await service.importChrecJson(
+        'src/__tests__/integration/assets/project-with-goto.json',
+      );
 
       expect(imported.name).toEqual('Project With GoTo');
       expect(imported.sequences).toHaveLength(1);

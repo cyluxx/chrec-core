@@ -223,7 +223,12 @@ export class ChrecJsonService {
   public reviveBrowser(parsedJson: any): Browser {
     switch (parsedJson.className) {
       case 'Chrome':
-        const chrome = new Chrome(parsedJson.name, parsedJson.width, parsedJson.height, parsedJson.sleepMsBetweenActions);
+        const chrome = new Chrome(
+          parsedJson.name,
+          parsedJson.width,
+          parsedJson.height,
+          parsedJson.sleepMsBetweenActions,
+        );
         chrome.id = parsedJson.id;
         return chrome;
       case 'Edge':
@@ -231,7 +236,12 @@ export class ChrecJsonService {
         edge.id = parsedJson.id;
         return edge;
       case 'Firefox':
-        const firefox = new Firefox(parsedJson.name, parsedJson.width, parsedJson.height, parsedJson.sleepMsBetweenActions);
+        const firefox = new Firefox(
+          parsedJson.name,
+          parsedJson.width,
+          parsedJson.height,
+          parsedJson.sleepMsBetweenActions,
+        );
         firefox.id = parsedJson.id;
         return firefox;
       case 'InternetExplorer':

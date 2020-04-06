@@ -55,7 +55,7 @@ describe('ChrecJsonService', () => {
 
     test('when valid appName and appVersion >= json.version, then revive Project', () => {
       const project = new Project('foo', []);
-      const parsedJson = JSON.parse(JSON.stringify({ name: "ChRec", version: "0.1.0", project }));
+      const parsedJson = JSON.parse(JSON.stringify({ name: 'ChRec', version: '0.1.0', project }));
 
       expect(service.validateChrecJson(parsedJson)).toEqual(project);
     });
@@ -109,7 +109,10 @@ describe('ChrecJsonService', () => {
     });
 
     test('when correct json with SwitchToDefaultContext, then revive Action', () => {
-      const action = new SwitchToDefaultContext([new BrowserActionTestResult(new Edge('foo', 42, 42, 42), true)], 'bar');
+      const action = new SwitchToDefaultContext(
+        [new BrowserActionTestResult(new Edge('foo', 42, 42, 42), true)],
+        'bar',
+      );
       const parsedJson = JSON.parse(JSON.stringify(action));
 
       expect(service.reviveAction(parsedJson)).toEqual(action);
