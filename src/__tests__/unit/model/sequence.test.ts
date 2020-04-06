@@ -20,13 +20,14 @@ function betterMock<T>(clazz?: (new (...args: any[]) => T) | (Function & { proto
 describe('Sequence', () => {
   describe('addAction', () => {
     test('when Action a, then return list of Actions with a appended to the end', () => {
-      const action = new Refresh([], 'foo');
-      const sequence = new Sequence('bar', [action]);
-      sequence.addAction(new Clear([], 'baz', [], new BoundingBox(42, 42, 42, 42)));
+      const refresh = new Refresh([], 'foo');
+      const clear = new Clear([], 'baz', [], new BoundingBox(42, 42, 42, 42))
+      const sequence = new Sequence('bar', [refresh]);
+      sequence.addAction(clear);
 
       expect(sequence.actions).toEqual([
-        new Refresh([], 'foo'),
-        new Clear([], 'baz', [], new BoundingBox(42, 42, 42, 42)),
+        refresh,
+        clear,
       ]);
     });
   });

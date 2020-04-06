@@ -9,6 +9,7 @@ import { XpathLocator } from '../../../model/locator/xpath-locator';
 import { Project } from '../../../model/project';
 import { Sequence } from '../../../model/sequence';
 import { ChrecJsonService } from '../../../service/chrec-json.service';
+import { HtmlElementAction } from '../../../model/action/html-element-action';
 
 describe('ChrecJsonService', () => {
   describe('exportChrecJson', () => {
@@ -23,46 +24,52 @@ describe('ChrecJsonService', () => {
   describe('importFromChrecJson', () => {
     test('returns project with valid Refresh Action', async () => {
       const service = new ChrecJsonService();
-      expect.assertions(3);
-
-      const action = new Refresh([], 'foo');
-      const sequence = new Sequence('Test Sequence', [action]);
-      const project = new Project('Project With Refresh', [sequence]);
+      expect.assertions(7);
 
       const imported: Project = await service.importChrecJson(
         'src/__tests__/integration/assets/project-with-refresh.json',
       );
 
-      expect(imported).toEqual(project);
-      expect(imported.sequences[0]).toEqual(sequence);
-      expect(imported.sequences[0].actions[0]).toEqual(action);
+      expect(imported.name).toEqual('Project With Refresh');
+      expect(imported.sequences).toHaveLength(1);
+      expect(imported.sequences[0].name).toEqual('Test Sequence');
+      expect(imported.sequences[0].actions).toHaveLength(1);
+      expect(imported.sequences[0].actions[0]).toBeInstanceOf(Refresh);
+      expect(imported.sequences[0].actions[0].image).toEqual('foo');
+      expect(imported.sequences[0].actions[0].testResults).toEqual([]);
     });
 
     test('returns project with valid GoTo Action', async () => {
       const service = new ChrecJsonService();
-      expect.assertions(1);
+      expect.assertions(7);
 
-      const project: Project = await service.importChrecJson('src/__tests__/integration/assets/project-with-goto.json');
+      const imported: Project = await service.importChrecJson('src/__tests__/integration/assets/project-with-goto.json');
 
-      expect(project.sequences[0].actions[0]).toEqual(new GoTo([], 'foo', 'https://www.github.com'));
+      expect(imported.name).toEqual('Project With GoTo');
+      expect(imported.sequences).toHaveLength(1);
+      expect(imported.sequences[0].name).toEqual('Test Sequence');
+      expect(imported.sequences[0].actions).toHaveLength(1);
+      expect(imported.sequences[0].actions[0]).toBeInstanceOf(GoTo);
+      expect(imported.sequences[0].actions[0].image).toEqual('foo');
+      expect(imported.sequences[0].actions[0].testResults).toEqual([]);
     });
 
     test('returns project with valid Click Action', async () => {
       const service = new ChrecJsonService();
-      expect.assertions(1);
+      expect.assertions(8);
 
-      const project: Project = await service.importChrecJson(
+      const imported: Project = await service.importChrecJson(
         'src/__tests__/integration/assets/project-with-click.json',
       );
 
-      expect(project.sequences[0].actions[0]).toEqual(
-        new Click(
-          [],
-          'foo',
-          [new CssLocator([], Method.CSS_SELECTOR_GENERATOR, 'foo'), new XpathLocator([], Method.ROBULA_PLUS, 'foo')],
-          new BoundingBox(42, 42, 42, 42),
-        ),
-      );
+      expect(imported.name).toEqual('Project With Click, an XpathLocator and a CssLocator');
+      expect(imported.sequences).toHaveLength(1);
+      expect(imported.sequences[0].name).toEqual('Test Sequence');
+      expect(imported.sequences[0].actions).toHaveLength(1);
+      expect(imported.sequences[0].actions[0]).toBeInstanceOf(Click);
+      expect(imported.sequences[0].actions[0].image).toEqual('foo');
+      expect(imported.sequences[0].actions[0].testResults).toEqual([]);
+      expect((imported.sequences[0].actions[0] as HtmlElementAction).locators).toHaveLength(2);
     });
 
     test('returns valid Project with correctly typed objects', async () => {

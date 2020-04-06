@@ -1,7 +1,10 @@
 import { Builder, WebDriver } from 'selenium-webdriver';
+import { Identificable } from './identififable';
 
-export abstract class Browser {
-  constructor(public name: string, public width: number, public height: number, public sleepMsBetweenActions: number) {}
+export abstract class Browser extends Identificable {
+  constructor(public name: string, public width: number, public height: number, public sleepMsBetweenActions: number) {
+    super();
+  }
 
   public toJSON(): object {
     return Object.assign({ className: this.constructor.name }, this);

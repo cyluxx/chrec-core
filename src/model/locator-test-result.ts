@@ -1,3 +1,7 @@
-export class LocatorTestResult {
-  constructor(public replayable: boolean) {}
+import { Identificable } from "./identififable";
+
+export class LocatorTestResult extends Identificable {
+  constructor(public replayable: boolean) {
+    super();
+  }
 }

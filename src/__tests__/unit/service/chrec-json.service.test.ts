@@ -54,271 +54,176 @@ describe('ChrecJsonService', () => {
     });
 
     test('when valid appName and appVersion >= json.version, then revive Project', () => {
-      const json = `{"name":"ChRec", "version":"0.1.0", "project": {"name": "foo", "sequences": []}}`;
-      const parsedJson = JSON.parse(json);
+      const project = new Project('foo', []);
+      const parsedJson = JSON.parse(JSON.stringify({ name: "ChRec", version: "0.1.0", project }));
 
-      expect(service.validateChrecJson(parsedJson)).toEqual(new Project('foo', []));
+      expect(service.validateChrecJson(parsedJson)).toEqual(project);
     });
   });
 
   describe('reviveProject', () => {
     test('when correct json, then revive Project', () => {
-      const json = `{"name": "foo", "sequences": [{"name": "bar", "actions": []}]}`;
-      const parsedJson = JSON.parse(json);
+      const project = new Project('foo', [new Sequence('bar', [])]);
+      const parsedJson = JSON.parse(JSON.stringify(project));
 
-      expect(service.reviveProject(parsedJson)).toEqual(new Project('foo', [new Sequence('bar', [])]));
+      expect(service.reviveProject(parsedJson)).toEqual(project);
     });
   });
 
   describe('reviveSequence', () => {
     test('when correct json, then revive Sequence', () => {
-      const json = `{"name": "foo", "actions": [{"className": "Back", "testResults": [], "image": "bar"}]}`;
-      const parsedJson = JSON.parse(json);
+      const sequence = new Sequence('foo', [new Back([], 'bar')]);
+      const parsedJson = JSON.parse(JSON.stringify(sequence));
 
-      expect(service.reviveSequence(parsedJson)).toEqual(new Sequence('foo', [new Back([], 'bar')]));
+      expect(service.reviveSequence(parsedJson)).toEqual(sequence);
     });
   });
 
   describe('reviveAction', () => {
     test('when correct json with Back, then revive Action', () => {
-      const json = `{"className": "Back", "testResults": 
-      [{"browser": {"className": "Edge", "name": "foo", "width": 42, "height": 42, "sleepMsBetweenActions": 42}, "replayable": true}],
-      "image": "bar"}`;
-      const parsedJson = JSON.parse(json);
+      const action = new Back([new BrowserActionTestResult(new Edge('foo', 42, 42, 42), true)], 'bar');
+      const parsedJson = JSON.parse(JSON.stringify(action));
 
-      expect(service.reviveAction(parsedJson)).toEqual(
-        new Back([new BrowserActionTestResult(new Edge('foo', 42, 42, 42), true)], 'bar'),
-      );
+      expect(service.reviveAction(parsedJson)).toEqual(action);
     });
 
     test('when correct json with Forward, then revive Action', () => {
-      const json = `{"className": "Forward", "testResults": 
-      [{"browser": {"className": "Edge", "name": "foo", "width": 42, "height": 42, "sleepMsBetweenActions": 42}, "replayable": true}],
-      "image": "bar"}`;
-      const parsedJson = JSON.parse(json);
+      const action = new Forward([new BrowserActionTestResult(new Edge('foo', 42, 42, 42), true)], 'bar');
+      const parsedJson = JSON.parse(JSON.stringify(action));
 
-      expect(service.reviveAction(parsedJson)).toEqual(
-        new Forward([new BrowserActionTestResult(new Edge('foo', 42, 42, 42), true)], 'bar'),
-      );
+      expect(service.reviveAction(parsedJson)).toEqual(action);
     });
 
     test('when correct json with GoTo, then revive Action', () => {
-      const json = `{"className": "GoTo", "testResults": 
-      [{"browser": {"className": "Edge", "name": "foo", "width": 42, "height": 42, "sleepMsBetweenActions": 42}, "replayable": true}],
-      "image": "bar", "url": "baz"}`;
-      const parsedJson = JSON.parse(json);
+      const action = new GoTo([new BrowserActionTestResult(new Edge('foo', 42, 42, 42), true)], 'bar', 'baz');
+      const parsedJson = JSON.parse(JSON.stringify(action));
 
-      expect(service.reviveAction(parsedJson)).toEqual(
-        new GoTo([new BrowserActionTestResult(new Edge('foo', 42, 42, 42), true)], 'bar', 'baz'),
-      );
+      expect(service.reviveAction(parsedJson)).toEqual(action);
     });
 
     test('when correct json with Refresh, then revive Action', () => {
-      const json = `{"className": "Refresh", "testResults": 
-      [{"browser": {"className": "Edge", "name": "foo", "width": 42, "height": 42, "sleepMsBetweenActions": 42}, "replayable": true}],
-      "image": "bar"}`;
-      const parsedJson = JSON.parse(json);
+      const action = new Refresh([new BrowserActionTestResult(new Edge('foo', 42, 42, 42), true)], 'bar');
+      const parsedJson = JSON.parse(JSON.stringify(action));
 
-      expect(service.reviveAction(parsedJson)).toEqual(
-        new Refresh([new BrowserActionTestResult(new Edge('foo', 42, 42, 42), true)], 'bar'),
-      );
+      expect(service.reviveAction(parsedJson)).toEqual(action);
     });
 
     test('when correct json with SwitchToDefaultContext, then revive Action', () => {
-      const json = `{"className": "SwitchToDefaultContext", "testResults": 
-      [{"browser": {"className": "Edge", "name": "foo", "width": 42, "height": 42, "sleepMsBetweenActions": 42}, "replayable": true}],
-      "image": "bar"}`;
-      const parsedJson = JSON.parse(json);
+      const action = new SwitchToDefaultContext([new BrowserActionTestResult(new Edge('foo', 42, 42, 42), true)], 'bar');
+      const parsedJson = JSON.parse(JSON.stringify(action));
 
-      expect(service.reviveAction(parsedJson)).toEqual(
-        new SwitchToDefaultContext([new BrowserActionTestResult(new Edge('foo', 42, 42, 42), true)], 'bar'),
-      );
+      expect(service.reviveAction(parsedJson)).toEqual(action);
     });
 
     test('when correct json with Clear, then revive Action', () => {
-      const json = `{
-        "className": "Clear",
-        "testResults": [{"browser": {"className": "Edge", "name": "foo", "width": 42, "height": 42, "sleepMsBetweenActions": 42}}],
-        "image": "bar",
-        "locators": [{"className": "XpathLocator", "testResults": [], "method": "RobulaPlus", "value": "baz"}],
-        "boundingBox": {"x": 42, "y": 42, "width": 42, "height": 42}
-      }`;
-      const parsedJson = JSON.parse(json);
-
-      expect(service.reviveAction(parsedJson)).toEqual(
-        new Clear(
-          [new HtmlElementActionTestResult(new Edge('foo', 42, 42, 42))],
-          'bar',
-          [new XpathLocator([], Method.ROBULA_PLUS, 'baz')],
-          new BoundingBox(42, 42, 42, 42),
-        ),
+      const action = new Clear(
+        [new HtmlElementActionTestResult(new Edge('foo', 42, 42, 42))],
+        'bar',
+        [new XpathLocator([], Method.ROBULA_PLUS, 'baz')],
+        new BoundingBox(42, 42, 42, 42),
       );
+      const parsedJson = JSON.parse(JSON.stringify(action));
+
+      expect(service.reviveAction(parsedJson)).toEqual(action);
     });
 
     test('when correct json with Click, then revive Action', () => {
-      const json = `{
-        "className": "Click",
-        "testResults": [{"browser": {"className": "Edge", "name": "foo", "width": 42, "height": 42, "sleepMsBetweenActions": 42}}],
-        "image": "bar",
-        "locators": [{"className": "XpathLocator", "testResults": [], "method": "RobulaPlus", "value": "baz"}],
-        "boundingBox": {"x": 42, "y": 42, "width": 42, "height": 42}
-      }`;
-      const parsedJson = JSON.parse(json);
-
-      expect(service.reviveAction(parsedJson)).toEqual(
-        new Click(
-          [new HtmlElementActionTestResult(new Edge('foo', 42, 42, 42))],
-          'bar',
-          [new XpathLocator([], Method.ROBULA_PLUS, 'baz')],
-          new BoundingBox(42, 42, 42, 42),
-        ),
+      const action = new Click(
+        [new HtmlElementActionTestResult(new Edge('foo', 42, 42, 42))],
+        'bar',
+        [new XpathLocator([], Method.ROBULA_PLUS, 'baz')],
+        new BoundingBox(42, 42, 42, 42),
       );
+      const parsedJson = JSON.parse(JSON.stringify(action));
+
+      expect(service.reviveAction(parsedJson)).toEqual(action);
     });
 
     test('when correct json with Read, then revive Action', () => {
-      const json = `{
-        "className": "Read",
-        "testResults": [{"browser": {"className": "Edge", "name": "foo", "width": 42, "height": 42, "sleepMsBetweenActions": 42}}],
-        "image": "bar",
-        "locators": [{"className": "XpathLocator", "testResults": [], "method": "RobulaPlus", "value": "baz"}],
-        "boundingBox": {"x": 42, "y": 42, "width": 42, "height": 42},
-        "text": "lol"
-      }`;
-      const parsedJson = JSON.parse(json);
-
-      expect(service.reviveAction(parsedJson)).toEqual(
-        new Read(
-          [new HtmlElementActionTestResult(new Edge('foo', 42, 42, 42))],
-          'bar',
-          [new XpathLocator([], Method.ROBULA_PLUS, 'baz')],
-          new BoundingBox(42, 42, 42, 42),
-          'lol',
-        ),
+      const action = new Read(
+        [new HtmlElementActionTestResult(new Edge('foo', 42, 42, 42))],
+        'bar',
+        [new XpathLocator([], Method.ROBULA_PLUS, 'baz')],
+        new BoundingBox(42, 42, 42, 42),
+        'lol',
       );
+      const parsedJson = JSON.parse(JSON.stringify(action));
+
+      expect(service.reviveAction(parsedJson)).toEqual(action);
     });
 
     test('when correct json with Select, then revive Action', () => {
-      const json = `{
-        "className": "Select",
-        "testResults": [{"browser": {"className": "Edge", "name": "foo", "width": 42, "height": 42, "sleepMsBetweenActions": 42}}],
-        "image": "bar",
-        "locators": [{"className": "XpathLocator", "testResults": [], "method": "RobulaPlus", "value": "baz"}],
-        "boundingBox": {"x": 42, "y": 42, "width": 42, "height": 42},
-        "value": "lol"
-      }`;
-      const parsedJson = JSON.parse(json);
-
-      expect(service.reviveAction(parsedJson)).toEqual(
-        new Select(
-          [new HtmlElementActionTestResult(new Edge('foo', 42, 42, 42))],
-          'bar',
-          [new XpathLocator([], Method.ROBULA_PLUS, 'baz')],
-          new BoundingBox(42, 42, 42, 42),
-          'lol',
-        ),
+      const action = new Select(
+        [new HtmlElementActionTestResult(new Edge('foo', 42, 42, 42))],
+        'bar',
+        [new XpathLocator([], Method.ROBULA_PLUS, 'baz')],
+        new BoundingBox(42, 42, 42, 42),
+        'lol',
       );
+      const parsedJson = JSON.parse(JSON.stringify(action));
+
+      expect(service.reviveAction(parsedJson)).toEqual(action);
     });
 
     test('when correct json with Submit, then revive Action', () => {
-      const json = `{
-        "className": "Submit",
-        "testResults": [{"browser": {"className": "Edge", "name": "foo", "width": 42, "height": 42, "sleepMsBetweenActions": 42}}],
-        "image": "bar",
-        "locators": [{"className": "XpathLocator", "testResults": [], "method": "RobulaPlus", "value": "baz"}],
-        "boundingBox": {"x": 42, "y": 42, "width": 42, "height": 42}
-      }`;
-      const parsedJson = JSON.parse(json);
-
-      expect(service.reviveAction(parsedJson)).toEqual(
-        new Submit(
-          [new HtmlElementActionTestResult(new Edge('foo', 42, 42, 42))],
-          'bar',
-          [new XpathLocator([], Method.ROBULA_PLUS, 'baz')],
-          new BoundingBox(42, 42, 42, 42),
-        ),
+      const action = new Submit(
+        [new HtmlElementActionTestResult(new Edge('foo', 42, 42, 42))],
+        'bar',
+        [new XpathLocator([], Method.ROBULA_PLUS, 'baz')],
+        new BoundingBox(42, 42, 42, 42),
       );
+      const parsedJson = JSON.parse(JSON.stringify(action));
+
+      expect(service.reviveAction(parsedJson)).toEqual(action);
     });
 
     test('when correct json with SwitchToContext, then revive Action', () => {
-      const json = `{
-        "className": "SwitchToContext",
-        "testResults": [{"browser": {"className": "Edge", "name": "foo", "width": 42, "height": 42, "sleepMsBetweenActions": 42}}],
-        "image": "bar",
-        "locators": [{"className": "XpathLocator", "testResults": [], "method": "RobulaPlus", "value": "baz"}],
-        "boundingBox": {"x": 42, "y": 42, "width": 42, "height": 42}
-      }`;
-      const parsedJson = JSON.parse(json);
-
-      expect(service.reviveAction(parsedJson)).toEqual(
-        new SwitchToContext(
-          [new HtmlElementActionTestResult(new Edge('foo', 42, 42, 42))],
-          'bar',
-          [new XpathLocator([], Method.ROBULA_PLUS, 'baz')],
-          new BoundingBox(42, 42, 42, 42),
-        ),
+      const action = new SwitchToContext(
+        [new HtmlElementActionTestResult(new Edge('foo', 42, 42, 42))],
+        'bar',
+        [new XpathLocator([], Method.ROBULA_PLUS, 'baz')],
+        new BoundingBox(42, 42, 42, 42),
       );
+      const parsedJson = JSON.parse(JSON.stringify(action));
+
+      expect(service.reviveAction(parsedJson)).toEqual(action);
     });
 
     test('when correct json with Type, then revive Action', () => {
-      const json = `{
-        "className": "Type",
-        "testResults": [{"browser": {"className": "Edge", "name": "foo", "width": 42, "height": 42, "sleepMsBetweenActions": 42}}],
-        "image": "bar",
-        "locators": [{"className": "XpathLocator", "testResults": [], "method": "RobulaPlus", "value": "baz"}],
-        "boundingBox": {"x": 42, "y": 42, "width": 42, "height": 42},
-        "value": "lol"
-      }`;
-      const parsedJson = JSON.parse(json);
-
-      expect(service.reviveAction(parsedJson)).toEqual(
-        new Type(
-          [new HtmlElementActionTestResult(new Edge('foo', 42, 42, 42))],
-          'bar',
-          [new XpathLocator([], Method.ROBULA_PLUS, 'baz')],
-          new BoundingBox(42, 42, 42, 42),
-          'lol',
-        ),
+      const action = new Type(
+        [new HtmlElementActionTestResult(new Edge('foo', 42, 42, 42))],
+        'bar',
+        [new XpathLocator([], Method.ROBULA_PLUS, 'baz')],
+        new BoundingBox(42, 42, 42, 42),
+        'lol',
       );
+      const parsedJson = JSON.parse(JSON.stringify(action));
+
+      expect(service.reviveAction(parsedJson)).toEqual(action);
     });
 
     test('when correct json with WaitForAddedHtmlElement, then revive Action', () => {
-      const json = `{
-        "className": "WaitForAddedHtmlElement",
-        "testResults": [{"browser": {"className": "Edge", "name": "foo", "width": 42, "height": 42, "sleepMsBetweenActions": 42}}],
-        "image": "bar",
-        "locators": [{"className": "XpathLocator", "testResults": [], "method": "RobulaPlus", "value": "baz"}],
-        "boundingBox": {"x": 42, "y": 42, "width": 42, "height": 42}
-      }`;
-      const parsedJson = JSON.parse(json);
-
-      expect(service.reviveAction(parsedJson)).toEqual(
-        new WaitForAddedHtmlElement(
-          [new HtmlElementActionTestResult(new Edge('foo', 42, 42, 42))],
-          'bar',
-          [new XpathLocator([], Method.ROBULA_PLUS, 'baz')],
-          new BoundingBox(42, 42, 42, 42),
-        ),
+      const action = new WaitForAddedHtmlElement(
+        [new HtmlElementActionTestResult(new Edge('foo', 42, 42, 42))],
+        'bar',
+        [new XpathLocator([], Method.ROBULA_PLUS, 'baz')],
+        new BoundingBox(42, 42, 42, 42),
       );
+      const parsedJson = JSON.parse(JSON.stringify(action));
+
+      expect(service.reviveAction(parsedJson)).toEqual(action);
     });
 
     test('when correct json with WaitForRemovedHtmlElement, then revive Action', () => {
-      const json = `{
-        "className": "WaitForRemovedHtmlElement",
-        "testResults": [{"browser": {"className": "Edge", "name": "foo", "width": 42, "height": 42, "sleepMsBetweenActions": 42}}],
-        "image": "bar",
-        "locators": [{"className": "XpathLocator", "testResults": [], "method": "RobulaPlus", "value": "baz"}],
-        "boundingBox": {"x": 42, "y": 42, "width": 42, "height": 42}
-      }`;
-      const parsedJson = JSON.parse(json);
-
-      expect(service.reviveAction(parsedJson)).toEqual(
-        new WaitForRemovedHtmlElement(
-          [new HtmlElementActionTestResult(new Edge('foo', 42, 42, 42))],
-          'bar',
-          [new XpathLocator([], Method.ROBULA_PLUS, 'baz')],
-          new BoundingBox(42, 42, 42, 42),
-        ),
+      const action = new WaitForRemovedHtmlElement(
+        [new HtmlElementActionTestResult(new Edge('foo', 42, 42, 42))],
+        'bar',
+        [new XpathLocator([], Method.ROBULA_PLUS, 'baz')],
+        new BoundingBox(42, 42, 42, 42),
       );
+      const parsedJson = JSON.parse(JSON.stringify(action));
+
+      expect(service.reviveAction(parsedJson)).toEqual(action);
     });
 
     test('when invalid ClassName, then throw Error', () => {
@@ -348,21 +253,17 @@ describe('ChrecJsonService', () => {
 
   describe('reviveLocator', () => {
     test('when correct json with CssLocator, then revive Locator', () => {
-      const json = `{"className": "CssLocator", "testResults": [{"replayable": true}], "method": "Finder", "value": "baz"}`;
-      const parsedJson = JSON.parse(json);
+      const locator = new CssLocator([new LocatorTestResult(true)], Method.FINDER, 'baz');
+      const parsedJson = JSON.parse(JSON.stringify(locator));
 
-      expect(service.reviveLocator(parsedJson)).toEqual(
-        new CssLocator([new LocatorTestResult(true)], Method.FINDER, 'baz'),
-      );
+      expect(service.reviveLocator(parsedJson)).toEqual(locator);
     });
 
     test('when correct json with XpathLocator, then revive Locator', () => {
-      const json = `{"className": "XpathLocator", "testResults": [{"replayable": true}], "method": "RobulaPlus", "value": "baz"}`;
-      const parsedJson = JSON.parse(json);
+      const locator = new XpathLocator([new LocatorTestResult(true)], Method.ROBULA_PLUS, 'baz');
+      const parsedJson = JSON.parse(JSON.stringify(locator));
 
-      expect(service.reviveLocator(parsedJson)).toEqual(
-        new XpathLocator([new LocatorTestResult(true)], Method.ROBULA_PLUS, 'baz'),
-      );
+      expect(service.reviveLocator(parsedJson)).toEqual(locator);
     });
 
     test('when invalid ClassName, then throw Error', () => {
@@ -375,62 +276,58 @@ describe('ChrecJsonService', () => {
 
   describe('reviveLocatorTestResult', () => {
     test('when correct json, then revive LocatorTestResult', () => {
-      const json = `{"replayable": false}`;
-      const parsedJson = JSON.parse(json);
+      const testResult = new LocatorTestResult(false);
+      const parsedJson = JSON.parse(JSON.stringify(testResult));
 
-      expect(service.reviveLocatorTestResult(parsedJson)).toEqual(new LocatorTestResult(false));
+      expect(service.reviveLocatorTestResult(parsedJson)).toEqual(testResult);
     });
   });
 
   describe('reviveBrowserActionTestResult', () => {
     test('when correct json, then revive BrowserActionTestResult', () => {
-      const json = `{"browser": {"className": "Edge", "name": "foo", "width": 42, "height": 42, "sleepMsBetweenActions": 42}, "replayable": false}`;
-      const parsedJson = JSON.parse(json);
+      const testResult = new BrowserActionTestResult(new Edge('foo', 42, 42, 42), false);
+      const parsedJson = JSON.parse(JSON.stringify(testResult));
 
-      expect(service.reviveBrowserActionTestResult(parsedJson)).toEqual(
-        new BrowserActionTestResult(new Edge('foo', 42, 42, 42), false),
-      );
+      expect(service.reviveBrowserActionTestResult(parsedJson)).toEqual(testResult);
     });
   });
 
   describe('reviveHtmlElementActionTestResult', () => {
     test('when correct json, then revive HtmlElementActionTestResult', () => {
-      const json = `{"browser": {"className": "Edge", "name": "foo", "width": 42, "height": 42, "sleepMsBetweenActions": 42}}`;
-      const parsedJson = JSON.parse(json);
+      const testResult = new HtmlElementActionTestResult(new Edge('foo', 42, 42, 42));
+      const parsedJson = JSON.parse(JSON.stringify(testResult));
 
-      expect(service.reviveHtmlElementActionTestResult(parsedJson)).toEqual(
-        new HtmlElementActionTestResult(new Edge('foo', 42, 42, 42)),
-      );
+      expect(service.reviveHtmlElementActionTestResult(parsedJson)).toEqual(testResult);
     });
   });
 
   describe('reviveBrowser', () => {
     test('when correct json with Chrome, then revive Browser', () => {
-      const json = `{"className": "Chrome", "name": "foo", "width": 42, "height": 42, "sleepMsBetweenActions": 42}`;
-      const parsedJson = JSON.parse(json);
+      const browser = new Chrome('foo', 42, 42, 42);
+      const parsedJson = JSON.parse(JSON.stringify(browser));
 
-      expect(service.reviveBrowser(parsedJson)).toEqual(new Chrome('foo', 42, 42, 42));
+      expect(service.reviveBrowser(parsedJson)).toEqual(browser);
     });
 
     test('when correct json with Edge, then revive Browser', () => {
-      const json = `{"className": "Edge", "name": "foo", "width": 42, "height": 42, "sleepMsBetweenActions": 42}`;
-      const parsedJson = JSON.parse(json);
+      const browser = new Edge('foo', 42, 42, 42);
+      const parsedJson = JSON.parse(JSON.stringify(browser));
 
-      expect(service.reviveBrowser(parsedJson)).toEqual(new Edge('foo', 42, 42, 42));
+      expect(service.reviveBrowser(parsedJson)).toEqual(browser);
     });
 
     test('when correct json with Firefox, then revive Browser', () => {
-      const json = `{"className": "Firefox", "name": "foo", "width": 42, "height": 42, "sleepMsBetweenActions": 42}`;
-      const parsedJson = JSON.parse(json);
+      const browser = new Firefox('foo', 42, 42, 42);
+      const parsedJson = JSON.parse(JSON.stringify(browser));
 
-      expect(service.reviveBrowser(parsedJson)).toEqual(new Firefox('foo', 42, 42, 42));
+      expect(service.reviveBrowser(parsedJson)).toEqual(browser);
     });
 
     test('when correct json with InternetExplorer, then revive Browser', () => {
-      const json = `{"className": "InternetExplorer", "name": "foo", "width": 42, "height": 42, "sleepMsBetweenActions": 42}`;
-      const parsedJson = JSON.parse(json);
+      const browser = new InternetExplorer('foo', 42, 42, 42);
+      const parsedJson = JSON.parse(JSON.stringify(browser));
 
-      expect(service.reviveBrowser(parsedJson)).toEqual(new InternetExplorer('foo', 42, 42, 42));
+      expect(service.reviveBrowser(parsedJson)).toEqual(browser);
     });
 
     test('when invalid ClassName, then throw Error', () => {

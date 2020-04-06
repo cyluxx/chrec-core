@@ -1,4 +1,4 @@
-import { Browser as BrowserName, Builder, WebDriver } from 'selenium-webdriver';
+import { Browser as BrowserName, Builder } from 'selenium-webdriver';
 import { Browser } from '../browser';
 
 export class Edge extends Browser {

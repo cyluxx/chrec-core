@@ -26,7 +26,7 @@ describe('BrowserAction', () => {
       await action.test(browser, driver);
 
       expect.assertions(1);
-      expect(action.testResults).toEqual([new BrowserActionTestResult(browser, true)]);
+      expect((action.testResults[0] as BrowserActionTestResult).replayable).toBe(true);
     });
 
     test('when failed testBrowserAction, then add non-replaybale testResult', async () => {
@@ -41,8 +41,10 @@ describe('BrowserAction', () => {
 
       await action.test(browser, driver);
 
+      console.log(action.testResults);
+
       expect.assertions(1);
-      expect(action.testResults).toEqual([new BrowserActionTestResult(browser, false)]);
+      expect((action.testResults[0] as BrowserActionTestResult).replayable).toBe(false);
     });
   });
 });
@@ -51,7 +53,7 @@ describe('Back', () => {
   describe('toJSON', () => {
     test('when called, then the JSON should contain the ClassName: Back', () => {
       const action = new Back([], 'foo');
-      expect(action.toJSON()).toEqual({ className: 'Back', testResults: [], image: 'foo' });
+      expect(action.toJSON()).toEqual({ id: action.id, className: 'Back', testResults: [], image: 'foo' });
     });
   });
 
@@ -81,7 +83,7 @@ describe('Forward', () => {
   describe('toJSON', () => {
     test('when called, then the JSON should contain the ClassName: Forward', () => {
       const action = new Forward([], 'foo');
-      expect(action.toJSON()).toEqual({ className: 'Forward', testResults: [], image: 'foo' });
+      expect(action.toJSON()).toEqual({ id: action.id, className: 'Forward', testResults: [], image: 'foo' });
     });
   });
 
@@ -111,7 +113,7 @@ describe('GoTo', () => {
   describe('toJSON', () => {
     test('when called, then the JSON should contain the ClassName: GoTo', () => {
       const action = new GoTo([], 'foo', 'bar');
-      expect(action.toJSON()).toEqual({ className: 'GoTo', testResults: [], image: 'foo', url: 'bar' });
+      expect(action.toJSON()).toEqual({ id: action.id, className: 'GoTo', testResults: [], image: 'foo', url: 'bar' });
     });
   });
 
@@ -141,7 +143,7 @@ describe('Refresh', () => {
   describe('toJSON', () => {
     test('when called, then the JSON should contain the ClassName: Refresh', () => {
       const action = new Refresh([], 'foo');
-      expect(action.toJSON()).toEqual({ className: 'Refresh', testResults: [], image: 'foo' });
+      expect(action.toJSON()).toEqual({ id: action.id, className: 'Refresh', testResults: [], image: 'foo' });
     });
   });
 
@@ -171,7 +173,7 @@ describe('SwitchToDefaultContext', () => {
   describe('toJSON', () => {
     test('when called, then the JSON should contain the ClassName: SwitchToDefaultContext', () => {
       const action = new SwitchToDefaultContext([], 'foo');
-      expect(action.toJSON()).toEqual({ className: 'SwitchToDefaultContext', testResults: [], image: 'foo' });
+      expect(action.toJSON()).toEqual({ id: action.id, className: 'SwitchToDefaultContext', testResults: [], image: 'foo' });
     });
   });
 

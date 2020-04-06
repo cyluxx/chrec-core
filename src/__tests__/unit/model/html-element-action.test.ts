@@ -24,18 +24,20 @@ describe('HtmlElementAction', () => {
       const browser = instance(mockedBrowser);
 
       const htmlElementAction = new Clear([], 'bar', [], new BoundingBox(42, 42, 42, 42));
-      htmlElementAction.addTestResult(new HtmlElementActionTestResult(browser));
+      const testResult = new HtmlElementActionTestResult(browser);
+      htmlElementAction.addTestResult(testResult);
 
-      expect(htmlElementAction.testResults).toEqual([new HtmlElementActionTestResult(browser)]);
+      expect(htmlElementAction.testResults).toEqual([testResult]);
     });
   });
 
   describe('addLocator', () => {
     test('when Locator, then add it to list', () => {
       const htmlElementAction = new Clear([], 'bar', [], new BoundingBox(42, 42, 42, 42));
-      htmlElementAction.addLocator(new CssLocator([], Method.CSS_SELECTOR_GENERATOR, 'foo'));
+      const locator = new CssLocator([], Method.CSS_SELECTOR_GENERATOR, 'foo');
+      htmlElementAction.addLocator(locator);
 
-      expect(htmlElementAction.locators).toEqual([new CssLocator([], Method.CSS_SELECTOR_GENERATOR, 'foo')]);
+      expect(htmlElementAction.locators).toEqual([locator]);
     });
   });
 
@@ -124,6 +126,7 @@ describe('Clear', () => {
     test('when called, then the JSON should contain the ClassName: Clear', () => {
       const action = new Clear([], 'foo', [], new BoundingBox(42, 42, 42, 42));
       expect(action.toJSON()).toEqual({
+        id: action.id,
         className: 'Clear',
         testResults: [],
         image: 'foo',
@@ -155,6 +158,7 @@ describe('Click', () => {
     test('when called, then the JSON should contain the ClassName: Click', () => {
       const action = new Click([], 'foo', [], new BoundingBox(42, 42, 42, 42));
       expect(action.toJSON()).toEqual({
+        id: action.id,
         className: 'Click',
         testResults: [],
         image: 'foo',
@@ -186,6 +190,7 @@ describe('Read', () => {
     test('when called, then the JSON should contain the ClassName: Read', () => {
       const action = new Read([], 'foo', [], new BoundingBox(42, 42, 42, 42), 'bar');
       expect(action.toJSON()).toEqual({
+        id: action.id,
         className: 'Read',
         testResults: [],
         image: 'foo',
@@ -202,6 +207,7 @@ describe('Select', () => {
     test('when called, then the JSON should contain the ClassName: Select', () => {
       const action = new Select([], 'foo', [], new BoundingBox(42, 42, 42, 42), 'bar');
       expect(action.toJSON()).toEqual({
+        id: action.id,
         className: 'Select',
         testResults: [],
         image: 'foo',
@@ -218,6 +224,7 @@ describe('Submit', () => {
     test('when called, then the JSON should contain the ClassName: Submit', () => {
       const action = new Submit([], 'foo', [], new BoundingBox(42, 42, 42, 42));
       expect(action.toJSON()).toEqual({
+        id: action.id,
         className: 'Submit',
         testResults: [],
         image: 'foo',
@@ -249,6 +256,7 @@ describe('SwitchToContext', () => {
     test('when called, then the JSON should contain the ClassName: SwitchToContext', () => {
       const action = new SwitchToContext([], 'foo', [], new BoundingBox(42, 42, 42, 42));
       expect(action.toJSON()).toEqual({
+        id: action.id,
         className: 'SwitchToContext',
         testResults: [],
         image: 'foo',
@@ -264,6 +272,7 @@ describe('Type', () => {
     test('when called, then the JSON should contain the ClassName: Type', () => {
       const action = new Type([], 'foo', [], new BoundingBox(42, 42, 42, 42), 'bar');
       expect(action.toJSON()).toEqual({
+        id: action.id,
         className: 'Type',
         testResults: [],
         image: 'foo',
@@ -280,6 +289,7 @@ describe('WaitForAddedHtmlElement', () => {
     test('when called, then the JSON should contain the ClassName: WaitForAddedHtmlElement', () => {
       const action = new WaitForAddedHtmlElement([], 'foo', [], new BoundingBox(42, 42, 42, 42));
       expect(action.toJSON()).toEqual({
+        id: action.id,
         className: 'WaitForAddedHtmlElement',
         testResults: [],
         image: 'foo',
@@ -295,6 +305,7 @@ describe('WaitForRemovedHtmlElement', () => {
     test('when called, then the JSON should contain the ClassName: WaitForRemovedHtmlElement', () => {
       const action = new WaitForRemovedHtmlElement([], 'foo', [], new BoundingBox(42, 42, 42, 42));
       expect(action.toJSON()).toEqual({
+        id: action.id,
         className: 'WaitForRemovedHtmlElement',
         testResults: [],
         image: 'foo',

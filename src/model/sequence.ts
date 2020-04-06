@@ -1,9 +1,12 @@
 import { WebDriver } from 'selenium-webdriver';
 import { Action } from './action';
 import { Settings } from './settings';
+import { Identificable } from './identififable';
 
-export class Sequence {
-  constructor(public name: string, public actions: Action[]) {}
+export class Sequence extends Identificable {
+  constructor(public name: string, public actions: Action[]) {
+    super();
+  }
 
   public addAction(action: Action): void {
     this.actions.push(action);

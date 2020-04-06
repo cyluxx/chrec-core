@@ -26,9 +26,10 @@ describe('Locator', () => {
   describe('addTestResult', () => {
     test('when testResult, then add it to list', () => {
       const locator = new CssLocator([], Method.CSS_SELECTOR_GENERATOR, 'foo');
-      locator.addTestResult(new LocatorTestResult(false));
+      const testResult = new LocatorTestResult(false);
+      locator.addTestResult(testResult);
 
-      expect(locator.testResults).toEqual([new LocatorTestResult(false)]);
+      expect(locator.testResults).toEqual([testResult]);
     });
   });
 
@@ -63,10 +64,10 @@ describe('Locator', () => {
       await locator.test(driver);
 
       expect.assertions(1);
-      expect(locator.testResults).toEqual([new LocatorTestResult(true)]);
+      expect(locator.testResults[0].replayable).toBe(true);
     });
 
-    test('when driver does not find element, then add replayable test result', async () => {
+    test('when driver does not find element, then add non-replayable test result', async () => {
       const mockedDriver: WebDriver = mock(WebDriver);
       const driver = instance(mockedDriver);
 
@@ -77,7 +78,7 @@ describe('Locator', () => {
       await locator.test(driver);
 
       expect.assertions(1);
-      expect(locator.testResults).toEqual([new LocatorTestResult(false)]);
+      expect(locator.testResults[0].replayable).toBe(false);
     });
   });
 });
@@ -87,6 +88,7 @@ describe('CssLocator', () => {
     test('the JSON should contain the ClassName: CssLocator', () => {
       const locator = new CssLocator([], Method.FINDER, 'foo');
       expect(locator.toJSON()).toEqual({
+        id: locator.id,
         className: 'CssLocator',
         testResults: [],
         method: Method.FINDER,
@@ -106,6 +108,7 @@ describe('XpathLocator', () => {
     test('the JSON should contain the ClassName: XpathLocator', () => {
       const locator = new XpathLocator([], Method.ROBULA_PLUS, 'foo');
       expect(locator.toJSON()).toEqual({
+        id: locator.id,
         className: 'XpathLocator',
         testResults: [],
         method: Method.ROBULA_PLUS,

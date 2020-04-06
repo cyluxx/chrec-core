@@ -1,5 +1,6 @@
 import { Locator as SeleniumLocator, WebDriver, WebElement } from 'selenium-webdriver';
 import { LocatorTestResult } from './locator-test-result';
+import { Identificable } from './identififable';
 
 export enum Method {
   CSS_SELECTOR_GENERATOR = 'CssSelectorGenerator',
@@ -10,8 +11,10 @@ export enum Method {
   ROBULA_PLUS = 'RobulaPlus',
 }
 
-export abstract class Locator {
-  constructor(public testResults: LocatorTestResult[], public method: Method, public value: string) {}
+export abstract class Locator extends Identificable {
+  constructor(public testResults: LocatorTestResult[], public method: Method, public value: string) {
+    super();
+  }
 
   get replayable(): boolean {
     if (this.testResults.length > 0) {

@@ -10,6 +10,7 @@ describe('Chrome', () => {
     test('when called, then the JSON should contain the ClassName: Chrome', () => {
       const browser = new Chrome('foo', 42, 42, 42);
       expect(browser.toJSON()).toEqual({
+        id: browser.id,
         className: 'Chrome',
         name: 'foo',
         width: 42,
@@ -35,6 +36,7 @@ describe('Edge', () => {
     test('when called, then the JSON should contain the ClassName: Edge', () => {
       const browser = new Edge('foo', 42, 42, 42);
       expect(browser.toJSON()).toEqual({
+        id: browser.id,
         className: 'Edge',
         name: 'foo',
         width: 42,
@@ -60,6 +62,7 @@ describe('Firefox', () => {
     test('when called, then the JSON should contain the ClassName: Firefox', () => {
       const browser = new Firefox('foo', 42, 42, 42);
       expect(browser.toJSON()).toEqual({
+        id: browser.id,
         className: 'Firefox',
         name: 'foo',
         width: 42,
@@ -85,6 +88,7 @@ describe('InternetExplorer', () => {
     test('when called, then the JSON should contain the ClassName: InternetExplorer', () => {
       const browser = new InternetExplorer('foo', 42, 42, 42);
       expect(browser.toJSON()).toEqual({
+        id: browser.id,
         className: 'InternetExplorer',
         name: 'foo',
         width: 42,

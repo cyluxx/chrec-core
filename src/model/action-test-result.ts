@@ -1,5 +1,8 @@
 import { Browser } from './browser';
+import { Identificable } from './identififable';
 
-export class ActionTestResult {
-  constructor(public browser: Browser) {}
+export abstract class ActionTestResult extends Identificable {
+  constructor(public browser: Browser) {
+    super();
+  }
 }

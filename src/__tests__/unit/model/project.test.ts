@@ -6,10 +6,12 @@ import { Settings } from '../../../model/settings';
 describe('Project', () => {
   describe('addSequence', () => {
     test('when Sequence s, then return list of Sequences with s appended to the end', () => {
-      const project = new Project('foo', [new Sequence('bar', [])]);
-      project.addSequence(new Sequence('s', []));
+      const sequence1 = new Sequence('bar', []);
+      const sequence2 = new Sequence('s', []);
+      const project = new Project('foo', [sequence1]);
+      project.addSequence(sequence2);
 
-      expect(project.sequences).toEqual([new Sequence('bar', []), new Sequence('s', [])]);
+      expect(project.sequences).toEqual([sequence1, sequence2]);
     });
   });
 

@@ -13,10 +13,12 @@ export abstract class BrowserAction extends Action {
   }
 
   public async test(browser: Browser, driver: WebDriver) {
+    console.log('here 1');
     try {
       await this.testBrowserAction(driver);
       this.addTestResult(new BrowserActionTestResult(browser, true));
     } catch (error) {
+      console.log('here2');
       this.addTestResult(new BrowserActionTestResult(browser, false));
     }
   }
