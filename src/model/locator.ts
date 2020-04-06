@@ -1,6 +1,6 @@
 import { Locator as SeleniumLocator, WebDriver, WebElement } from 'selenium-webdriver';
-import { LocatorTestResult } from './locator-test-result';
 import { Identificable } from './identififable';
+import { LocatorTestResult } from './locator-test-result';
 
 export enum Method {
   CSS_SELECTOR_GENERATOR = 'CssSelectorGenerator',

@@ -1,7 +1,7 @@
 import { WebDriver } from 'selenium-webdriver';
 import { Action } from './action';
-import { Settings } from './settings';
 import { Identificable } from './identififable';
+import { Settings } from './settings';
 
 export class Sequence extends Identificable {
   constructor(public name: string, public actions: Action[]) {

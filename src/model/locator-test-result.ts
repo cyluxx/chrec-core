@@ -1,4 +1,4 @@
-import { Identificable } from "./identififable";
+import { Identificable } from './identififable';
 
 export class LocatorTestResult extends Identificable {
   constructor(public replayable: boolean) {
