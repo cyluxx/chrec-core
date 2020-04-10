@@ -10,8 +10,9 @@ export class Click extends HtmlElementAction {
     image: string,
     locators: Locator[],
     boundingBox: BoundingBox,
+    id?: string,
   ) {
-    super(testResults, image, locators, boundingBox);
+    super(testResults, image, locators, boundingBox, id);
   }
 
   public async testElement(driver: WebDriver, element: WebElement): Promise<void> {

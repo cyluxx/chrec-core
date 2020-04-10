@@ -4,8 +4,8 @@ import { Browser } from './browser';
 import { Identificable } from './identififable';
 
 export abstract class Action extends Identificable {
-  constructor(public testResults: ActionTestResult[], public image: string) {
-    super();
+  constructor(public testResults: ActionTestResult[], public image: string, id?: string) {
+    super(id);
   }
 
   public toJSON(): object {

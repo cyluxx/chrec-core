@@ -2,8 +2,14 @@ import { Builder, WebDriver } from 'selenium-webdriver';
 import { Identificable } from './identififable';
 
 export abstract class Browser extends Identificable {
-  constructor(public name: string, public width: number, public height: number, public sleepMsBetweenActions: number) {
-    super();
+  constructor(
+    public name: string,
+    public width: number,
+    public height: number,
+    public sleepMsBetweenActions: number,
+    id?: string,
+  ) {
+    super(id);
   }
 
   public toJSON(): object {

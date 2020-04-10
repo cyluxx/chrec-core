@@ -12,8 +12,8 @@ export enum Method {
 }
 
 export abstract class Locator extends Identificable {
-  constructor(public testResults: LocatorTestResult[], public method: Method, public value: string) {
-    super();
+  constructor(public testResults: LocatorTestResult[], public method: Method, public value: string, id?: string) {
+    super(id);
   }
 
   get replayable(): boolean {

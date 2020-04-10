@@ -4,8 +4,8 @@ import { Identificable } from './identififable';
 import { Settings } from './settings';
 
 export class Sequence extends Identificable {
-  constructor(public name: string, public actions: Action[]) {
-    super();
+  constructor(public name: string, public actions: Action[], id?: string) {
+    super(id);
   }
 
   public addAction(action: Action): void {

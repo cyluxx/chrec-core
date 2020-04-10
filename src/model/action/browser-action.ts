@@ -4,8 +4,8 @@ import { BrowserActionTestResult } from '../action-test-result/browser-action-te
 import { Browser } from '../browser';
 
 export abstract class BrowserAction extends Action {
-  constructor(testResults: BrowserActionTestResult[], image: string) {
-    super(testResults, image);
+  constructor(testResults: BrowserActionTestResult[], image: string, id?: string) {
+    super(testResults, image, id);
   }
 
   public addTestResult(testResult: BrowserActionTestResult) {

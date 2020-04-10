@@ -11,8 +11,9 @@ export class Select extends HtmlElementAction {
     locators: Locator[],
     boundingBox: BoundingBox,
     public value: string,
+    id?: string,
   ) {
-    super(testResults, image, locators, boundingBox);
+    super(testResults, image, locators, boundingBox, id);
   }
 
   public async testElement(driver: WebDriver, element: WebElement): Promise<void> {

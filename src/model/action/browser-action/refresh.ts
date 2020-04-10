@@ -3,8 +3,8 @@ import { BrowserActionTestResult } from '../../action-test-result/browser-action
 import { BrowserAction } from '../browser-action';
 
 export class Refresh extends BrowserAction {
-  constructor(testResults: BrowserActionTestResult[], image: string) {
-    super(testResults, image);
+  constructor(testResults: BrowserActionTestResult[], image: string, id?: string) {
+    super(testResults, image, id);
   }
 
   public async testBrowserAction(driver: WebDriver): Promise<void> {

@@ -11,8 +11,9 @@ export abstract class HtmlElementAction extends Action {
     image: string,
     public locators: Locator[],
     public boundingBox: BoundingBox,
+    id?: string,
   ) {
-    super(testResults, image);
+    super(testResults, image, id);
   }
 
   public addTestResult(testResult: HtmlElementActionTestResult) {

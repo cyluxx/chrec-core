@@ -11,8 +11,9 @@ export class WaitForRemovedHtmlElement extends HtmlElementAction {
     locators: Locator[],
     boundingBox: BoundingBox,
     public timeout?: number,
+    id?: string,
   ) {
-    super(testResults, image, locators, boundingBox);
+    super(testResults, image, locators, boundingBox, id);
   }
 
   public async testElement(driver: WebDriver, element: WebElement): Promise<void> {
