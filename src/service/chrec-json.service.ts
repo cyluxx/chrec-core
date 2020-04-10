@@ -61,9 +61,7 @@ export class ChrecJsonService {
     for (const sequence of parsedJson.sequences) {
       sequences.push(this.reviveSequence(sequence));
     }
-    const project = new Project(parsedJson.name, sequences);
-    project.id = parsedJson.id;
-    return project;
+    return new Project(parsedJson.name, sequences, parsedJson.id);
   }
 
   public reviveSequence(parsedJson: any): Sequence {
@@ -71,9 +69,7 @@ export class ChrecJsonService {
     for (const action of parsedJson.actions) {
       actions.push(this.reviveAction(action));
     }
-    const sequence = new Sequence(parsedJson.name, actions);
-    sequence.id = parsedJson.id;
-    return sequence;
+    return new Sequence(parsedJson.name, actions, parsedJson.id);
   }
 
   public reviveAction(parsedJson: any): Action {
@@ -96,25 +92,15 @@ export class ChrecJsonService {
     }
     switch (parsedJson.className) {
       case 'Back':
-        const back = new Back(actionTestResults, parsedJson.image);
-        back.id = parsedJson.id;
-        return back;
+        return new Back(actionTestResults, parsedJson.image, parsedJson.id);
       case 'Forward':
-        const forward = new Forward(actionTestResults, parsedJson.image);
-        forward.id = parsedJson.id;
-        return forward;
+        return new Forward(actionTestResults, parsedJson.image, parsedJson.id);
       case 'GoTo':
-        const goTo = new GoTo(actionTestResults, parsedJson.image, parsedJson.url);
-        goTo.id = parsedJson.id;
-        return goTo;
+        return new GoTo(actionTestResults, parsedJson.image, parsedJson.url, parsedJson.id);
       case 'Refresh':
-        const refresh = new Refresh(actionTestResults, parsedJson.image);
-        refresh.id = parsedJson.id;
-        return refresh;
+        return new Refresh(actionTestResults, parsedJson.image, parsedJson.id);
     }
-    const switchToDefaultContext = new SwitchToDefaultContext(actionTestResults, parsedJson.image);
-    switchToDefaultContext.id = parsedJson.id;
-    return switchToDefaultContext;
+    return new SwitchToDefaultContext(actionTestResults, parsedJson.image, parsedJson.id);
   }
 
   public reviveHtmlElementAction(parsedJson: any): HtmlElementAction {
@@ -129,53 +115,37 @@ export class ChrecJsonService {
     const boundingBox: BoundingBox = this.reviveBoundingBox(parsedJson.boundingBox);
     switch (parsedJson.className) {
       case 'Clear':
-        const clear = new Clear(actionTestResults, parsedJson.image, locators, boundingBox);
-        clear.id = parsedJson.id;
-        return clear;
+        return new Clear(actionTestResults, parsedJson.image, locators, boundingBox, parsedJson.id);
       case 'Click':
-        const click = new Click(actionTestResults, parsedJson.image, locators, boundingBox);
-        click.id = parsedJson.id;
-        return click;
+        return new Click(actionTestResults, parsedJson.image, locators, boundingBox, parsedJson.id);
       case 'Read':
-        const read = new Read(actionTestResults, parsedJson.image, locators, boundingBox, parsedJson.text);
-        read.id = parsedJson.id;
-        return read;
+        return new Read(actionTestResults, parsedJson.image, locators, boundingBox, parsedJson.text, parsedJson.id);
       case 'Select':
-        const select = new Select(actionTestResults, parsedJson.image, locators, boundingBox, parsedJson.value);
-        select.id = parsedJson.id;
-        return select;
+        return new Select(actionTestResults, parsedJson.image, locators, boundingBox, parsedJson.value, parsedJson.id);
       case 'Submit':
-        const submit = new Submit(actionTestResults, parsedJson.image, locators, boundingBox);
-        submit.id = parsedJson.id;
-        return submit;
+        return new Submit(actionTestResults, parsedJson.image, locators, boundingBox, parsedJson.id);
       case 'SwitchToContext':
-        const switchToContext = new SwitchToContext(actionTestResults, parsedJson.image, locators, boundingBox);
-        switchToContext.id = parsedJson.id;
-        return switchToContext;
+        return new SwitchToContext(actionTestResults, parsedJson.image, locators, boundingBox, parsedJson.id);
       case 'Type':
-        const type = new Type(actionTestResults, parsedJson.image, locators, boundingBox, parsedJson.value);
-        type.id = parsedJson.id;
-        return type;
+        return new Type(actionTestResults, parsedJson.image, locators, boundingBox, parsedJson.value, parsedJson.id);
       case 'WaitForAddedHtmlElement':
-        const waitForAddedHtmlElement = new WaitForAddedHtmlElement(
+        return new WaitForAddedHtmlElement(
           actionTestResults,
           parsedJson.image,
           locators,
           boundingBox,
           parsedJson.timeout,
+          parsedJson.id,
         );
-        waitForAddedHtmlElement.id = parsedJson.id;
-        return waitForAddedHtmlElement;
       case 'WaitForRemovedHtmlElement':
-        const waitForRemovedHtmlElement = new WaitForRemovedHtmlElement(
+        return new WaitForRemovedHtmlElement(
           actionTestResults,
           parsedJson.image,
           locators,
           boundingBox,
           parsedJson.timeout,
+          parsedJson.id,
         );
-        waitForRemovedHtmlElement.id = parsedJson.id;
-        return waitForRemovedHtmlElement;
     }
     throw new Error(`Internal: Could not revive HtmlElementAction with className ${parsedJson.className} from JSON!`);
   }
@@ -191,68 +161,59 @@ export class ChrecJsonService {
     }
     switch (parsedJson.className) {
       case 'CssLocator':
-        const cssLocator = new CssLocator(locatorTestResults, parsedJson.method, parsedJson.value);
-        cssLocator.id = parsedJson.id;
-        return cssLocator;
+        return new CssLocator(locatorTestResults, parsedJson.method, parsedJson.value, parsedJson.id);
       case 'XpathLocator':
-        const xpathLocator = new XpathLocator(locatorTestResults, parsedJson.method, parsedJson.value);
-        xpathLocator.id = parsedJson.id;
-        return xpathLocator;
+        return new XpathLocator(locatorTestResults, parsedJson.method, parsedJson.value, parsedJson.id);
     }
     throw new Error('Could not revive Locator from JSON!');
   }
 
   public reviveLocatorTestResult(parsedJson: any): LocatorTestResult {
-    const testResult = new LocatorTestResult(parsedJson.replayable);
-    testResult.id = parsedJson.id;
-    return testResult;
+    return new LocatorTestResult(parsedJson.replayable, parsedJson.id);
   }
 
   public reviveBrowserActionTestResult(parsedJson: any): BrowserActionTestResult {
-    const testResult = new BrowserActionTestResult(this.reviveBrowser(parsedJson.browser), parsedJson.replayable);
-    testResult.id = parsedJson.id;
-    return testResult;
+    return new BrowserActionTestResult(this.reviveBrowser(parsedJson.browser), parsedJson.replayable, parsedJson.id);
   }
 
   public reviveHtmlElementActionTestResult(parsedJson: any): HtmlElementActionTestResult {
-    const testResult = new HtmlElementActionTestResult(this.reviveBrowser(parsedJson.browser));
-    testResult.id = parsedJson.id;
-    return testResult;
+    return new HtmlElementActionTestResult(this.reviveBrowser(parsedJson.browser), parsedJson.id);
   }
 
   public reviveBrowser(parsedJson: any): Browser {
     switch (parsedJson.className) {
       case 'Chrome':
-        const chrome = new Chrome(
+        return new Chrome(
           parsedJson.name,
           parsedJson.width,
           parsedJson.height,
           parsedJson.sleepMsBetweenActions,
+          parsedJson.id,
         );
-        chrome.id = parsedJson.id;
-        return chrome;
       case 'Edge':
-        const edge = new Edge(parsedJson.name, parsedJson.width, parsedJson.height, parsedJson.sleepMsBetweenActions);
-        edge.id = parsedJson.id;
-        return edge;
+        return new Edge(
+          parsedJson.name,
+          parsedJson.width,
+          parsedJson.height,
+          parsedJson.sleepMsBetweenActions,
+          parsedJson.id,
+        );
       case 'Firefox':
-        const firefox = new Firefox(
+        return new Firefox(
           parsedJson.name,
           parsedJson.width,
           parsedJson.height,
           parsedJson.sleepMsBetweenActions,
+          parsedJson.id,
         );
-        firefox.id = parsedJson.id;
-        return firefox;
       case 'InternetExplorer':
-        const internetExplorer = new InternetExplorer(
+        return new InternetExplorer(
           parsedJson.name,
           parsedJson.width,
           parsedJson.height,
           parsedJson.sleepMsBetweenActions,
+          parsedJson.id,
         );
-        internetExplorer.id = parsedJson.id;
-        return internetExplorer;
     }
     throw new Error('Could not construct Browser from ChRec JSON!');
   }
