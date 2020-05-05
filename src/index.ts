@@ -18,8 +18,8 @@ export class Core {
     await sequence.test(settings);
   }
 
-  public exportChrecJson(project: Project, dirName: string): void {
-    this.chrecJsonService.exportChrecJson(dirName, project);
+  public async exportChrecJson(project: Project, dirName: string): Promise<void> {
+    return this.chrecJsonService.exportChrecJson(dirName, project);
   }
 
   public async importChrecJson(absolutePath: string): Promise<Project> {
